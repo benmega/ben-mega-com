@@ -1,0 +1,245 @@
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #1f2937;
+    background: #f9fafb;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+    box-shadow: 0 0 30px rgba(0,0,0,0.1);
+}
+
+/* Header */
+.header {
+    background: white;
+    padding: 60px 40px 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.profile-section {
+    display: flex;
+    align-items: stretch;
+    gap: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.profile-img img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #93c5fd;
+    transition: transform 0.3s ease;
+}
+
+.profile-img img:hover {
+    transform: scale(1.05);
+}
+
+.profile-info h1 {
+    font-size: 3em;
+    font-weight: 700;
+    color: #1e40af;
+    margin-bottom: 8px;
+}
+
+.profile-info .title {
+    font-size: 1.3em;
+    color: #3b82f6;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.profile-info .tagline {
+    font-size: 1em;
+    color: #4b5563;
+    line-height: 1.5;
+    max-width: 400px;
+}
+
+/* Main Content */
+.main-content {
+    padding: 0 40px;
+}
+
+/* Student Portal */
+/* Student Portal - Minimal Style */
+.student-portal {
+    background: #ffffff; /* clean white */
+    text-align: center;
+    padding: 10px 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* subtle shadow */
+    margin: 10px auto;
+    max-width: 700px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.student-portal:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.student-portal h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #1e40af; /* dark blue text for emphasis */
+}
+
+.student-portal p {
+    font-size: 1em;
+    color: #4b5563;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+.student-portal .portal-btn {
+    display: inline-block;
+    background: #3b82f6;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.student-portal .portal-btn:hover {
+    background: #60a5fa;
+    transform: translateY(-2px);
+}
+
+/* Optional Image (if you want a clean banner) */
+.student-portal img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .student-portal {
+        padding: 30px 15px;
+    }
+    .student-portal h2 { font-size: 1.7em; }
+    .student-portal p { font-size: 0.95em; }
+    .student-portal .portal-btn { padding: 10px 24px; }
+}
+
+@media (max-width: 480px) {
+    .student-portal h2 { font-size: 1.5em; }
+    .student-portal p { font-size: 0.9em; }
+    .student-portal .portal-btn { padding: 8px 20px; font-size: 0.95em; }
+}
+
+/* About Section */
+.about-section {
+    padding: 60px 0;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.about-section h2 {
+    font-size: 2.5em;
+    color: #1e40af;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.about-content p {
+    font-size: 1.1em;
+    color: #4b5563;
+    margin-bottom: 30px;
+    line-height: 1.7;
+}
+
+.highlight-box {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border-left: 4px solid #3b82f6;
+    padding: 30px;
+    margin: 30px 0;
+    border-radius: 8px;
+}
+
+.highlight-box h3,
+.highlight-box p {
+    color: #1e40af;
+}
+
+.highlight-box p {
+    font-style: italic;
+}
+
+/* Footer */
+.footer {
+    background: #1e40af;
+    color: white;
+    padding: 40px;
+    margin-top: 60px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.footer p {
+    color: #93c5fd;
+}
+
+.social-links {
+    display: flex;
+    gap: 20px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: #3b82f6;
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: #60a5fa;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header { padding: 40px 20px 30px; }
+    .profile-section { flex-direction: column; text-align: center; gap: 25px; }
+    .profile-img img { width: 140px; height: 140px; }
+    .profile-info h1 { font-size: 2.5em; }
+    .main-content { padding: 0 20px; }
+    .student-portal img { max-width: 500px; }
+    .about-section { padding: 40px 20px; }
+}
+
+@media (max-width: 480px) {
+    .profile-info h1 { font-size: 2em; }
+    .about-section h2 { font-size: 1.8em; }
+}
