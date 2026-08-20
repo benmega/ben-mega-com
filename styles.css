@@ -442,6 +442,19 @@ body {
   height: 16px;
 }
 
+.project-title-row {
+  display: flex;
+  margin-bottom: 12px;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.project-title-row .project-title {
+  margin-bottom: 0;
+  flex: 1;
+}
+
 .project-title {
   font-size: 24px;
   font-weight: 700;
@@ -509,6 +522,24 @@ body {
 
 .btn-secondary:hover {
   background: #4a4a4a;
+}
+
+
+.project-logo {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.project-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  
 }
 
 /* Skills */
@@ -676,7 +707,7 @@ body {
   .btn-secondary:hover {
     background: #d4d4d4;
   }
-  .project-card, .skill-card {
+.project-card, .skill-card {
     background: rgba(255, 255, 255, 0.7);
     border: 1px solid #e0e0e0;
   }
@@ -698,3 +729,51 @@ body {
   }
 }
 
+
+
+/* Lightbox Styles */
+#lightbox { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; }
+#lightbox.hidden { display: none !important; }
+#lightboxBackdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.8); }
+#lightboxContent { position: relative; z-index: 10000; max-width: 90vw; max-height: 90vh; display: flex; flex-direction: column; align-items: center; }
+#lightboxHeader { display: flex; justify-content: space-between; width: 100%; color: white; padding: 10px; background: rgba(0,0,0,0.5); }
+#lightboxClose, #lightboxPrev, #lightboxNext { background: none; border: none; color: white; cursor: pointer; font-size: 2rem; }
+#lightboxPrev { position: absolute; left: -50px; top: 50%; transform: translateY(-50%); }
+#lightboxNext { position: absolute; right: -50px; top: 50%; transform: translateY(-50%); }
+.lightbox-counter { margin-right: 15px; }
+.lightbox-img-container { position: relative; display: flex; justify-content: center; align-items: center; width: 100%; }
+.lightbox-img { max-width: 100%; max-height: 80vh; object-fit: contain; }
+
+@media (max-width: 768px) {
+  #lightboxPrev { left: 10px; text-shadow: 0 0 5px black; }
+  #lightboxNext { right: 10px; text-shadow: 0 0 5px black; }
+}
+
+/* Access Modal Styles */
+.access-modal {
+  padding: 2rem;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  max-width: 400px;
+  text-align: center;
+  margin: auto;
+}
+.access-modal-title {
+  margin-bottom: 1rem;
+  color: #1f2937;
+  font-size: 1.5rem;
+}
+.access-modal-desc {
+  margin-bottom: 1.5rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+.access-modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+.access-modal-link {
+  text-decoration: none;
+}
