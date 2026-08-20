@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
           updateView();
         } catch (err) {
           console.error(err);
+          currentImages = [];
           titleEl.textContent = 'Failed to load images';
         }
       });
