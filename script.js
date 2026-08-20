@@ -1,280 +1,153 @@
-// Student Portal Handler
-function handleStudentPortal() {
-    // Add click animation
-    const button = event.target;
-    button.style.transform = 'scale(0.95)';
+document.addEventListener('DOMContentLoaded', () => {
+  // --- Banner Toggle ---
+  const banner = document.getElementById('banner');
+  const closeBtn = document.getElementById('closeBanner');
+  const nav = document.getElementById('nav');
 
-    setTimeout(() => {
-        button.style.transform = 'translateY(-2px)';
-    }, 150);
+  if (closeBtn && banner && nav) {
+    closeBtn.addEventListener('click', () => {
+      banner.style.display = 'none';
+      nav.classList.add('top-zero');
+    });
+  }
 
-    // Show modal with student portal information
-    showStudentModal();
-}
+  // --- Mobile Menu Toggle ---
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuIcon = document.getElementById('menuIcon');
+  const closeIcon = document.getElementById('closeIcon');
 
-// Create and show student modal
-function showStudentModal() {
-    // Create modal backdrop
-    const modalBackdrop = document.createElement('div');
-    modalBackdrop.className = 'modal-backdrop';
-    modalBackdrop.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    `;
+  if (mobileMenuBtn && mobileMenu && menuIcon && closeIcon) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      menuIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+    });
 
-    // Create modal content
-    const modalContent = document.createElement('div');
-    modalContent.className = 'modal-content';
-    modalContent.style.cssText = `
-        background: white;
-        border-radius: 16px;
-        padding: 40px;
-        max-width: 500px;
-        width: 90%;
-        max-height: 80vh;
-        overflow-y: auto;
-        position: relative;
-        transform: scale(0.7);
-        transition: transform 0.3s ease;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-    `;
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      });
+    });
+  }
 
-    modalContent.innerHTML = `
-        <div style="text-align: center;">
-            <div style="font-size: 3em; margin-bottom: 20px;">🎓</div>
-            <h2 style="color: #1f2937; margin-bottom: 16px; font-size: 1.8em;">Student Portal</h2>
-            <p style="color: #6b7280; margin-bottom: 30px; line-height: 1.6;">
-                Welcome to your learning hub! Here's what you can access:
-            </p>
-
-            <div style="text-align: left; margin-bottom: 30px;">
-                <div style="margin-bottom: 20px; padding: 15px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #6366f1;">
-                    <strong style="color: #1f2937;">📝 Current Assignments</strong>
-                    <p style="color: #6b7280; margin: 5px 0 0 0; font-size: 0.9em;">View due dates and submit your work</p>
-                </div>
-
-                <div style="margin-bottom: 20px; padding: 15px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #8b5cf6;">
-                    <strong style="color: #1f2937;">🐍 Python Projects</strong>
-                    <p style="color: #6b7280; margin: 5px 0 0 0; font-size: 0.9em;">Interactive coding challenges and tutorials</p>
-                </div>
-
-                <div style="margin-bottom: 20px; padding: 15px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #10b981;">
-                    <strong style="color: #1f2937;">📊 Progress Tracker</strong>
-                    <p style="color: #6b7280; margin: 5px 0 0 0; font-size: 0.9em;">See your learning journey and achievements</p>
-                </div>
-
-                <div style="padding: 15px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #f59e0b;">
-                    <strong style="color: #1f2937;">💬 Class Discussion</strong>
-                    <p style="color: #6b7280; margin: 5px 0 0 0; font-size: 0.9em;">Connect with classmates and get help</p>
-                </div>
-            </div>
-
-            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-                <button onclick="simulateLogin()" style="
-                    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-                    color: white;
-                    border: none;
-                    padding: 12px 24px;
-                    border-radius: 25px;
-                    cursor: pointer;
-                    font-weight: 600;
-                    transition: transform 0.2s ease;
-                " onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
-                    Login to Portal
-                </button>
-                <button onclick="closeModal()" style="
-                    background: #f3f4f6;
-                    color: #6b7280;
-                    border: none;
-                    padding: 12px 24px;
-                    border-radius: 25px;
-                    cursor: pointer;
-                    font-weight: 600;
-                    transition: all 0.2s ease;
-                " onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
-                    Close
-                </button>
-            </div>
-        </div>
-    `;
-
-    // Close button
-    const closeBtn = document.createElement('button');
-    closeBtn.innerHTML = '×';
-    closeBtn.style.cssText = `
-        position: absolute;
-        top: 15px;
-        right: 20px;
-        background: none;
-        border: none;
-        font-size: 28px;
-        color: #9ca3af;
-        cursor: pointer;
-        line-height: 1;
-        transition: color 0.2s ease;
-    `;
-    closeBtn.onmouseover = () => closeBtn.style.color = '#6b7280';
-    closeBtn.onmouseout = () => closeBtn.style.color = '#9ca3af';
-    closeBtn.onclick = closeModal;
-
-    modalContent.appendChild(closeBtn);
-    modalBackdrop.appendChild(modalContent);
-    document.body.appendChild(modalBackdrop);
-
-    // Animate in
-    setTimeout(() => {
-        modalBackdrop.style.opacity = '1';
-        modalContent.style.transform = 'scale(1)';
-    }, 10);
-
-    // Close on backdrop click
-    modalBackdrop.addEventListener('click', (e) => {
-        if (e.target === modalBackdrop) {
-            closeModal();
+  // --- Smooth Scroll for Internal Anchor Links ---
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId !== '#') {
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
         }
+      }
     });
+  });
 
-    // Store reference for closing
-    window.currentModal = modalBackdrop;
-}
+  // --- Scroll Animations ---
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
 
-// Close modal function
-function closeModal() {
-    const modal = window.currentModal;
-    if (modal) {
-        const content = modal.querySelector('.modal-content');
-        modal.style.opacity = '0';
-        content.style.transform = 'scale(0.7)';
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
 
-        setTimeout(() => {
-            document.body.removeChild(modal);
-            window.currentModal = null;
-        }, 300);
+  document.querySelectorAll('.project-card, .skill-card').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(card);
+  });
+
+  // --- GitHub Screenshots Lightbox Gallery ---
+  const modal = document.getElementById('lightbox');
+  const imgEl = document.getElementById('lightboxImg');
+  const titleEl = document.getElementById('lightboxTitle');
+  const counterEl = document.getElementById('lightboxCounter');
+  const nextBtn = document.getElementById('lightboxNext');
+  const prevBtn = document.getElementById('lightboxPrev');
+  const closeLightBoxBtn = document.getElementById('lightboxClose');
+  const backdrop = document.getElementById('lightboxBackdrop');
+
+  if (modal && imgEl && titleEl && counterEl) {
+    let currentImages = [];
+    let currentIndex = 0;
+    const imageExtensions = /\.(png|jpe?g|gif|webp|svg)$/i;
+
+    function updateView() {
+      imgEl.src = currentImages[currentIndex];
+      counterEl.textContent = `${currentIndex + 1} of ${currentImages.length}`;
     }
-}
 
-// Simulate login process
-function simulateLogin() {
-    const button = event.target;
-    const originalText = button.textContent;
+    document.querySelectorAll('.btn-gallery').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const repo = btn.getAttribute('data-repo');
+        const folder = btn.getAttribute('data-folder') || 'screenshots';
+        const title = btn.getAttribute('data-title') || 'Screenshots';
+        const localImages = btn.getAttribute('data-images');
 
-    button.textContent = 'Connecting...';
-    button.style.opacity = '0.7';
-    button.disabled = true;
+        titleEl.textContent = 'Loading...';
+        counterEl.textContent = '';
+        imgEl.src = '';
+        modal.classList.remove('hidden');
 
-    setTimeout(() => {
-        button.textContent = 'Redirecting...';
+        try {
+          if (localImages) {
+            currentImages = localImages.split(',').map(img => img.trim());
+          } else {
+            const response = await fetch(`https://api.github.com/repos/${repo}/contents/${folder}`);
+            if (!response.ok) throw new Error('Folder not found or repository is private');
 
-        setTimeout(() => {
-            // In a real application, this would redirect to the actual portal
-            alert('🎉 Welcome to your Student Portal!\n\nIn a real implementation, this would redirect you to your personalized learning dashboard with all your assignments, projects, and progress tracking.');
+            const files = await response.json();
+            currentImages = files
+              .filter(file => file.type === 'file' && imageExtensions.test(file.name))
+              .map(file => file.download_url);
+          }
 
-            button.textContent = originalText;
-            button.style.opacity = '1';
-            button.disabled = false;
-            closeModal();
-        }, 1000);
-    }, 1500);
-}
+          if (currentImages.length === 0) {
+            titleEl.textContent = 'No screenshots found';
+            return;
+          }
 
-// Smooth scrolling for any internal links (if added later)
-document.addEventListener('DOMContentLoaded', function() {
-    // Add smooth scrolling to any anchor links
-    const links = document.querySelectorAll('a[href^="#"]');
-    links.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Add some interactive effects to background items
-    const bgItems = document.querySelectorAll('.bg-item');
-    bgItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-4px) scale(1.02)';
-        });
-
-        item.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(-4px) scale(1)';
-        });
-    });
-
-    // Add click effect to social links
-    const socialLinks = document.querySelectorAll('.social-link');
-    socialLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            // Add click animation
-            this.style.transform = 'translateY(-2px) scale(0.95)';
-
-            setTimeout(() => {
-                this.style.transform = 'translateY(-2px) scale(1)';
-            }, 150);
-
-            // Show coming soon message or redirect
-            const platform = this.getAttribute('title');
-            setTimeout(() => {
-                alert(`🔗 ${platform} link coming soon!\n\nThis would normally take you to Ben's ${platform} profile.`);
-            }, 300);
-        });
-    });
-});
-
-// Keyboard accessibility for modal
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && window.currentModal) {
-        closeModal();
-    }
-});
-
-// Add some subtle animations on scroll (optional)
-function addScrollAnimations() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
-            }
-        });
-    }, { threshold: 0.1 });
-
-    // Observe elements for animation
-    const elementsToAnimate = document.querySelectorAll('.bg-item, .highlight-box');
-    elementsToAnimate.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        observer.observe(el);
-    });
-}
-
-// Add CSS animation keyframes
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fadeInUp {
-        to {
-            opacity: 1;
-            transform: translateY(0);
+          currentIndex = 0;
+          titleEl.textContent = title;
+          updateView();
+        } catch (err) {
+          console.error(err);
+          titleEl.textContent = 'Failed to load images';
         }
-    }
-`;
-document.head.appendChild(style);
+      });
+    });
 
-// Initialize scroll animations when page loads
-document.addEventListener('DOMContentLoaded', addScrollAnimations);
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        if (!currentImages.length) return;
+        currentIndex = (currentIndex + 1) % currentImages.length;
+        updateView();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        if (!currentImages.length) return;
+        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+        updateView();
+      });
+    }
+
+    const closeModal = () => modal.classList.add('hidden');
+    if (closeLightBoxBtn) closeLightBoxBtn.addEventListener('click', closeModal);
+    if (backdrop) backdrop.addEventListener('click', closeModal);
+  }
+});
