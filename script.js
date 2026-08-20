@@ -4,10 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeBtn = document.getElementById('closeBanner');
   const nav = document.getElementById('nav');
 
-  if (closeBtn && banner && nav) {
+  if (closeBtn && banner) {
     closeBtn.addEventListener('click', () => {
       banner.style.display = 'none';
-      nav.classList.add('top-zero');
+      if (nav) {
+        nav.classList.add('top-zero');
+      }
     });
   }
 
@@ -151,4 +153,35 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeLightBoxBtn) closeLightBoxBtn.addEventListener('click', closeModal);
     if (backdrop) backdrop.addEventListener('click', closeModal);
   }
+
+  // --- Skill Tags Elliptical Layout ---
+  function arrangeSkills() {
+    document.querySelectorAll('.skill-card').forEach(card => {
+      const tags = Array.from(card.querySelectorAll('.tag-icon'));
+      if (!tags.length) return;
+      
+      const cardWidth = card.offsetWidth || 600;
+      const cardHeight = card.offsetHeight || 140;
+      // Calculate radii for the ellipse ensuring a strict 40px clearance 
+      // (24px for icon half-size + 16px breathing room for hover scale)
+      const rx = Math.max(10, (cardWidth / 2) - 40); 
+      const ry = Math.max(10, (cardHeight / 2) - 40); 
+
+      tags.forEach((tag, i) => {
+        const angle = (i / tags.length) * 2 * Math.PI - Math.PI / 2; // start from top
+        const x = Math.cos(angle) * rx;
+        const y = Math.sin(angle) * ry;
+        
+        tag.style.position = 'absolute';
+        // Center the tag and then offset by x, y
+        // We use left/top and a 50% offset, then subtract half the icon size (24px)
+        tag.style.left = `calc(50% + ${x}px - 24px)`;
+        tag.style.top = `calc(50% + ${y}px - 24px)`;
+      });
+    });
+  }
+
+  // Run on load and resize
+  arrangeSkills();
+  window.addEventListener('resize', arrangeSkills);
 });

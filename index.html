@@ -1,419 +1,751 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ben Mega - CS Teacher & Full-Stack Developer</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>Ω</text></svg>"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ben Mega - CS Teacher & Full-Stack Developer</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>Ω</text></svg>">
-  <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-  <!-- Banner -->
-  <div id="banner" class="banner">
-    <div class="banner-content">
-      <div class="banner-left">
-        <span class="banner-text">Looking for the Classroom Chat?</span>
-        <a href="https://blossom.benmega.com" target="_blank" class="banner-btn">
-          Visit Now
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-            <polyline points="15 3 21 3 21 9"></polyline>
-            <line x1="10" y1="14" x2="21" y2="3"></line>
-          </svg>
-        </a>
-      </div>
-      <button id="closeBanner" class="banner-close" aria-label="Close banner">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- Navigation -->
-  <nav id="nav" class="nav">
-    <div class="nav-content">
-      <div class="nav-logo">Ω</div>
-      <div class="nav-links">
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#skills" class="nav-link">Skills</a>
-      </div>
-      <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Toggle mobile menu">
-        <svg id="menuIcon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-        <svg id="closeIcon" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-    </div>
-    <div id="mobileMenu" class="mobile-menu">
-      <a href="#projects" class="mobile-link">Projects</a>
-      <a href="#skills" class="mobile-link">Skills</a>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-image">
-        <img src="assets/profile.jpg" alt="Ben Mega">
-      </div>
-      <div class="hero-text">
-        <h1 class="hero-title">Ben Mega</h1>
-        <p class="hero-subtitle">CS Teacher & Full-Stack Developer</p>
-        <p class="hero-tagline">Making programming accessible</p>
-        <div class="hero-social">
-          <a href="https://github.com/benmega" target="_blank" class="social-link">
-            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+  <body>
+    <!-- Banner -->
+    <div id="banner" class="banner">
+      <div class="banner-content">
+        <div class="banner-left">
+          <span class="banner-text">Looking for the Classroom Chat?</span>
+          <a
+            href="https://blossom.benmega.com"
+            target="_blank"
+            class="banner-btn"
+          >
+            Visit Now
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <path
-                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-            </svg>
-          </a>
-          <a href="https://www.linkedin.com/in/benmega/" target="_blank" class="social-link">
-            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-            </svg>
-          </a>
-          <a href="mailto:ben@benmega.com" target="_blank" class="social-link">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
+                d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+              ></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
             </svg>
           </a>
         </div>
-        <button class="hero-btn" onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})">
-          View My Work
+        <button id="closeBanner" class="banner-close" aria-label="Close banner">
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
         </button>
       </div>
     </div>
-    <div class="scroll-indicator">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="12" y1="5" x2="12" y2="19"></line>
-        <polyline points="19 12 12 19 5 12"></polyline>
-      </svg>
-    </div>
-  </section>
 
-  <!-- Projects Section -->
-  <section id="projects" class="section section-alt">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Featured Projects</h2>
-      </div>
-      <div class="projects-grid">
-        <div class="project-card featured">
-          <div class="project-badge">
-            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-              <polygon
-                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-              </polygon>
-            </svg>
-            <span>Featured</span>
-          </div>
-          <div class="project-title-row">
-            <h3 class="project-title">Classroom Chat Platform</h3>
-            <div class="project-logo"><img src="assets/classroom-chat/logo.png" alt="Classroom Chat Platform Logo"></div>
-          </div>
-          <p class="project-desc">A gamified classroom communication platform enabling teachers, parents, and students
-            to collaborate effectively.</p>
-          <div class="project-tags">
-            <span class="tag">Python</span>
-            <span class="tag">Flask</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">React</span>
-            <span class="tag">Vite</span>
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">SQLAlchemy</span>
-          </div>
-          <div class="project-links">
-            <a href="https://blossom.benmega.com/" class="btn btn-primary">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
-              Live Demo
-            </a>
-            <a href="https://github.com/benmega/classroom-chat" class="btn btn-secondary">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-image">
+          <img src="assets/profile.jpg" alt="Ben Mega" />
+        </div>
+        <div class="hero-text">
+          <h1 class="hero-title">Ben Mega</h1>
+          <p class="hero-subtitle">CS Teacher & Full-Stack Developer</p>
+          <p class="hero-tagline">Making programming accessible</p>
+          <div class="hero-social">
+            <a
+              href="https://github.com/benmega"
+              target="_blank"
+              class="social-link"
+            >
               <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                 <path
-                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                />
               </svg>
-              Code
             </a>
-          </div>
-        </div>
-
-        <div class="project-card featured">
-          <div class="project-badge">
-            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-              <polygon
-                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-              </polygon>
-            </svg>
-            <span>Featured</span>
-          </div>
-          <div class="project-title-row">
-            <h3 class="project-title">Mega Chess</h3>
-            <div class="project-logo"><img src="assets/mega-chess/logo.png" alt="Mega Chess Logo"></div>
-          </div>
-          <p class="project-desc">Android app for playing asynchronous international and chinese chess.</p>
-          <div class="project-tags">
-            <span class="tag">Android</span>
-            <span class="tag">Kotlin</span>
-            <span class="tag">SQLite</span>
-            <span class="tag">Python</span>
-            <span class="tag">Flask</span>
-            <span class="tag">SQLAlchemy</span>
-          </div>
-          <div class="project-links">
-            <button
-              class="btn btn-primary btn-gallery"
-              data-title="Mega Chess Screenshots"
-              data-images="assets/mega-chess/phone_screenshot_1.png,assets/mega-chess/phone_screenshot_2.png,assets/mega-chess/phone_screenshot_3.png,assets/mega-chess/phone_screenshot_4.png,assets/mega-chess/phone_screenshot_5.png,assets/mega-chess/tablet_screenshot_1.png,assets/mega-chess/tablet_screenshot_2.png,assets/mega-chess/tablet_screenshot_3.png,assets/mega-chess/tablet_screenshot_4.png,assets/mega-chess/tablet_screenshot_5.png">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                <polyline points="21 15 16 10 5 21"></polyline>
-              </svg>
-              Screenshots
-            </button>
-            <button onclick="document.getElementById('accessModal').showModal()" class="btn btn-secondary">
+            <a
+              href="https://www.linkedin.com/in/benmega/"
+              target="_blank"
+              class="social-link"
+            >
               <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                 <path
-                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                />
               </svg>
-              Code
-            </button>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-title-row">
-            <h3 class="project-title">Local Chat</h3>
-            <div class="project-logo"><img src="assets/local-chat/logo.png" alt="Local Chat Logo"></div>
-          </div>
-          <p class="project-desc">A desktop application for peer to peer communication without relying on internet
-            connection.</p>
-          <div class="project-tags">
-            <span class="tag">Python</span>
-            <span class="tag">Flask</span>
-            <span class="tag">SQLAlchemy</span>
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">React</span>
-            <span class="tag">Vite</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="btn btn-primary">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                <polyline points="21 15 16 10 5 21"></polyline>
-              </svg>
-              Screenshots
             </a>
-            <a href="https://github.com/benmega/flask-chat" onclick="event.preventDefault(); document.getElementById('accessModal').showModal()" class="btn btn-secondary">
-              <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+            <a
+              href="mailto:ben@benmega.com"
+              target="_blank"
+              class="social-link"
+            >
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
                 <path
-                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                ></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
               </svg>
-              Code
             </a>
           </div>
+          <button
+            class="hero-btn"
+            onclick="
+              document
+                .getElementById('projects')
+                .scrollIntoView({ behavior: 'smooth' })
+            "
+          >
+            View My Work
+          </button>
         </div>
+      </div>
+      <div class="scroll-indicator">
+        <svg
+          class="icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
+      </div>
+    </section>
 
-        <div class="project-card">
-          <div class="project-title-row">
-            <h3 class="project-title">Fractal Defense</h3>
-            <div class="project-logo"><img src="assets/fractal-defense/logo.png" alt="Fractal Defense Logo"></div>
-          </div>
-          <p class="project-desc">2D tower defense game with Python and Pygame</p>
-          <div class="project-tags">
-            <span class="tag">Python</span>
-            <span class="tag">Pygame</span>
-          </div>
-          <div class="project-links">
-            <button
-              class="btn btn-primary btn-gallery"
-              data-title="Fractal Defense Screenshots"
-              data-repo="benmega/FractalDefense"
-              data-folder="screenshots">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                <polyline points="21 15 16 10 5 21"></polyline>
-              </svg>
-              Screenshots
-            </button>
-            <a href="https://github.com/benmega/FractalDefense" class="btn btn-secondary">
+    <!-- Projects Section -->
+    <section id="projects" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Featured Projects</h2>
+        </div>
+        <div class="projects-grid">
+          <div class="project-card featured">
+            <div class="project-badge">
               <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                ></polygon>
               </svg>
-              Code
-            </a>
+              <span>Featured</span>
+            </div>
+            <div class="project-title-row">
+              <h3 class="project-title">Classroom Chat Platform</h3>
+              <div class="project-logo">
+                <img
+                  src="assets/classroom-chat/logo.png"
+                  alt="Classroom Chat Platform Logo"
+                />
+              </div>
+            </div>
+            <p class="project-desc">
+              A gamified classroom communication platform enabling teachers,
+              parents, and students to collaborate effectively.
+            </p>
+            <div class="project-tags">
+              <i
+                class="devicon-python-plain colored tag-icon"
+                title="Python"
+              ></i>
+              <i
+                class="devicon-flask-original colored tag-icon"
+                title="Flask"
+              ></i>
+              <i
+                class="devicon-javascript-plain colored tag-icon"
+                title="JavaScript"
+              ></i>
+              <i
+                class="devicon-react-original colored tag-icon"
+                title="React"
+              ></i>
+              <i
+                class="devicon-vite-original colored tag-icon"
+                title="Vite"
+              ></i>
+              <i class="devicon-html5-plain colored tag-icon" title="HTML"></i>
+              <i class="devicon-css3-plain colored tag-icon" title="CSS"></i>
+              <i
+                class="devicon-sqlalchemy-plain colored tag-icon"
+                title="SQLAlchemy"
+              ></i>
+            </div>
+            <div class="project-links">
+              <a href="https://blossom.benmega.com/" class="btn btn-primary">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                  ></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                Live Demo
+              </a>
+              <a
+                href="https://github.com/benmega/classroom-chat"
+                class="btn btn-secondary"
+              >
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                  />
+                </svg>
+                Code
+              </a>
+            </div>
+          </div>
+
+          <div class="project-card featured">
+            <div class="project-badge">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                ></polygon>
+              </svg>
+              <span>Featured</span>
+            </div>
+            <div class="project-title-row">
+              <h3 class="project-title">Mega Chess</h3>
+              <div class="project-logo">
+                <img src="assets/mega-chess/logo.png" alt="Mega Chess Logo" />
+              </div>
+            </div>
+            <p class="project-desc">
+              Android app for playing asynchronous international and chinese
+              chess.
+            </p>
+            <div class="project-tags">
+              <i
+                class="devicon-android-plain colored tag-icon"
+                title="Android"
+              ></i>
+              <i
+                class="devicon-kotlin-plain colored tag-icon"
+                title="Kotlin"
+              ></i>
+              <i
+                class="devicon-sqlite-plain colored tag-icon"
+                title="SQLite"
+              ></i>
+              <i
+                class="devicon-python-plain colored tag-icon"
+                title="Python"
+              ></i>
+              <i
+                class="devicon-flask-original colored tag-icon"
+                title="Flask"
+              ></i>
+              <i
+                class="devicon-sqlalchemy-plain colored tag-icon"
+                title="SQLAlchemy"
+              ></i>
+            </div>
+            <div class="project-links">
+              <button
+                class="btn btn-primary btn-gallery"
+                data-title="Mega Chess Screenshots"
+                data-images="assets/mega-chess/phone_screenshot_1.png,assets/mega-chess/phone_screenshot_2.png,assets/mega-chess/phone_screenshot_3.png,assets/mega-chess/phone_screenshot_4.png,assets/mega-chess/phone_screenshot_5.png,assets/mega-chess/tablet_screenshot_1.png,assets/mega-chess/tablet_screenshot_2.png,assets/mega-chess/tablet_screenshot_3.png,assets/mega-chess/tablet_screenshot_4.png,assets/mega-chess/tablet_screenshot_5.png"
+              >
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                Screenshots
+              </button>
+              <button
+                onclick="document.getElementById('accessModal').showModal()"
+                class="btn btn-secondary"
+              >
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                  />
+                </svg>
+                Code
+              </button>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-title-row">
+              <h3 class="project-title">Local Chat</h3>
+              <div class="project-logo">
+                <img src="assets/local-chat/logo.png" alt="Local Chat Logo" />
+              </div>
+            </div>
+            <p class="project-desc">
+              A desktop application for peer to peer communication without
+              relying on internet connection.
+            </p>
+            <div class="project-tags">
+              <i
+                class="devicon-python-plain colored tag-icon"
+                title="Python"
+              ></i>
+              <i
+                class="devicon-flask-original colored tag-icon"
+                title="Flask"
+              ></i>
+              <i
+                class="devicon-sqlalchemy-plain colored tag-icon"
+                title="SQLAlchemy"
+              ></i>
+              <i class="devicon-html5-plain colored tag-icon" title="HTML"></i>
+              <i class="devicon-css3-plain colored tag-icon" title="CSS"></i>
+              <i
+                class="devicon-javascript-plain colored tag-icon"
+                title="JavaScript"
+              ></i>
+              <i
+                class="devicon-react-original colored tag-icon"
+                title="React"
+              ></i>
+              <i
+                class="devicon-vite-original colored tag-icon"
+                title="Vite"
+              ></i>
+            </div>
+            <div class="project-links">
+              <a href="#" class="btn btn-primary">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                Screenshots
+              </a>
+              <a
+                href="https://github.com/benmega/flask-chat"
+                onclick="
+                  event.preventDefault();
+                  document.getElementById('accessModal').showModal();
+                "
+                class="btn btn-secondary"
+              >
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                  />
+                </svg>
+                Code
+              </a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-title-row">
+              <h3 class="project-title">Fractal Defense</h3>
+              <div class="project-logo">
+                <img
+                  src="assets/fractal-defense/logo.png"
+                  alt="Fractal Defense Logo"
+                />
+              </div>
+            </div>
+            <p class="project-desc">
+              2D tower defense game with Python and Pygame
+            </p>
+            <div class="project-tags">
+              <i
+                class="devicon-python-plain colored tag-icon"
+                title="Python"
+              ></i>
+              <i
+                class="devicon-python-plain colored tag-icon"
+                title="Pygame"
+              ></i>
+            </div>
+            <div class="project-links">
+              <button
+                class="btn btn-primary btn-gallery"
+                data-title="Fractal Defense Screenshots"
+                data-repo="benmega/FractalDefense"
+                data-folder="screenshots"
+              >
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                Screenshots
+              </button>
+              <a
+                href="https://github.com/benmega/FractalDefense"
+                class="btn btn-secondary"
+              >
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                  />
+                </svg>
+                Code
+              </a>
+            </div>
           </div>
         </div>
-
-
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Skills Section -->
-  <section id="skills" class="section">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Skills & Technologies</h2>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-card skill-frontend">
-          <div class="skill-icon">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="16 18 22 12 16 6"></polyline>
-              <polyline points="8 6 2 12 8 18"></polyline>
-            </svg>
-          </div>
-          <h3 class="skill-title">Frontend</h3>
-          <div class="skill-tags">
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">React</span>
-            <span class="tag">Vite</span>
-          </div>
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Skills & Technologies</h2>
+          <p class="section-subtitle">Tools &amp; frameworks in use</p>
         </div>
-
-        <div class="skill-card skill-backend">
-          <div class="skill-icon">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-            </svg>
-          </div>
-          <h3 class="skill-title">Backend</h3>
-          <div class="skill-tags">
-            <span class="tag">Python</span>
-            <span class="tag">Flask</span>
-            <span class="tag">SQLAlchemy</span>
-            <span class="tag">Nginx</span>
-            <span class="tag">Gunicorn</span>
-          </div>
-        </div>
-
-        <div class="skill-card skill-mobile">
-          <div class="skill-icon">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-              <line x1="12" y1="18" x2="12.01" y2="18"></line>
-            </svg>
-          </div>
-          <h3 class="skill-title">Mobile</h3>
-          <div class="skill-tags">
-            <span class="tag">Android</span>
-          </div>
-        </div>
-
-        <div class="skill-card skill-devops">
-          <div class="skill-icon">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="4 17 10 11 4 5"></polyline>
-              <line x1="12" y1="19" x2="20" y2="19"></line>
-            </svg>
-          </div>
-          <h3 class="skill-title">DevOps</h3>
-          <div class="skill-tags">
-            <span class="tag">AWS</span>
-            <span class="tag">CI/CD</span>
-            <span class="tag">Linux</span>
-          </div>
-        </div>
-
-        <div class="skill-card skill-ai">
-          <div class="skill-icon">
-            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-              <polygon
-                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-              </polygon>
-            </svg>
-          </div>
-          <h3 class="skill-title">AI/ML</h3>
-          <div class="skill-tags">
-            <span class="tag">PyTorch</span>
-            <span class="tag">OpenAI</span>
-            <span class="tag">Hugging Face</span>
-            <span class="tag">ComfyUI</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-left">
-      </div>
-      <div class="footer-social">
-        <a href="https://github.com/benmega" target="_blank" class="footer-link">
-          <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+        <div class="skills-svg-container">
+          <svg
+            viewBox="0 0 800 740"
+            xmlns="http://www.w3.org/2000/svg"
+            class="tech-stack-svg"
+          >
+            <!-- Band 0 : Frontend -->
             <path
-              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-          </svg>
-        </a>
-        <a href="https://www.linkedin.com/in/benmega/" target="_blank" class="footer-link">
-          <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-          </svg>
-        </a>
-      </div>
-      <div class="footer-right">
-        <p>&copy; 2026 Ben Mega. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
+              class="band-bg-1"
+              d="M0,0 H800 V140 C650,160 150,160 0,140 Z"
+              stroke-width="1"
+            />
+            <foreignObject x="40" y="16" width="720" height="108">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="band-inner">
+                <div class="eyebrow">Frontend</div>
+                <div class="chips">
+                  <div class="chip">
+                    <i
+                      class="devicon-html5-plain colored tag-icon"
+                      title="HTML"
+                    ></i
+                    ><span>HTML5</span>
+                  </div>
+                  <div class="chip">
+                    <i
+                      class="devicon-css3-plain colored tag-icon"
+                      title="CSS"
+                    ></i
+                    ><span>CSS3</span>
+                  </div>
+                  <div class="chip">
+                    <i
+                      class="devicon-javascript-plain colored tag-icon"
+                      title="JavaScript"
+                    ></i
+                    ><span>JavaScript</span>
+                  </div>
+                  <div class="chip">
+                    <i
+                      class="devicon-react-original colored tag-icon"
+                      title="React"
+                    ></i
+                    ><span>React</span>
+                  </div>
+                  <div class="chip">
+                    <i
+                      class="devicon-vite-original colored tag-icon"
+                      title="Vite"
+                    ></i
+                    ><span>Vite</span>
+                  </div>
+                </div>
+              </div>
+            </foreignObject>
 
-  <div id="lightbox" class="hidden">
-    <div id="lightboxBackdrop"></div>
-    <div id="lightboxContent">
-      <div id="lightboxHeader">
-        <span id="lightboxTitle">Loading...</span>
-        <div>
-          <span id="lightboxCounter" class="lightbox-counter"></span>
-          <button id="lightboxClose" aria-label="Close lightbox">&times;</button>
+            <!-- Band 1 : Mobile -->
+            <path
+              class="band-bg-2"
+              d="M0,140 C150,160 650,160 800,140 V280 C650,300 150,300 0,280 Z"
+              stroke-width="1"
+            />
+            <foreignObject x="40" y="156" width="720" height="108">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="band-inner">
+                <div class="eyebrow">Mobile</div>
+                <div class="chips">
+                  <div class="chip">
+                    <i
+                      class="devicon-android-plain colored tag-icon"
+                      title="Android"
+                    ></i
+                    ><span>Android</span>
+                  </div>
+                  <div class="chip">
+                    <i
+                      class="devicon-kotlin-plain colored tag-icon"
+                      title="Kotlin"
+                    ></i
+                    ><span>Kotlin</span>
+                  </div>
+                  <div class="chip">
+                    <i
+                      class="devicon-sqlite-plain colored tag-icon"
+                      title="SQLite"
+                    ></i
+                    ><span>SQLite</span>
+                  </div>
+                  <div class="chip">
+                    <i
+                      class="devicon-firebase-plain colored tag-icon"
+                      title="Firebase"
+                    ></i
+                    ><span>Firebase</span>
+                  </div>
+                </div>
+              </div>
+            </foreignObject>
+
+            <!-- Band 2 : Backend -->
+            <path
+              class="band-bg-1"
+              d="M0,280 C150,300 650,300 800,280 V420 C650,440 150,440 0,420 Z"
+              stroke-width="1"
+            />
+            <foreignObject x="40" y="296" width="720" height="108">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="band-inner">
+                <div class="eyebrow">Backend</div>
+                <div class="chips">
+                  <div class="chip">
+                    <i
+                      class="devicon-python-plain colored tag-icon"
+                      title="Python"
+                    ></i
+                    ><span>Python</span>
+                  </div>
+                  <div class="chip">
+                    <i
+                      class="devicon-flask-original colored tag-icon"
+                      title="Flask"
+                    ></i
+                    ><span>Flask</span>
+                  </div>
+                  <div class="chip">
+                    <i
+                      class="devicon-sqlalchemy-plain colored tag-icon"
+                      title="SQLAlchemy"
+                    ></i
+                    ><span>SQLAlchemy</span>
+                  </div>
+                  <div class="chip">
+                    <i
+                      class="devicon-nginx-original colored tag-icon"
+                      title="Nginx"
+                    ></i
+                    ><span>Nginx</span>
+                  </div>
+                  <div class="chip">
+                    <img
+                      src="https://cdn.jsdelivr.net/npm/simple-icons@16/icons/gunicorn.svg"
+                      alt="Gunicorn"
+                      class="tag-icon invert-img"
+                    /><span>Gunicorn</span>
+                  </div>
+                </div>
+              </div>
+            </foreignObject>
+
+            <!-- Band 3 : AI & Tools -->
+            <path
+              class="band-bg-2"
+              d="M0,420 C150,440 650,440 800,420 V560 C650,580 150,580 0,560 Z"
+              stroke-width="1"
+            />
+            <foreignObject x="40" y="436" width="720" height="108">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="band-inner">
+                <div class="eyebrow">AI/ML</div>
+                <div class="chips">
+                  <div class="chip">
+                    <i
+                      class="devicon-pytorch-original colored tag-icon"
+                      title="PyTorch"
+                    ></i
+                    ><span>PyTorch</span>
+                  </div>
+                  <div class="chip">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
+                      alt="OpenAI"
+                      class="tag-icon invert-img"
+                    /><span>OpenAI</span>
+                  </div>
+                  <div class="chip">
+                    <img
+                      src="https://cdn.jsdelivr.net/npm/simple-icons@16/icons/huggingface.svg"
+                      alt="Hugging Face"
+                      class="tag-icon invert-img"
+                    /><span>Hugging Face</span>
+                  </div>
+                  <div class="chip">
+                    <img
+                      src="assets/comfyui.png"
+                      alt="ComfyUI"
+                      class="tag-icon"
+                    /><span>ComfyUI</span>
+                  </div>
+                </div>
+              </div>
+            </foreignObject>
+
+            <!-- Band 4 : DevOps -->
+            <path
+              class="band-bg-1"
+              d="M0,560 C150,580 650,580 800,560 V700 C650,720 150,720 0,700 Z"
+              stroke-width="1"
+            />
+            <foreignObject x="40" y="576" width="720" height="108">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="band-inner">
+                <div class="eyebrow">DevOps</div>
+                <div class="chips">
+                  <div class="chip">
+                    <i
+                      class="devicon-amazonwebservices-plain-wordmark colored tag-icon"
+                      title="AWS"
+                    ></i
+                    ><span>AWS</span>
+                  </div>
+                  <div class="chip">
+                    <i
+                      class="devicon-githubactions-plain colored tag-icon"
+                      title="CI/CD"
+                    ></i
+                    ><span>GitHub Actions</span>
+                  </div>
+                  <div class="chip">
+                    <i
+                      class="devicon-linux-plain colored tag-icon"
+                      title="Linux"
+                    ></i
+                    ><span>Linux</span>
+                  </div>
+                </div>
+              </div>
+            </foreignObject>
+          </svg>
         </div>
       </div>
-      <div class="lightbox-img-container">
-        <button id="lightboxPrev" aria-label="Previous image">&#10094;</button>
-        <img id="lightboxImg" src="" class="lightbox-img">
-        <button id="lightboxNext" aria-label="Next image">&#10095;</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-left"></div>
+        <div class="footer-social">
+          <a
+            href="https://github.com/benmega"
+            target="_blank"
+            class="footer-link"
+          >
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+              />
+            </svg>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/benmega/"
+            target="_blank"
+            class="footer-link"
+          >
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+              />
+            </svg>
+          </a>
+        </div>
+        <div class="footer-right">
+          <p>&copy; 2026 Ben Mega. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <div id="lightbox" class="hidden">
+      <div id="lightboxBackdrop"></div>
+      <div id="lightboxContent">
+        <div id="lightboxHeader">
+          <span id="lightboxTitle">Loading...</span>
+          <div>
+            <span id="lightboxCounter" class="lightbox-counter"></span>
+            <button id="lightboxClose" aria-label="Close lightbox">
+              &times;
+            </button>
+          </div>
+        </div>
+        <div class="lightbox-img-container">
+          <button id="lightboxPrev" aria-label="Previous image">
+            &#10094;
+          </button>
+          <img id="lightboxImg" src="" class="lightbox-img" />
+          <button id="lightboxNext" aria-label="Next image">&#10095;</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <dialog id="accessModal" class="access-modal">
-    <h3 class="access-modal-title">Request Access</h3>
-    <p class="access-modal-desc">This repository is private. To request access to the source code, please reach out to me via LinkedIn or email.</p>
-    <div class="access-modal-actions">
-      <a href="https://www.linkedin.com/in/benmega/" target="_blank" class="btn btn-primary access-modal-link">LinkedIn</a>
-      <button onclick="document.getElementById('accessModal').close()" class="btn btn-secondary">Close</button>
-    </div>
-  </dialog>
+    <dialog id="accessModal" class="access-modal">
+      <h3 class="access-modal-title">Request Access</h3>
+      <p class="access-modal-desc">
+        This repository is private. To request access to the source code, please
+        reach out to me via LinkedIn or email.
+      </p>
+      <div class="access-modal-actions">
+        <a
+          href="https://www.linkedin.com/in/benmega/"
+          target="_blank"
+          class="btn btn-primary access-modal-link"
+          >LinkedIn</a
+        >
+        <button
+          onclick="document.getElementById('accessModal').close()"
+          class="btn btn-secondary"
+        >
+          Close
+        </button>
+      </div>
+    </dialog>
 
-  <script src="script.js"></script>
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>
