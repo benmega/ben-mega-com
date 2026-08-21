@@ -56,21 +56,55 @@ document.addEventListener('DOMContentLoaded', () => {
     rootMargin: '0px 0px -50px 0px'
   };
 
-  const observer = new IntersectionObserver((entries) => {
+  let animationQueue = [];
+  let isProcessingQueue = false;
+
+  const processQueue = () => {
+    if (animationQueue.length === 0) {
+      isProcessingQueue = false;
+      return;
+    }
+    isProcessingQueue = true;
+    
+    // Sort items by vertical position for consistent top-to-bottom staggering
+    animationQueue.sort((a, b) => {
+      return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
+    });
+
+    animationQueue.forEach((target, index) => {
+      const delay = index * 150; // 150ms stagger
+      setTimeout(() => {
+        target.classList.add('animate-visible');
+      }, delay);
+    });
+
+    animationQueue = [];
+    setTimeout(() => {
+      isProcessingQueue = false;
+    }, 50);
+  };
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    let newEntries = false;
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+        animationQueue.push(entry.target);
+        obs.unobserve(entry.target);
+        newEntries = true;
       }
     });
+
+    if (newEntries && !isProcessingQueue) {
+      // Wait briefly to collect multiple elements appearing simultaneously (e.g. grid items)
+      setTimeout(processQueue, 50);
+    }
   }, observerOptions);
 
-  document.querySelectorAll('.project-card, .skill-card').forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(card);
+  // Target any element with the .animate-hidden class
+  document.querySelectorAll('.animate-hidden').forEach(el => {
+    observer.observe(el);
   });
+
 
   // --- GitHub Screenshots Lightbox Gallery ---
   const modal = document.getElementById('lightbox');
