@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('pageshow', () => {
   // --- Banner Toggle ---
   const banner = document.getElementById('banner');
   const closeBtn = document.getElementById('closeBanner');
