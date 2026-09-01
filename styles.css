@@ -622,11 +622,12 @@ body {
   height: 20px;
   width: auto;
   margin: 0;
-  filter: none;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.4));
 }
 
 .chip:hover .tag-icon {
   transform: scale(1.1);
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
 }
 
 .chip span {
@@ -795,6 +796,21 @@ body {
   .footer {
     border-top: 1px solid #e0e0e0;
   }
+  
+  .tag-icon {
+    filter: grayscale(100%) opacity(0.7);
+  }
+  .tag-icon:hover {
+    filter: grayscale(0%) opacity(1);
+  }
+  .skill-tags .tag-icon,
+  .chip .tag-icon {
+    filter: none;
+  }
+  .skill-tags .tag-icon:hover,
+  .chip:hover .tag-icon {
+    filter: none;
+  }
 }
 
 /* Lightbox Styles */
@@ -918,7 +934,7 @@ body {
   width: auto;
   display: inline-block;
   vertical-align: middle;
-  filter: grayscale(100%) opacity(0.7);
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.4)) grayscale(100%) opacity(0.7);
   transition:
     transform 0.2s ease,
     filter 0.2s ease;
@@ -926,18 +942,19 @@ body {
 
 .tag-icon:hover {
   transform: scale(1.1);
-  filter: grayscale(0%) opacity(1);
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8)) grayscale(0%) opacity(1);
 }
 
 .skill-tags .tag-icon {
   font-size: 48px;
   height: 48px;
-  filter: none;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
   opacity: 1;
 }
 
 .skill-tags .tag-icon:hover {
   transform: scale(1.2);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
 }
 
 img.tag-icon.invert-img {
