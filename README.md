@@ -1,138 +1,45 @@
-# Hi there! 👋 I'm Ben
+# Ben Mega
 
-### 🎓 CS Teacher | 📐 Math & Chemistry Background | 🐍 Python Enthusiast
+### CS Teacher & Full-Stack Developer
 
-> *"Making complex concepts simple and coding accessible to everyone, one Python project at a time."*
+> *Making programming accessible*
 
-I'm passionate about inspiring young minds and transforming abstract ideas into fun, approachable programming projects. With my interdisciplinary background in Math and Chemistry, I bring a unique perspective to computer science education.
+## Featured Projects
 
-## 🚀 What I Do
+### Classroom Chat Platform
+A gamified classroom communication platform enabling teachers, parents, and students to collaborate effectively. Used by 100 users.
+- **Tech**: Python, Flask, JavaScript, React, Vite, HTML, CSS, SQLAlchemy
+- **Links**: [Live demo](https://blossom.benmega.com/) · [Code](https://github.com/benmega/classroom-chat)
 
-- **📚 Computer Science Education**: Developing engaging curricula and teaching methods
-- **🐍 Python Development**: Creating educational tools and interactive learning experiences  
-- **🧮 Mathematical Programming**: Building projects that bridge math concepts with code
-- **🔬 Scientific Computing**: Applying programming to chemistry and scientific problems
-- **🎮 Educational Games**: Making learning fun through interactive Python applications
+### Mega Chess
+Android app for playing asynchronous international and Chinese chess.
+- **Tech**: Android, Kotlin, SQLite, Python, Flask, SQLAlchemy
+- **Code**: Private repository, available on request
 
-## 🛠️ Tech Stack
+## Other Projects
 
-```python
-class BenTheTeacher:
-    def __init__(self):
-        self.languages = ["Python", "JavaScript", "HTML/CSS", "SQL"]
-        self.frameworks = ["Flask", "Django", "Pygame", "Matplotlib"]
-        self.libraries = ["NumPy", "Pandas", "Matplotlib", "SciPy"]
-        self.tools = ["Git", "VS Code", "Jupyter", "SQLite"]
-        self.specialties = ["Education", "Math", "Chemistry", "Game Development"]
-    
-    def inspire_students(self):
-        return "Transform complex concepts into fun, hands-on projects! 🎯"
-```
+### Local Chat
+A desktop application for peer-to-peer communication without relying on an internet connection.
+- **Tech**: Python, Flask, SQLAlchemy, HTML, CSS, JavaScript, React, Vite
+- **Code**: Private repository, available on request
 
-## 🌟 Featured Projects
+### Fractal Defense
+2D tower defense game with Python and Pygame.
+- **Tech**: Python, Pygame
+- **Code**: [benmega/FractalDefense](https://github.com/benmega/FractalDefense)
 
-### 🎮 Interactive Math Games
-*Making algebra and geometry fun through Python gaming*
-- **Tech**: Python, Pygame, Object-Oriented Programming
-- **Features**: Visual problem solving, progress tracking, adaptive difficulty
-- **Impact**: Improved student engagement by 40% in math concepts
+## Skills & Technologies
 
-### 🔬 Chemistry Reaction Simulator  
-*Visualizing molecular behavior and chemical processes*
-- **Tech**: Python, Matplotlib, NumPy, Scientific Computing
-- **Features**: Real-time reaction modeling, 3D molecular visualization
-- **Educational Value**: Helps students understand abstract chemistry concepts
+| Area | Tools |
+| --- | --- |
+| Frontend | HTML, CSS, JavaScript, React, Vite |
+| Mobile | Android, Kotlin, SQLite, Firebase |
+| Backend | Python, Flask, SQLAlchemy, Nginx, Gunicorn |
+| AI/ML | PyTorch, OpenAI, Hugging Face, ComfyUI |
+| DevOps | AWS, CI/CD, Linux |
 
-### 📊 Student Progress Analytics
-*Comprehensive learning management with automated insights*
-- **Tech**: Python, Flask, SQLite, Data Visualization
-- **Features**: Performance tracking, personalized feedback, learning path recommendations
-- **Results**: Streamlined assessment for 200+ students
+## Contact
 
-### 🤖 Coding Challenge Platform
-*Interactive Python learning with peer collaboration*
-- **Tech**: Django, JavaScript, RESTful APIs, Database Design
-- **Features**: Real-time code execution, peer review, gamified learning
-- **Community**: 500+ students actively solving challenges
-
-## 📈 GitHub Stats
-
-![Ben's GitHub Stats](https://github-readme-stats.vercel.app/api?username=yourusername&show_icons=true&theme=gradient&hide_border=true)
-
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=yourusername&layout=compact&theme=gradient&hide_border=true)
-
-## 🎯 Teaching Philosophy
-
-I believe that:
-- **🧠 Every student can code** - it's about finding the right approach
-- **🎨 Learning should be creative** - projects should inspire and engage
-- **🔗 Interdisciplinary connections** - math, science, and CS strengthen each other
-- **🤝 Collaboration beats competition** - students learn best when helping each other
-
-## 🏆 Recent Achievements
-
-- 📜 **Curriculum Innovation Award** - For developing interdisciplinary CS/Math programs
-- 🌟 **Python Education Excellence** - Recognition for outstanding student outcomes
-- 📚 **Open Source Education** - Contributing to educational Python libraries
-- 🎓 **Student Success Rate**: 95% pass rate in CS courses with improved retention
-
-## 🔭 Current Focus
-
-- 🚀 **AI-Assisted Learning Tools**: Developing personalized tutoring systems
-- 🌐 **Open Educational Resources**: Creating free Python learning materials
-- 📱 **Mobile Learning Apps**: Making CS education accessible anywhere
-- 🤝 **Teacher Training**: Helping other educators integrate Python into their curricula
-
-## 📚 Featured Blog Posts & Resources
-
-- 📝 [Making Python Fun: 10 Project Ideas for Beginners](link-to-post)
-- 🧮 [Teaching Algorithms Through Math: A Practical Approach](link-to-post)
-- 🔬 [Chemistry Meets Code: Scientific Computing Projects](link-to-post)
-- 🎮 [Gamifying CS Education: Lessons Learned](link-to-post)
-
-## 🤝 Let's Collaborate!
-
-I'm always excited to work on:
-- 📚 **Educational technology projects**
-- 🐍 **Python learning tools**
-- 🧮 **Math/CS integration initiatives**
-- 🌍 **Open source educational resources**
-
-## 📫 How to Reach Me
-
-- 💼 **LinkedIn**: [Connect with me](https://linkedin.com/in/yourprofile)
-- 📧 **Email**: your.email@example.com
-- 🐦 **Twitter**: [@yourusername](https://twitter.com/yourusername)
-- 📝 **Blog**: [Teaching Through Code](https://yourblog.com)
-- 🎥 **YouTube**: [Ben's Coding Classroom](https://youtube.com/yourchannel)
-
-## 🌱 Fun Facts
-
-- 🧪 I can explain sorting algorithms using chemical reaction principles
-- 🎯 My students have created over 1,000 Python projects in the last year
-- 🏃‍♂️ I run coding bootcamps that feel more like creative workshops
-- 📐 I use origami to teach recursive algorithms (it actually works!)
-- ☕ Coffee + Code + Students = My perfect day
-
----
-
-### 🎈 Random Python Wisdom
-
-```python
-def success_formula():
-    curiosity = "Always ask 'what if?'"
-    practice = "Code something new every day"
-    sharing = "Teach others what you learn"
-    
-    return curiosity + practice + sharing
-
-print("Happy coding! 🐍✨")
-```
-
----
-
-⭐ **If my projects help you or your students, please star them!** It motivates me to create more educational content.
-
-💡 **Have an idea for an educational coding project?** Open an issue or send me a message - I love bringing creative learning ideas to life!
-
-![Profile Views](https://komarev.com/ghpvc/?username=yourusername&color=brightgreen)
+- **GitHub**: [github.com/benmega](https://github.com/benmega)
+- **LinkedIn**: [linkedin.com/in/benmega](https://www.linkedin.com/in/benmega/)
+- **Email**: [ben@benmega.com](mailto:ben@benmega.com)
