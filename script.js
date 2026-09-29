@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('pageshow', () => {
   // --- Floating Classroom Chat Owl Scroll Follow (First 1/10th of Page) ---
   const owl = document.querySelector('.floating-owl');
 
