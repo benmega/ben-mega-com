@@ -1,16 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // --- Banner Toggle ---
-  const banner = document.getElementById('banner');
-  const closeBtn = document.getElementById('closeBanner');
-  const nav = document.getElementById('nav');
+  // --- Floating Classroom Chat Owl Scroll Follow (First 1/10th of Page) ---
+  const owl = document.querySelector('.floating-owl');
 
-  if (closeBtn && banner) {
-    closeBtn.addEventListener('click', () => {
-      banner.style.display = 'none';
-      if (nav) {
-        nav.classList.add('top-zero');
+  if (owl) {
+    let ticking = false;
+
+    const updateOwlPosition = () => {
+      const scrollY = window.scrollY || window.pageYOffset;
+      const threshold = window.innerHeight * 0.1;
+      const baseTop =
+        window.innerWidth <= 480 ? 12 : window.innerWidth <= 768 ? 16 : 24;
+
+      if (scrollY > threshold) {
+        owl.style.position = 'absolute';
+        owl.style.top = `${threshold + baseTop}px`;
+      } else {
+        owl.style.position = 'fixed';
+        owl.style.top = '';
       }
-    });
+      ticking = false;
+    };
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateOwlPosition);
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+
+    window.addEventListener('resize', updateOwlPosition);
+    updateOwlPosition();
   }
 
   // --- Mobile Menu Toggle ---
