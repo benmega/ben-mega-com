@@ -516,6 +516,7 @@ body {
 .project-links {
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -525,10 +526,18 @@ body {
   padding: 8px 16px;
   border-radius: 8px;
   text-decoration: none;
+  font-family: inherit;
   font-size: 14px;
   transition: all 0.3s;
   border: none;
   cursor: pointer;
+}
+
+/* A gallery that is filled from a folder stays hidden until the folder has
+   images. scripts/update-galleries.mjs writes the list into data-images. */
+.btn-gallery[data-gallery-dir][data-images=""],
+.btn-gallery[data-gallery-dir]:not([data-images]) {
+  display: none;
 }
 
 .btn-primary {

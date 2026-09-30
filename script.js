@@ -164,6 +164,9 @@ window.addEventListener('pageshow', () => {
         try {
           if (localImages) {
             currentImages = localImages.split(',').map(img => img.trim());
+          } else if (btn.hasAttribute('data-gallery-dir')) {
+            // Local gallery whose folder has no images yet: nothing to fetch.
+            currentImages = [];
           } else {
             const response = await fetch(`https://api.github.com/repos/${repo}/contents/${folder}`);
             if (!response.ok) throw new Error('Folder not found or repository is private');

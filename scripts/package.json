@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "description": "Marker for the Node test runner. Node 22 and later treat the argument of 'node --test scripts/' as a module, and this main entry points it at the self-test. No dependencies, nothing to install.",
+  "type": "module",
+  "main": "update-galleries.test.mjs"
+}
