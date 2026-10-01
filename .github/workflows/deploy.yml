@@ -12,6 +12,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # Warnings show up as annotations on the run. With --strict the deploy
+      # stops instead of publishing a gallery that lost all of its images.
+      - name: Update screenshot galleries
+        run: node scripts/update-galleries.mjs --strict
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -26,4 +36,11 @@ jobs:
             --exclude ".github/*" \
             --exclude ".idea/*" \
             --exclude ".venv/*" \
+            --exclude "scripts/*" \
+            --exclude ".githooks/*" \
+            --exclude "node_modules/*" \
+            --exclude "package.json" \
+            --exclude "package-lock.json" \
+            --exclude ".gitignore" \
+            --exclude "*.gitkeep" \
             --exclude "README.md"

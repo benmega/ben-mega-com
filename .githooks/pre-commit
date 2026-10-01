@@ -1,0 +1,173 @@
+#!/bin/sh
+# Keeps the screenshot galleries in the root *.html files in sync with the
+# image folders before every commit. See scripts/README.md.
+#
+# Enable once per clone:   git config core.hooksPath .githooks
+#
+# This hook never blocks a commit. If node is missing or the updater fails it
+# prints a warning and the commit goes ahead; the deploy workflow runs the
+# same updater again, so the published site is current either way.
+#
+# A page is staged only when the updater changed it in this run and staging it
+# cannot put anything into the commit that you did not choose. In every other
+# case the page is left for you to stage, and a line says why.
+
+root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
+cd "$root" || exit 0
+
+script="scripts/update-galleries.mjs"
+[ -f "$script" ] || exit 0
+
+if ! command -v node >/dev/null 2>&1; then
+  echo "pre-commit: node not found, galleries not updated (commit continues)." >&2
+  exit 0
+fi
+
+tab=$(printf '\t')
+
+# "git commit <paths>" and "git commit --only" hand the hook a temporary index
+# that holds just the named paths. Staging into it would put the page into a
+# commit it was not named for and leave the real index with the old list, which
+# the next commit would then record. So in that mode nothing is staged.
+partial=no
+case "${GIT_INDEX_FILE:-}" in
+  *next-index-*.lock) partial=yes ;;
+esac
+
+# One line per page the updater may touch: content hash, state, file name.
+#   clean      tracked, no unstaged changes: safe to stage after an update
+#   dirty      tracked, has unstaged changes: staging it would sweep those in
+#   untracked  not in the index: staging it would add a new file to the commit
+before=$(
+  for f in *.html; do
+    [ -f "$f" ] || continue
+    case "$f" in live_* | Live_* | LIVE_*) continue ;; esac
+    hash=$(git hash-object --no-filters -- "$f" 2>/dev/null) || continue
+    if ! git ls-files --error-unmatch -- "$f" >/dev/null 2>&1; then
+      state=untracked
+    elif git diff --quiet -- "$f" 2>/dev/null; then
+      state=clean
+    else
+      state=dirty
+    fi
+    printf '%s\t%s\t%s\n' "$hash" "$state" "$f"
+  done
+)
+
+node "$script" --quiet </dev/null
+status=$?
+if [ "$status" -ne 0 ]; then
+  echo "pre-commit: gallery update failed (exit code $status), nothing staged (commit continues)." >&2
+  exit 0
+fi
+
+[ -n "$before" ] || exit 0
+
+# What the galleries list now, as lines of page<TAB>folder<TAB>image. Read on
+# first use, because most commits never need it.
+listing=
+listing_read=no
+read_listing() {
+  [ "$listing_read" = yes ] && return 0
+  listing_read=yes
+  listing=$(node "$script" --list </dev/null 2>/dev/null) || listing=
+}
+
+is_image() {
+  case "$1" in
+    *.[pP][nN][gG] | *.[jJ][pP][gG] | *.[jJ][pP][eE][gG] | *.[gG][iI][fF] | *.[wW][eE][bB][pP]) return 0 ;;
+  esac
+  return 1
+}
+
+# Prints the images that page $1 lists but that are not in the index, so that
+# would be missing from the commit.
+images_not_in_commit() {
+  printf '%s\n' "$listing" | while IFS="$tab" read -r page folder image; do
+    [ "$page" = "$1" ] || continue
+    [ -n "$image" ] || continue
+    git --literal-pathspecs ls-files --error-unmatch -- "$image" >/dev/null 2>&1 ||
+      printf '%s\n' "$image"
+  done
+}
+
+# Prints the gallery folders of page $1 in which this commit adds or removes
+# an image.
+folders_in_commit() {
+  printf '%s\n' "$listing" | while IFS="$tab" read -r page folder image; do
+    [ "$page" = "$1" ] || continue
+    [ -n "$folder" ] || continue
+    printf '%s\n' "$folder"
+  done | sort -u | while IFS= read -r folder; do
+    git -c core.quotepath=off --literal-pathspecs diff --cached --name-only \
+      --diff-filter=ADR -- "$folder" 2>/dev/null |
+      while IFS= read -r path; do
+        name=${path#"$folder"/}
+        case "$name" in */*) continue ;; esac
+        is_image "$name" || continue
+        printf '%s\n' "$folder"
+        break
+      done
+  done
+}
+
+indent() {
+  sed 's/^/  /'
+}
+
+# Stage only the files whose content the updater changed in this run.
+while IFS="$tab" read -r old_hash state f; do
+  [ -n "$f" ] || continue
+  new_hash=$(git hash-object --no-filters -- "$f" 2>/dev/null) || continue
+
+  if [ "$new_hash" = "$old_hash" ]; then
+    # Nothing to update. If the page was brought up to date before the commit
+    # (by the capture script, or by running the updater by hand) it is easy to
+    # commit the images and forget the page, so say so.
+    [ "$state" = dirty ] || continue
+    read_listing
+    folders=$(folders_in_commit "$f")
+    [ -n "$folders" ] || continue
+    {
+      echo "pre-commit: this commit adds or removes images in:"
+      printf '%s\n' "$folders" | indent
+      echo "  and $f has changes that are NOT staged. If its gallery list belongs"
+      echo "  to this commit, run: git add $f && git commit --amend --no-edit"
+    } >&2
+    continue
+  fi
+
+  if [ "$state" = untracked ]; then
+    echo "pre-commit: galleries updated in $f but NOT staged, because the file is not tracked." >&2
+    continue
+  fi
+  if [ "$partial" = yes ]; then
+    echo "pre-commit: galleries updated in $f but NOT staged, because this is a partial commit (git commit <paths>). Stage it yourself." >&2
+    continue
+  fi
+  if [ "$state" = dirty ]; then
+    echo "pre-commit: galleries updated in $f but NOT staged, because the file has other unstaged changes. Stage it when you are ready." >&2
+    continue
+  fi
+
+  read_listing
+  missing=$(images_not_in_commit "$f")
+  if [ -n "$missing" ]; then
+    {
+      echo "pre-commit: galleries updated in $f but NOT staged, because it lists images that are not in this commit:"
+      printf '%s\n' "$missing" | indent
+      echo "  Stage the images together with $f when they are ready."
+    } >&2
+    continue
+  fi
+
+  if git add -- "$f"; then
+    echo "pre-commit: galleries updated and staged: $f"
+  else
+    echo "pre-commit: galleries updated in $f, but staging failed. Stage it yourself." >&2
+  fi
+done <<EOF
+$before
+EOF
+
+exit 0

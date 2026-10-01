@@ -1,0 +1,3 @@
+# Hooks are shell scripts: keep LF line endings on every platform, also when
+# core.autocrlf is on, or sh cannot run them.
+* text eol=lf
