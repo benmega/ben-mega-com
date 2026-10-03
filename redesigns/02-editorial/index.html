@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ben Mega - CS Teacher & Full-Stack Developer</title>
+    <meta
+      name="description"
+      content="Ben Mega is a CS teacher and full-stack developer making programming accessible. Education tools, apps and a game: Classroom Chat, Mega Chess, Auto-Prep, Local Chat and Fractal Defense."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ben Mega - CS Teacher & Full-Stack Developer" />
+    <meta
+      property="og:description"
+      content="Making programming accessible. Education tools, apps and a game: Classroom Chat, Mega Chess, Auto-Prep, Local Chat and Fractal Defense."
+    />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f2ea" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f1218" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><style>text{fill:%23c8321a}@media (prefers-color-scheme:dark){text{fill:%23f0b14a}}</style><text y='.9em' font-size='90' font-family='Georgia,serif'>Ω</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Instrument+Sans:wght@400..600&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- The icon font is decoration, so it must never hold up the page: it is
+         fetched as a print sheet (which does not block rendering) and
+         script.js switches it on once it has arrived. The names are text. -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" data-deferred-style />
+    <!-- Loaded before the body on purpose: it adds html.js and the saved
+         edition (theme) before the first paint, so nothing flashes. -->
+    <script src="script.js"></script>
+  </head>
+
+  <body id="top">
+    <a class="skip" href="#main">Skip to content</a>
+
+    <svg class="sprite" aria-hidden="true" focusable="false">
+      <symbol id="i-ext" viewBox="0 0 16 16">
+        <path d="M4.5 11.5 11.5 4.5M6.5 4.5h5v5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="i-down" viewBox="0 0 16 16">
+        <path d="M8 3v10M4 9l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="i-up" viewBox="0 0 16 16">
+        <path d="M8 13V3M4 7l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="i-left" viewBox="0 0 16 16">
+        <path d="M13 8H3M7 4 3 8l4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="i-right" viewBox="0 0 16 16">
+        <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="i-close" viewBox="0 0 16 16">
+        <path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+      </symbol>
+      <symbol id="i-moon" viewBox="0 0 16 16">
+        <path d="M13.2 9.8A5.6 5.6 0 0 1 6.2 2.8a5.6 5.6 0 1 0 7 7z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="i-sun" viewBox="0 0 16 16">
+        <circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.4" />
+        <path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M3.4 12.6l1.4-1.4M11.2 4.8l1.4-1.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+      </symbol>
+      <symbol id="i-lock" viewBox="0 0 16 16">
+        <rect x="3.5" y="7" width="9" height="7" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.4" />
+        <path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.4" />
+      </symbol>
+      <symbol id="i-images" viewBox="0 0 16 16">
+        <rect x="2" y="3" width="12" height="10" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.4" />
+        <path d="M2.5 11.5 6 8l3 3 2-2 2.5 2.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+        <circle cx="10.5" cy="6" r="1" fill="currentColor" />
+      </symbol>
+    </svg>
+
+    <header class="masthead">
+      <div class="wrap masthead__row">
+        <a class="masthead__brand" href="#top">
+          <span class="masthead__omega" aria-hidden="true">Ω</span>
+          <span>benmega.com</span>
+        </a>
+        <nav class="masthead__nav" aria-label="Sections">
+          <ol>
+            <li><a href="#work"><span class="no" aria-hidden="true">I</span>Work</a></li>
+            <li><a href="#toolkit"><span class="no" aria-hidden="true">II</span>Toolkit</a></li>
+            <li><a href="#contact"><span class="no" aria-hidden="true">III</span>Contact</a></li>
+          </ol>
+        </nav>
+        <button type="button" class="edition" data-theme-toggle>
+          <span class="edition__to-night">
+            <svg class="i" aria-hidden="true"><use href="#i-moon" /></svg>
+            Night edition
+          </span>
+          <span class="edition__to-day">
+            <svg class="i" aria-hidden="true"><use href="#i-sun" /></svg>
+            Day edition
+          </span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Cover -->
+      <section class="cover" aria-labelledby="name">
+        <div class="wrap">
+          <h1 id="name" class="cover__name">Ben Mega</h1>
+
+          <div class="cover__row">
+            <img class="cover__photo" src="assets/profile.jpg" width="170" height="170" alt="Portrait of Ben Mega" />
+
+            <div class="cover__text">
+              <p class="cover__role">CS Teacher &amp; Full-Stack Developer</p>
+              <p class="deck">Making programming accessible<span class="deck__dot">.</span></p>
+              <ul class="cover__links">
+                <li>
+                  <a href="https://github.com/benmega" target="_blank" rel="noopener noreferrer">
+                    GitHub <svg class="i" aria-hidden="true"><use href="#i-ext" /></svg>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/benmega/" target="_blank" rel="noopener noreferrer">
+                    LinkedIn <svg class="i" aria-hidden="true"><use href="#i-ext" /></svg>
+                  </a>
+                </li>
+                <li><a href="mailto:ben@benmega.com">ben@benmega.com</a></li>
+              </ul>
+            </div>
+
+            <a class="owl" href="https://blossom.benmega.com" target="_blank" rel="noopener noreferrer">
+              <img class="owl__img" src="assets/classroom-chat/logo.png" width="246" height="256" alt="" />
+              <span class="owl__text">
+                <span class="owl__kicker">Live</span>
+                <span class="owl__label">Classroom Chat</span>
+                <span class="owl__sub">
+                  Open the platform
+                  <svg class="i" aria-hidden="true"><use href="#i-ext" /></svg>
+                </span>
+              </span>
+            </a>
+          </div>
+
+          <nav class="contents" aria-labelledby="contents-label">
+            <p id="contents-label" class="contents__label">Contents</p>
+            <ol class="contents__list">
+              <li>
+                <a class="contents__item" href="#classroom-chat">
+                  <span class="contents__no">01</span>
+                  <span class="contents__title">Classroom Chat Platform</span>
+                  <span class="contents__meta"><span class="contents__kind">Education tool</span> <span class="contents__status">Live</span></span>
+                  <svg class="i contents__arrow" aria-hidden="true"><use href="#i-down" /></svg>
+                </a>
+              </li>
+              <li>
+                <a class="contents__item" href="#mega-chess">
+                  <span class="contents__no">02</span>
+                  <span class="contents__title">Mega Chess</span>
+                  <span class="contents__meta"><span class="contents__kind">Android app</span></span>
+                  <svg class="i contents__arrow" aria-hidden="true"><use href="#i-down" /></svg>
+                </a>
+              </li>
+              <li>
+                <a class="contents__item" href="#auto-prep">
+                  <span class="contents__no">03</span>
+                  <span class="contents__title">Auto-Prep</span>
+                  <span class="contents__meta"><span class="contents__kind">Education tool</span> <span class="contents__status">Live</span></span>
+                  <svg class="i contents__arrow" aria-hidden="true"><use href="#i-down" /></svg>
+                </a>
+              </li>
+              <li>
+                <a class="contents__item" href="#local-chat">
+                  <span class="contents__no">04</span>
+                  <span class="contents__title">Local Chat</span>
+                  <span class="contents__meta"><span class="contents__kind">Desktop app</span></span>
+                  <svg class="i contents__arrow" aria-hidden="true"><use href="#i-down" /></svg>
+                </a>
+              </li>
+              <li>
+                <a class="contents__item" href="#fractal-defense">
+                  <span class="contents__no">05</span>
+                  <span class="contents__title">Fractal Defense</span>
+                  <span class="contents__meta"><span class="contents__kind">Game</span></span>
+                  <svg class="i contents__arrow" aria-hidden="true"><use href="#i-down" /></svg>
+                </a>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </section>
+
+      <!-- I Work -->
+      <section id="work" class="section" aria-labelledby="work-title">
+        <div class="wrap">
+          <header class="section-head reveal">
+            <p class="section-head__no" aria-hidden="true">I</p>
+            <h2 id="work-title" class="section-head__title">Work</h2>
+            <p class="section-head__deck">Five projects: two live, two with public code.</p>
+          </header>
+
+          <!-- 01 Classroom Chat -->
+          <article class="spread spread--lead" id="classroom-chat" aria-labelledby="t-classroom-chat">
+            <div class="spread__head reveal">
+              <p class="spread__folio"><span class="spread__no">01<span class="spread__of" aria-hidden="true">/05</span></span><span class="spread__kind">Education tool</span></p>
+              <h3 id="t-classroom-chat" class="spread__title">Classroom Chat Platform</h3>
+            </div>
+            <div class="spread__body reveal">
+              <p class="spread__desc">
+                A gamified classroom communication platform enabling teachers,
+                parents, and students to collaborate effectively.
+              </p>
+              <p class="spread__fact"><span class="spread__fact-no">100</span> <span class="spread__fact-label">users</span></p>
+              <p class="spread__stack">
+                <span class="spread__label">Stack</span>
+                Python, Flask, JavaScript, React, Vite, HTML, CSS, SQLAlchemy
+              </p>
+              <div class="spread__actions">
+                <a class="btn btn--primary" href="https://blossom.benmega.com/" target="_blank" rel="noopener noreferrer">
+                  Live demo <svg class="i" aria-hidden="true"><use href="#i-ext" /></svg>
+                </a>
+                <a class="btn" href="https://github.com/benmega/classroom-chat" target="_blank" rel="noopener noreferrer">
+                  Code on GitHub <svg class="i" aria-hidden="true"><use href="#i-ext" /></svg>
+                </a>
+              </div>
+            </div>
+            <!-- The login page is Classroom Chat's only screenshot, so it sits
+                 small in its window beside the owl rather than filling the
+                 column on its own. -->
+            <figure class="spread__media reveal">
+              <div class="plate plate--brand">
+                <img class="plate__owl" src="assets/classroom-chat/logo.png" width="246" height="256" loading="lazy" alt="" />
+                <a class="frame frame--link" href="https://blossom.benmega.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Classroom Chat at blossom.benmega.com">
+                  <span class="frame__bar" aria-hidden="true">
+                    <span class="frame__dots"><span></span><span></span><span></span></span>
+                    <span class="frame__url">
+                      <img class="frame__icon" src="assets/classroom-chat/logo.png" width="246" height="256" alt="" />
+                      blossom.benmega.com
+                    </span>
+                  </span>
+                  <span class="frame__view frame__view--page">
+                    <img
+                      class="frame__page"
+                      src="assets/classroom-chat-banner.png"
+                      width="578"
+                      height="410"
+                      loading="lazy"
+                      alt="The Classroom Chat login page, with username and password fields and a Login button"
+                    />
+                  </span>
+                </a>
+              </div>
+              <figcaption class="caption"><span class="caption__no">Fig. 1</span> The Classroom Chat owl and the login page. Select the window to open the live platform.</figcaption>
+            </figure>
+          </article>
+
+          <!-- 02 Mega Chess -->
+          <article class="spread spread--feature" id="mega-chess" aria-labelledby="t-mega-chess">
+            <div class="spread__head reveal">
+              <p class="spread__folio"><span class="spread__no">02<span class="spread__of" aria-hidden="true">/05</span></span><span class="spread__kind">Android app</span></p>
+              <h3 id="t-mega-chess" class="spread__title">Mega Chess</h3>
+            </div>
+            <div class="spread__body reveal">
+              <p class="spread__desc">
+                Android app for playing asynchronous international and Chinese chess.
+              </p>
+              <p class="spread__stack">
+                <span class="spread__label">Stack</span>
+                Android, Kotlin, SQLite, Python, Flask, SQLAlchemy
+              </p>
+              <div class="spread__actions">
+                <button
+                  type="button"
+                  class="btn btn--primary btn-gallery"
+                  data-title="Mega Chess Screenshots"
+                  data-gallery-dir="assets/mega-chess"
+                  data-images="assets/mega-chess/phone_screenshot_1.png,assets/mega-chess/phone_screenshot_2.png,assets/mega-chess/phone_screenshot_3.png,assets/mega-chess/phone_screenshot_4.png,assets/mega-chess/phone_screenshot_5.png,assets/mega-chess/tablet_screenshot_1.png,assets/mega-chess/tablet_screenshot_2.png,assets/mega-chess/tablet_screenshot_3.png,assets/mega-chess/tablet_screenshot_4.png,assets/mega-chess/tablet_screenshot_5.png"
+                >
+                  <svg class="i" aria-hidden="true"><use href="#i-images" /></svg>
+                  Screenshots <span class="btn__count" data-count></span>
+                </button>
+                <a class="btn btn--text" href="mailto:ben@benmega.com?subject=Code%20access%3A%20Mega%20Chess" data-open="access" data-project="Mega Chess">
+                  <svg class="i" aria-hidden="true"><use href="#i-lock" /></svg>
+                  Request code access
+                </a>
+              </div>
+            </div>
+            <figure class="spread__media reveal">
+              <div class="phones">
+                <div class="phone">
+                  <img
+                    src="assets/mega-chess/phone_screenshot_1.png"
+                    width="1080"
+                    height="2220"
+                    loading="lazy"
+                    alt="Mega Chess: the list of active games, with a Chinese chess and an international chess board"
+                  />
+                </div>
+                <div class="phone">
+                  <img
+                    src="assets/mega-chess/phone_screenshot_2.png"
+                    width="1080"
+                    height="2220"
+                    loading="lazy"
+                    alt="Mega Chess: choosing an opponent and the kind of chess before pressing Play"
+                  />
+                </div>
+                <div class="phone phone--extra">
+                  <img
+                    src="assets/mega-chess/phone_screenshot_3.png"
+                    width="1080"
+                    height="2220"
+                    loading="lazy"
+                    alt="Mega Chess: finding a friend by player ID, with the player shown online and a Send Friend Request button"
+                  />
+                </div>
+                <div class="boards">
+                  <div class="board">
+                    <img
+                      src="assets/mega-chess/phone_screenshot_5.png"
+                      width="1080"
+                      height="2220"
+                      loading="lazy"
+                      alt="Mega Chess: an international chess board at the start of a game"
+                    />
+                  </div>
+                  <div class="board">
+                    <img
+                      src="assets/mega-chess/phone_screenshot_4.png"
+                      width="1080"
+                      height="2220"
+                      loading="lazy"
+                      alt="Mega Chess: a Chinese chess board at the start of a game"
+                    />
+                  </div>
+                </div>
+              </div>
+              <figcaption class="caption"><span class="caption__no">Fig. 2</span> <span>Mega Chess on a phone: the games list and a new game<span class="phone-extra-cap">, then finding a friend</span>. The boards, international and Chinese, up close.</span></figcaption>
+            </figure>
+          </article>
+
+          <!-- 03 Auto-Prep -->
+          <article class="spread spread--flip" id="auto-prep" aria-labelledby="t-auto-prep">
+            <div class="spread__head reveal">
+              <p class="spread__folio"><span class="spread__no">03<span class="spread__of" aria-hidden="true">/05</span></span><span class="spread__kind">Education tool</span></p>
+              <h3 id="t-auto-prep" class="spread__title">Auto-Prep</h3>
+            </div>
+            <div class="spread__body reveal">
+              <p class="spread__desc">
+                AI lesson prep for teachers. Turns slide decks into question banks,
+                then into worksheets, quizzes, and Kahoot or Blooket games.
+                Serverless on AWS with Claude on Bedrock.
+              </p>
+              <p class="spread__stack">
+                <span class="spread__label">Stack</span>
+                Python, FastAPI, React, TypeScript, Tailwind CSS, AWS, SQLite
+              </p>
+              <div class="spread__actions">
+                <a class="btn btn--primary" href="https://prep.benmega.com/" target="_blank" rel="noopener noreferrer">
+                  Live demo <svg class="i" aria-hidden="true"><use href="#i-ext" /></svg>
+                </a>
+                <button
+                  type="button"
+                  id="auto-prep-shots"
+                  class="btn btn-gallery"
+                  data-title="Auto-Prep Screenshots"
+                  data-gallery-dir="assets/auto-prep"
+                  data-images=""
+                >
+                  <svg class="i" aria-hidden="true"><use href="#i-images" /></svg>
+                  Screenshots <span class="btn__count" data-count></span>
+                </button>
+                <a class="btn btn--text" href="mailto:ben@benmega.com?subject=Code%20access%3A%20Auto-Prep" data-open="access" data-project="Auto-Prep">
+                  <svg class="i" aria-hidden="true"><use href="#i-lock" /></svg>
+                  Request code access
+                </a>
+              </div>
+            </div>
+            <!-- The pipeline from the description, drawn as a plate and hidden
+                 from assistive tech because the description already says it.
+                 Once the folder has screenshots, script.js swaps the drawing
+                 for the first one in data-images, which opens the gallery. -->
+            <figure class="spread__media reveal">
+              <button type="button" class="preview" data-preview-for="auto-prep-shots" aria-label="Open the Auto-Prep screenshots" hidden>
+                <img class="preview__img" alt="" loading="lazy" />
+              </button>
+              <div class="plate plate--flow" data-drawing aria-hidden="true">
+                <ol class="flow">
+                  <li class="flow__step">
+                    <span class="flow__label">In</span>
+                    <span class="flow__text">Slide decks</span>
+                  </li>
+                  <li class="flow__step">
+                    <span class="flow__label">Then</span>
+                    <span class="flow__text">Question banks</span>
+                  </li>
+                  <li class="flow__step">
+                    <span class="flow__label">Out</span>
+                    <span class="flow__outs">
+                      <span>Worksheets</span>
+                      <span>Quizzes</span>
+                      <span>Kahoot games</span>
+                      <span>Blooket games</span>
+                    </span>
+                  </li>
+                </ol>
+                <p class="flow__foot"><span>Serverless on AWS</span><span>Claude on Bedrock</span></p>
+              </div>
+              <figcaption class="caption"><span class="caption__no">Fig. 3</span> <span data-caption-empty>What Auto-Prep does with a slide deck.</span><span data-caption-filled hidden>Auto-Prep. Select the picture to see all screenshots.</span></figcaption>
+            </figure>
+          </article>
+
+          <!-- 04 Local Chat -->
+          <article class="spread" id="local-chat" aria-labelledby="t-local-chat">
+            <div class="spread__head reveal">
+              <p class="spread__folio"><span class="spread__no">04<span class="spread__of" aria-hidden="true">/05</span></span><span class="spread__kind">Desktop app</span></p>
+              <h3 id="t-local-chat" class="spread__title">Local Chat</h3>
+            </div>
+            <div class="spread__body reveal">
+              <p class="spread__desc">
+                A desktop application for peer to peer communication without
+                relying on internet connection.
+              </p>
+              <p class="spread__stack">
+                <span class="spread__label">Stack</span>
+                Python, Flask, SQLAlchemy, HTML, CSS, JavaScript, React, Vite
+              </p>
+              <div class="spread__actions">
+                <button
+                  type="button"
+                  class="btn btn--primary btn-gallery"
+                  data-title="Local Chat Screenshots"
+                  data-gallery-dir="assets/local-chat"
+                  data-images="assets/local-chat/app_ui_mockup.jpg,assets/local-chat/promotional_graphic.jpg"
+                >
+                  <svg class="i" aria-hidden="true"><use href="#i-images" /></svg>
+                  Screenshots <span class="btn__count" data-count></span>
+                </button>
+                <a class="btn btn--text" href="mailto:ben@benmega.com?subject=Code%20access%3A%20Local%20Chat" data-open="access" data-project="Local Chat">
+                  <svg class="i" aria-hidden="true"><use href="#i-lock" /></svg>
+                  Request code access
+                </a>
+              </div>
+            </div>
+            <figure class="spread__media reveal">
+              <div class="frame">
+                <span class="frame__bar" aria-hidden="true">
+                  <span class="frame__dots"><span></span><span></span><span></span></span>
+                  <span class="frame__title">Local Chat</span>
+                </span>
+                <div class="frame__view frame__view--crop">
+                  <img
+                    src="assets/local-chat/promotional_graphic.jpg"
+                    width="1280"
+                    height="800"
+                    loading="lazy"
+                    alt="Local Chat: the Connect a device screen with a QR code"
+                  />
+                </div>
+              </div>
+              <figcaption class="caption"><span class="caption__no">Fig. 4</span> Local Chat: the Connect a device screen.</figcaption>
+            </figure>
+          </article>
+
+          <!-- 05 Fractal Defense -->
+          <article class="spread spread--flip" id="fractal-defense" aria-labelledby="t-fractal-defense">
+            <div class="spread__head reveal">
+              <p class="spread__folio"><span class="spread__no">05<span class="spread__of" aria-hidden="true">/05</span></span><span class="spread__kind">Game</span></p>
+              <h3 id="t-fractal-defense" class="spread__title">Fractal Defense</h3>
+            </div>
+            <div class="spread__body reveal">
+              <p class="spread__desc">2D tower defense game with Python and Pygame.</p>
+              <p class="spread__stack">
+                <span class="spread__label">Stack</span>
+                Python, Pygame
+              </p>
+              <div class="spread__actions">
+                <a class="btn btn--primary" href="https://github.com/benmega/FractalDefense" target="_blank" rel="noopener noreferrer">
+                  Code on GitHub <svg class="i" aria-hidden="true"><use href="#i-ext" /></svg>
+                </a>
+                <button
+                  type="button"
+                  class="btn btn-gallery"
+                  data-title="Fractal Defense Screenshots"
+                  data-repo="benmega/FractalDefense"
+                  data-folder="screenshots"
+                  data-fallback="assets/fractal-defense/active_gameplay.png,assets/fractal-defense/main_menu.png,assets/fractal-defense/upgrade_screen.png"
+                >
+                  <svg class="i" aria-hidden="true"><use href="#i-images" /></svg>
+                  Screenshots
+                </button>
+              </div>
+            </div>
+            <figure class="spread__media reveal">
+              <div class="sheet">
+                <img
+                  class="sheet__main"
+                  src="assets/fractal-defense/active_gameplay.png"
+                  width="1067"
+                  height="800"
+                  loading="lazy"
+                  alt="Fractal Defense: a level in progress, with the tower path, the wave timeline and the build bar"
+                />
+                <img
+                  src="assets/fractal-defense/main_menu.png"
+                  width="1067"
+                  height="800"
+                  loading="lazy"
+                  alt="Fractal Defense: the main menu in front of a painted castle"
+                />
+                <img
+                  src="assets/fractal-defense/upgrade_screen.png"
+                  width="1067"
+                  height="800"
+                  loading="lazy"
+                  alt="Fractal Defense: the Victory screen after a level, with stars, score and waves cleared"
+                />
+              </div>
+              <figcaption class="caption"><span class="caption__no">Fig. 5</span> Fractal Defense: a level in progress, the main menu and the victory screen.</figcaption>
+            </figure>
+          </article>
+        </div>
+      </section>
+
+      <!-- II Toolkit -->
+      <section id="toolkit" class="section" aria-labelledby="toolkit-title">
+        <div class="wrap">
+          <header class="section-head reveal">
+            <p class="section-head__no" aria-hidden="true">II</p>
+            <h2 id="toolkit-title" class="section-head__title">Toolkit</h2>
+            <p class="section-head__deck">Tools and platforms, grouped by area.</p>
+          </header>
+
+          <dl class="toolkit reveal">
+            <div class="toolkit__row">
+              <dt>Frontend</dt>
+              <dd>
+                <ul class="tools">
+                  <li><i class="devicon-html5-plain" aria-hidden="true"></i>HTML5</li>
+                  <li><i class="devicon-css3-plain" aria-hidden="true"></i>CSS3</li>
+                  <li><i class="devicon-javascript-plain" aria-hidden="true"></i>JavaScript</li>
+                  <li><i class="devicon-react-original" aria-hidden="true"></i>React</li>
+                  <li><i class="devicon-vitejs-plain" aria-hidden="true"></i>Vite</li>
+                </ul>
+              </dd>
+            </div>
+            <div class="toolkit__row">
+              <dt>Mobile</dt>
+              <dd>
+                <ul class="tools">
+                  <li><i class="devicon-android-plain" aria-hidden="true"></i>Android</li>
+                  <li><i class="devicon-kotlin-plain" aria-hidden="true"></i>Kotlin</li>
+                  <li><i class="devicon-sqlite-plain" aria-hidden="true"></i>SQLite</li>
+                  <li><i class="devicon-firebase-plain" aria-hidden="true"></i>Firebase</li>
+                </ul>
+              </dd>
+            </div>
+            <div class="toolkit__row">
+              <dt>Backend</dt>
+              <dd>
+                <ul class="tools">
+                  <li><i class="devicon-python-plain" aria-hidden="true"></i>Python</li>
+                  <li><i class="devicon-flask-original" aria-hidden="true"></i>Flask</li>
+                  <li>SQLAlchemy</li>
+                  <li>Nginx</li>
+                  <li>
+                    <img class="tools__img" src="https://cdn.jsdelivr.net/npm/simple-icons@16/icons/gunicorn.svg" width="20" height="20" loading="lazy" alt="" />
+                    Gunicorn
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="toolkit__row">
+              <dt>AI/ML</dt>
+              <dd>
+                <ul class="tools">
+                  <li><i class="devicon-pytorch-original" aria-hidden="true"></i>PyTorch</li>
+                  <li>
+                    <img class="tools__img tools__img--tile" src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" width="20" height="20" loading="lazy" alt="" />
+                    OpenAI
+                  </li>
+                  <li>
+                    <img class="tools__img" src="https://cdn.jsdelivr.net/npm/simple-icons@16/icons/huggingface.svg" width="20" height="20" loading="lazy" alt="" />
+                    Hugging Face
+                  </li>
+                  <li>
+                    <img class="tools__img tools__img--photo" src="assets/comfyui.png" width="1024" height="1024" loading="lazy" alt="" />
+                    ComfyUI
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="toolkit__row">
+              <dt>DevOps</dt>
+              <dd>
+                <ul class="tools">
+                  <li>AWS</li>
+                  <li><i class="devicon-githubactions-plain" aria-hidden="true"></i>GitHub Actions</li>
+                  <li><i class="devicon-linux-plain" aria-hidden="true"></i>Linux</li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- III Contact -->
+      <section id="contact" class="section" aria-labelledby="contact-title">
+        <div class="wrap">
+          <header class="section-head reveal">
+            <p class="section-head__no" aria-hidden="true">III</p>
+            <h2 id="contact-title" class="section-head__title">Contact</h2>
+            <p class="section-head__deck">By email, GitHub or LinkedIn.</p>
+          </header>
+
+          <div class="contact reveal">
+            <p class="contact__lead">Write to</p>
+            <a class="contact__email" href="mailto:ben@benmega.com">ben@benmega.com</a>
+            <ul class="contact__list">
+              <li>
+                <a href="https://github.com/benmega" target="_blank" rel="noopener noreferrer">
+                  <span class="contact__label">GitHub</span>
+                  <span class="contact__value">github.com/benmega</span>
+                  <svg class="i" aria-hidden="true"><use href="#i-ext" /></svg>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/benmega/" target="_blank" rel="noopener noreferrer">
+                  <span class="contact__label">LinkedIn</span>
+                  <span class="contact__value">linkedin.com/in/benmega</span>
+                  <svg class="i" aria-hidden="true"><use href="#i-ext" /></svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer__row">
+        <p>© 2026 Ben Mega. All rights reserved.</p>
+        <p class="footer__colophon">Set in Fraunces and Instrument Sans.</p>
+        <ul class="footer__links">
+          <li><a href="https://github.com/benmega" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/benmega/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="mailto:ben@benmega.com">Email</a></li>
+          <li>
+            <a href="#top">
+              Top <svg class="i" aria-hidden="true"><use href="#i-up" /></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- Request access -->
+    <dialog id="access" class="modal" aria-labelledby="access-title">
+      <div class="modal__inner" tabindex="-1" autofocus>
+        <p class="eyebrow">Private repository<span class="modal__project" data-access-project></span></p>
+        <h2 id="access-title" class="modal__title">Request access</h2>
+        <p class="modal__text">
+          This repository is private. To request access to the source code,
+          please reach out to me via LinkedIn or email.
+        </p>
+        <div class="modal__actions">
+          <a class="btn btn--primary" href="https://www.linkedin.com/in/benmega/" target="_blank" rel="noopener noreferrer">
+            LinkedIn <svg class="i" aria-hidden="true"><use href="#i-ext" /></svg>
+          </a>
+          <a class="btn" href="mailto:ben@benmega.com" data-access-email>Email</a>
+          <button type="button" class="btn btn--quiet" data-close>Close</button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Screenshot lightbox -->
+    <dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-title">
+      <div class="lightbox__bar">
+        <p class="lightbox__counter" aria-live="polite"><span class="lightbox__now" data-counter-now></span><span class="lightbox__of" data-counter-total></span></p>
+        <p id="lightbox-title" class="lightbox__title">Screenshots</p>
+        <button type="button" class="lightbox__btn" data-close aria-label="Close screenshots">
+          <svg class="i" aria-hidden="true"><use href="#i-close" /></svg>
+        </button>
+      </div>
+      <div class="lightbox__stage">
+        <img class="lightbox__img" data-image alt="" hidden />
+        <p class="lightbox__status" data-status role="status"></p>
+      </div>
+      <div class="lightbox__nav">
+        <button type="button" class="lightbox__btn" data-prev aria-label="Previous screenshot">
+          <svg class="i" aria-hidden="true"><use href="#i-left" /></svg>
+        </button>
+        <p class="lightbox__caption" data-caption></p>
+        <button type="button" class="lightbox__btn" data-next aria-label="Next screenshot">
+          <svg class="i" aria-hidden="true"><use href="#i-right" /></svg>
+        </button>
+      </div>
+    </dialog>
+  </body>
+</html>

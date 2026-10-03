@@ -1,0 +1,1232 @@
+/* Ben Mega: plain and fast. One column of text with a margin beside it. */
+
+:root {
+  color-scheme: light dark;
+
+  --serif: "Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, Menlo, monospace;
+
+  /* Type scale. --text-label is for small caps-like labels, --text-meta for
+     readable facts (tools, captions, footer), --text-s for controls. The
+     first two are 13px only as desktop marginalia; on phones they sit under
+     the text, and the facts are set at body size. */
+  --text-label: 0.9375rem;
+  --text-meta: 1rem;
+  --text-s: 0.9375rem;
+  --text-m: clamp(1.125rem, 1.06rem + 0.3vw, 1.25rem);
+  --text-l: clamp(1.5rem, 1.35rem + 0.6vw, 1.75rem);
+  --text-xl: clamp(1.625rem, 1.4rem + 1vw, 2.125rem);
+  --text-xxl: clamp(2.75rem, 2.1rem + 2.8vw, 4.25rem);
+
+  /* Spacing scale */
+  --s1: 0.25rem;
+  --s2: 0.5rem;
+  --s3: 0.75rem;
+  --s4: 1rem;
+  --s5: 1.5rem;
+  --s6: 2rem;
+  --s7: 3rem;
+  --s8: 4.5rem;
+  --s9: 6rem;
+
+  /* Weights. Light text on a dark ground looks heavier, so dark sets them lighter. */
+  --w-text: 400;
+  --w-strong: 600;
+
+  /* Page geometry: a margin column, a gutter and the measure */
+  --pad: 1.25rem;
+  --margin: 11rem;
+  --gutter: 2.5rem;
+  --measure: 38rem;
+
+  /* Light: ink on warm paper */
+  --paper: #fbfaf6;
+  --sunk: #f2f0e9;
+  --ink: #1d1c19;
+  --soft: #5b574e;
+  --rule: #dcd8cc;
+  --link: #0a6470;
+  --link-hover: #06444d;
+  --tint: #0a64701a;
+  --mark: #f6d680;
+  /* The teacher's pen: red on paper, yellow chalk on the board */
+  --accent: #a13a17;
+  --shade: #1d1c1980;
+  --raised: #fffefb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark: chalk on a night-blue board */
+    --paper: #101719;
+    --sunk: #172124;
+    --ink: #e9e6de;
+    --soft: #a2aaa8;
+    --rule: #2b3739;
+    --link: #7fd6df;
+    --link-hover: #b4ebf0;
+    --tint: #7fd6df24;
+    --mark: #f2b84b;
+    --accent: #f2c35b;
+    --shade: #05090ab3;
+    --raised: #172226;
+    --w-text: 370;
+    --w-strong: 560;
+  }
+}
+
+/* Base */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: var(--s5);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: var(--text-m);
+  font-weight: var(--w-text);
+  font-optical-sizing: auto;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--mark);
+  color: #1d1c19;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+dl,
+dd,
+figure {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Links are the interface */
+
+a,
+.link {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.22em;
+  border-radius: 2px;
+  transition: color 0.12s ease, background-color 0.12s ease;
+}
+
+a:hover,
+.link:hover {
+  color: var(--link-hover);
+  text-decoration-thickness: 0.12em;
+}
+
+a:active,
+.link:active {
+  background: var(--tint);
+}
+
+:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+}
+
+.primary {
+  font-weight: var(--w-strong);
+}
+
+/* An arrow for links that leave the site */
+.ext::after {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  margin-left: 0.3em;
+  background: currentColor;
+  -webkit-mask: var(--arrow) center / contain no-repeat;
+  mask: var(--arrow) center / contain no-repeat;
+  --arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' fill='none' stroke='%23000' stroke-width='1.4'%3E%3Cpath d='M1.5 8.5l7-7M3 1.5h5.5V7'/%3E%3C/svg%3E");
+}
+
+.skip {
+  position: absolute;
+  left: var(--pad);
+  top: var(--s3);
+  z-index: 1;
+  padding: var(--s2) var(--s4);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: var(--text-s);
+  transform: translateY(-300%);
+}
+
+.skip:hover {
+  color: var(--paper);
+}
+
+.skip:focus {
+  transform: none;
+}
+
+/* Page geometry */
+
+.wrap {
+  width: min(100% - 2 * var(--pad), var(--measure));
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .wrap {
+    width: min(100% - 2 * var(--pad), var(--margin) + var(--gutter) + var(--measure));
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: var(--margin) minmax(0, 1fr);
+    column-gap: var(--gutter);
+  }
+
+  .split > * {
+    grid-column: 2;
+  }
+
+  /* A project is two rows in the column (its text and pictures, then its
+     links); the margin note beside them spans both. */
+  .project {
+    grid-template-rows: auto 1fr;
+  }
+
+  .project > .aside {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    align-self: start;
+  }
+
+  .project > .links {
+    align-self: start;
+  }
+
+  /* The portrait sits beside the name, the role and the tagline. */
+  .intro > .portrait {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    align-self: start;
+  }
+}
+
+/* Header */
+
+.site-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--s3);
+  border-bottom: 1px solid var(--rule);
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  margin-left: -0.8rem;
+  color: var(--ink);
+  font-size: 1.5rem;
+  font-weight: var(--w-strong);
+  line-height: 1;
+  text-decoration: none;
+}
+
+.site-head nav {
+  display: flex;
+  gap: var(--s1);
+  margin-right: calc(var(--s3) * -1);
+}
+
+.site-head nav a,
+.site-foot a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: var(--s3);
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.02em;
+}
+
+.site-head nav a {
+  color: var(--ink);
+  font-size: var(--text-s);
+  text-decoration-color: transparent;
+}
+
+.site-head nav a:hover {
+  color: var(--link-hover);
+  text-decoration-color: currentColor;
+}
+
+/* Intro */
+
+.intro {
+  padding-top: var(--s7);
+  /* The rule the owl perches on */
+  border-bottom: 1px solid var(--ink);
+}
+
+.portrait {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-bottom: var(--s4);
+  border-radius: 50%;
+  /* The ring is 4px outside the picture; the margin puts the ring, not the
+     picture, on the column edge. */
+  margin-left: 4px;
+  outline: 1px solid var(--rule);
+  outline-offset: 3px;
+}
+
+/* In one column the portrait sits beside the name, so the owl stays on the
+   first screen of a small phone. */
+@media (max-width: 59.99rem) {
+  .intro {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--s4);
+    align-items: center;
+    padding-top: var(--s6);
+  }
+
+  .intro > * {
+    grid-column: 1 / -1;
+  }
+
+  .intro > .portrait {
+    grid-column: 1;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin: 0 0 0 4px;
+  }
+
+  .intro > h1 {
+    grid-column: 2;
+  }
+}
+
+h1 {
+  font-size: var(--text-xxl);
+  font-weight: var(--w-strong);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.role {
+  margin-top: var(--s3);
+  font-family: var(--mono);
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.tagline {
+  margin-top: var(--s5);
+  color: var(--accent);
+  font-size: var(--text-xl);
+  font-style: italic;
+  line-height: 1.25;
+}
+
+.lede {
+  margin-top: var(--s4);
+}
+
+/* A project name never breaks across two lines. */
+.lede a {
+  white-space: nowrap;
+}
+
+.reach {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--s5);
+  margin-top: var(--s3);
+}
+
+.reach a,
+.links > * {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+/* The gallery count is a flex item, so its leading space must be kept. */
+.count {
+  white-space: pre;
+}
+
+/* The owl sits on the rule that closes the intro */
+
+.owl {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--s4);
+  justify-self: start;
+  margin-top: var(--s6);
+  border-radius: 0;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.owl img {
+  width: 4rem;
+  /* The drawing has a few empty pixels under the feet. */
+  margin-bottom: -2px;
+  transform-origin: 50% 100%;
+  transition: transform 0.2s ease;
+}
+
+.owl-text {
+  padding-bottom: var(--s3);
+  line-height: 1.35;
+}
+
+.owl strong {
+  color: var(--link);
+  font-weight: var(--w-strong);
+  text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.22em;
+}
+
+.owl small {
+  display: block;
+  margin-top: var(--s1);
+  font-family: var(--mono);
+  font-size: var(--text-meta);
+  color: var(--soft);
+}
+
+.owl:hover {
+  color: var(--ink);
+}
+
+.owl:hover strong {
+  color: var(--link-hover);
+  text-decoration-thickness: 0.12em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .owl:hover img {
+    transform: rotate(-6deg);
+  }
+}
+
+/* Section labels */
+
+section + section {
+  margin-top: var(--s8);
+}
+
+#projects {
+  margin-top: var(--s5);
+}
+
+.label {
+  padding-top: var(--s3);
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+#projects .label {
+  border-top: 0;
+}
+
+/* Projects */
+
+.project {
+  margin-top: var(--s6);
+  scroll-margin-top: var(--s5);
+}
+
+.project + .project {
+  margin-top: var(--s7);
+}
+
+h3 {
+  font-size: var(--text-l);
+  font-weight: var(--w-strong);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Each project's logo: beside the name on phones, at the head of the margin
+   note on desktop. */
+.project h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.logo {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+}
+
+/* This drawing has wide empty edges and a wordmark under it. Only the tower
+   and its branches are shown: clipped to that square, then scaled back up to
+   fill the box. */
+.logo-fractal-defense {
+  clip-path: inset(14% 20% 25% 20%);
+  transform: scale(1.64);
+  transform-origin: 50% 44.5%;
+}
+
+/* Two logos are drawn in dark ink; at night they are turned to light ink of
+   the same hue. */
+@media (prefers-color-scheme: dark) {
+  .logo-mega-chess,
+  .logo-fractal-defense {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
+
+.main > p {
+  margin-top: var(--s2);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--s5);
+  margin-top: var(--s2);
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2ch;
+  margin-top: var(--s4);
+  /* Clips the separator that would hang before the first tool on each line. */
+  overflow: clip;
+  font-family: var(--mono);
+  font-size: var(--text-meta);
+  line-height: 1.7;
+  color: var(--soft);
+}
+
+.stack li {
+  position: relative;
+}
+
+/* The dot is decoration; the empty alternative keeps screen readers quiet. */
+.stack li::before {
+  content: "\00b7";
+  content: "\00b7" / "";
+  position: absolute;
+  right: calc(100% + 0.5ch);
+}
+
+@media (min-width: 60rem) {
+  :root {
+    --text-label: 0.8125rem;
+    --text-meta: 0.8125rem;
+  }
+
+  .project {
+    position: relative;
+  }
+
+  /* Out of the heading into the margin, level with the name. */
+  .logo {
+    position: absolute;
+    left: 0;
+    width: 3rem;
+    height: 3rem;
+    margin-top: -0.3rem;
+  }
+
+  .stack {
+    display: block;
+    margin-top: 0.55rem;
+    line-height: 1.75;
+  }
+
+  /* Under the logo, where there is one. */
+  .project:has(.logo) .stack {
+    margin-top: 4.25rem;
+  }
+
+  .stack li::before {
+    content: none;
+  }
+}
+
+/* Screenshots */
+
+figure {
+  margin-top: var(--s4);
+}
+
+.shots {
+  display: grid;
+  gap: var(--s3);
+}
+
+.shots-wide {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.shots-tall {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.shots-trio {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* Classroom Chat: the live site's sign-in page in a plain window frame. */
+.window {
+  display: block;
+  /* Never wider than the picture file (578px). */
+  max-width: 578px;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  background: var(--sunk);
+  box-shadow: 0 0 0 1px var(--rule);
+  text-decoration: none;
+  transition: box-shadow 0.12s ease;
+}
+
+.window-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem var(--s3);
+  border-bottom: 1px solid var(--rule);
+  color: var(--soft);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+/* Three window buttons, drawn as one row of dots. */
+.window-bar::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 1.1rem;
+  border-radius: 50%;
+  background: var(--rule);
+  box-shadow: 0.6rem 0 var(--rule), 1.2rem 0 var(--rule);
+}
+
+/* Only the top of the page: the heading that says where the visitor is.
+   The form under it adds nothing a visitor can see here. */
+.window img {
+  width: 100%;
+  aspect-ratio: 578 / 112;
+  object-fit: cover;
+  object-position: top;
+}
+
+.window:hover {
+  box-shadow: 0 0 0 1px var(--link), 0 0 0 4px var(--tint);
+}
+
+.window:hover .window-bar {
+  color: var(--link-hover);
+}
+
+/* Auto-Prep: what the copy says, drawn as three steps. */
+.flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s5);
+}
+
+.flow li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s4) var(--s2) var(--s3);
+  border-radius: 0.375rem;
+  background: var(--sunk);
+  box-shadow: 0 0 0 1px var(--rule);
+  font-family: var(--mono);
+  font-size: var(--text-meta);
+  line-height: 1.35;
+  text-align: center;
+}
+
+/* The arrow between two steps, centred in the gap. */
+.flow li + li::before {
+  content: "\2192";
+  content: "\2192" / "";
+  position: absolute;
+  top: 50%;
+  right: calc(100% + var(--s5) / 2);
+  transform: translate(50%, -50%);
+  color: var(--accent);
+  font-size: 1.125rem;
+  line-height: 1;
+}
+
+.flow svg {
+  flex: none;
+  width: 3rem;
+  height: 2.25rem;
+  fill: none;
+  stroke: var(--link);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.flow svg .fill {
+  fill: var(--sunk);
+}
+
+/* Fixed boxes that crop from the top, for pictures whose size is unknown
+   until they exist (the Auto-Prep preview). */
+.shots-fit .shot {
+  aspect-ratio: 16 / 10;
+}
+
+.shots-fit img {
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Local Chat's screenshots are small app windows on a wide empty page. Each
+   box shows only the window: --cx, --cy, --cw and --ch are the crop in the
+   picture's own pixels (1280 x 800). The column widths follow the two crop
+   ratios, so both boxes come out the same height. */
+.shots-crops {
+  grid-template-columns: minmax(0, 0.811fr) minmax(0, 1.615fr);
+}
+
+.crop {
+  position: relative;
+  aspect-ratio: var(--cw) / var(--ch);
+}
+
+.shot.crop img {
+  position: absolute;
+  top: calc(var(--cy) / var(--ch) * -100%);
+  left: calc(var(--cx) / var(--cw) * -100%);
+  width: calc(1280 / var(--cw) * 100%);
+  max-width: none;
+}
+
+.crop-connect {
+  --cx: 208;
+  --cy: 8;
+  --cw: 864;
+  --ch: 535;
+}
+
+.crop-nickname {
+  --cx: 395;
+  --cy: 98;
+  --cw: 490;
+  --ch: 604;
+}
+
+.shot {
+  display: block;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  background: var(--sunk);
+  box-shadow: 0 0 0 1px var(--rule);
+  cursor: zoom-in;
+  transition: box-shadow 0.12s ease;
+}
+
+.shot img {
+  width: 100%;
+}
+
+.shots-tall .shot {
+  border-radius: 0.625rem;
+}
+
+.shot:hover {
+  box-shadow: 0 0 0 1px var(--link), 0 0 0 4px var(--tint);
+}
+
+figcaption {
+  margin-top: var(--s3);
+  font-family: var(--mono);
+  font-size: var(--text-meta);
+  line-height: 1.5;
+  color: var(--soft);
+}
+
+/* On a phone the screenshot rows become strips to swipe, as in an app store. */
+@media (max-width: 34rem) {
+  .shots-tall,
+  .shots-trio {
+    display: flex;
+    overflow-x: auto;
+    margin-inline: calc(var(--pad) * -1);
+    padding: 1px var(--pad);
+    scroll-padding-inline: var(--pad);
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .shots-tall .shot {
+    flex: 0 0 38%;
+    scroll-snap-align: start;
+  }
+
+  .shots-trio .shot {
+    flex: 0 0 72%;
+    scroll-snap-align: start;
+  }
+
+  /* The three steps are stacked, and the arrows point down. */
+  .flow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s5);
+  }
+
+  .flow li {
+    flex-direction: row;
+    gap: var(--s4);
+    padding: var(--s3) var(--s4);
+    text-align: left;
+  }
+
+  .flow li + li::before {
+    content: "\2193";
+    content: "\2193" / "";
+    top: auto;
+    right: auto;
+    bottom: calc(100% + var(--s5) / 2);
+    left: calc(var(--s4) + 1.5rem);
+    transform: translate(-50%, 50%);
+  }
+}
+
+/* At night the screenshots are dimmed a little, the white app screens more. */
+@media (prefers-color-scheme: dark) {
+  .shot img {
+    filter: brightness(0.9);
+  }
+
+  /* The white screens only a little: more reads as grey, not as dim. */
+  .crop img {
+    filter: brightness(0.94);
+  }
+
+  .window img {
+    filter: brightness(0.9);
+  }
+}
+
+/* Skills and other facts: term in the margin, value in the column */
+
+.facts {
+  margin-top: var(--s3);
+}
+
+.facts > div {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  column-gap: var(--s4);
+  align-items: baseline;
+  padding-block: var(--s3);
+}
+
+.facts > div + div {
+  border-top: 1px solid var(--rule);
+}
+
+.facts dt {
+  font-family: var(--mono);
+  font-size: var(--text-meta);
+  color: var(--soft);
+}
+
+@media (min-width: 60rem) {
+  .facts > div {
+    grid-template-columns: var(--margin) minmax(0, 1fr);
+    column-gap: var(--gutter);
+  }
+}
+
+/* Contact */
+
+.closing {
+  margin-top: var(--s5);
+  font-size: var(--text-xl);
+  line-height: 1.35;
+}
+
+/* An end mark, as a magazine closes an article: omega, the last letter. */
+.end {
+  margin-left: 0.35em;
+  font-size: 0.6em;
+  font-weight: var(--w-strong);
+  color: var(--accent);
+}
+
+/* Footer */
+
+.site-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2) var(--s5);
+  margin-top: var(--s8);
+  padding-block: var(--s4) var(--s6);
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  color: var(--soft);
+}
+
+.site-foot ul {
+  display: flex;
+  flex-wrap: wrap;
+  margin-inline: calc(var(--s3) * -1);
+}
+
+/* Dialogs */
+
+dialog {
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+dialog::backdrop {
+  background: var(--shade);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog[open] {
+    animation: arrive 0.16s ease-out;
+  }
+
+  @keyframes arrive {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+  }
+}
+
+.access {
+  width: min(100% - 2 * var(--pad), 30rem);
+  padding: var(--s5) var(--s6) var(--s6);
+  border-radius: 0.5rem;
+  background: var(--raised);
+  box-shadow: 0 1.5rem 4rem -1rem var(--shade);
+}
+
+.access-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s4);
+}
+
+.access h2 {
+  font-size: var(--text-l);
+  font-weight: var(--w-strong);
+  line-height: 1.2;
+}
+
+.access-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  margin-right: calc(var(--s3) * -1);
+  padding-inline: var(--s3);
+  font-family: var(--mono);
+  font-size: var(--text-s);
+}
+
+/* The dialog controls keep a 44px target, but their focus ring hugs the word. */
+.lightbox .link:focus-visible,
+.access-close:focus-visible {
+  outline-offset: calc(var(--s2) * -1);
+}
+
+.access p {
+  margin-top: var(--s2);
+}
+
+.access-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s3);
+  margin-top: var(--s5);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding-inline: var(--s5);
+  border: 1px solid var(--ink);
+  border-radius: 0.25rem;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: var(--text-s);
+  text-decoration: none;
+  transition: background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.button:hover {
+  border-color: var(--link);
+  background: var(--tint);
+  color: var(--ink);
+}
+
+.button-solid {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.button-solid:hover {
+  border-color: var(--link-hover);
+  background: var(--link-hover);
+  color: var(--paper);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+/* Lightbox: the whole screen, words for controls */
+
+.lightbox {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  padding: 0;
+  border: 0;
+}
+
+.lightbox[open] {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.lightbox-bar,
+.lightbox-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s2) var(--pad);
+  font-family: var(--mono);
+  font-size: var(--text-s);
+}
+
+.lightbox-bar {
+  border-bottom: 1px solid var(--rule);
+}
+
+.lightbox-bar h2 {
+  min-width: 0;
+  font-family: var(--serif);
+  font-size: var(--text-m);
+  font-weight: var(--w-strong);
+  line-height: 1.2;
+}
+
+/* The word, not its padding, lines up with the edge of the picture. */
+.lightbox-bar [data-close] {
+  margin-right: calc(var(--s3) * -1);
+}
+
+.lightbox-count {
+  margin-right: auto;
+  color: var(--soft);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.lightbox .link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding-inline: var(--s3);
+}
+
+.lightbox-stage {
+  display: grid;
+  /* One explicit track, so the picture has a definite height to fit into. */
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  place-items: center;
+  min-height: 0;
+  padding: var(--s4) var(--pad);
+  cursor: zoom-out;
+}
+
+.lightbox-stage > * {
+  grid-area: 1 / 1;
+}
+
+.lightbox-stage img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: 0.375rem;
+  box-shadow: 0 0 0 1px var(--rule);
+  cursor: default;
+  transition: opacity 0.15s ease;
+}
+
+.lightbox-stage img:not([src]),
+.lightbox.is-busy img {
+  opacity: 0;
+}
+
+.lightbox-status {
+  font-family: var(--mono);
+  font-size: var(--text-s);
+  color: var(--soft);
+  text-align: center;
+}
+
+.lightbox-nav {
+  justify-content: center;
+  gap: var(--s7);
+  border-top: 1px solid var(--rule);
+}
+
+/* Larger screens */
+
+@media (min-width: 60rem) {
+  :root {
+    --pad: 2rem;
+  }
+
+  .site-head {
+    padding-block: var(--s4);
+  }
+
+  .intro {
+    padding-top: var(--s8);
+  }
+
+  .portrait {
+    width: 7rem;
+    height: 7rem;
+    margin: 0.4rem 0 0 4px;
+  }
+
+  .owl {
+    margin-top: var(--s7);
+  }
+
+  section + section {
+    margin-top: var(--s9);
+  }
+}
+
+/* On very wide screens the whole page grows a little, measure included. */
+@media (min-width: 110rem) {
+  html {
+    font-size: 112.5%;
+  }
+}
+
+@media print {
+  .site-head nav,
+  .skip,
+  .links button,
+  dialog {
+    display: none;
+  }
+
+  a[href^="http"]::after {
+    all: unset;
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+}

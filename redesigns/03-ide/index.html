@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ben Mega - CS Teacher & Full-Stack Developer</title>
+    <meta
+      name="description"
+      content="Ben Mega is a CS teacher and full-stack developer making programming accessible. Education tools, apps and a game: Classroom Chat, Auto-Prep, Mega Chess, Local Chat and Fractal Defense."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ben Mega - CS Teacher & Full-Stack Developer" />
+    <meta
+      property="og:description"
+      content="Making programming accessible. Education tools, apps and a game, with live demos and screenshots."
+    />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#efece4" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0f14" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>Ω</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- In the head so a saved theme applies before the first paint. It comes
+         before the external stylesheets so a slow CDN cannot hold it up. -->
+    <script src="script.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="ide">
+      <!-- The window's title bar is decoration; the banner landmark is the tab
+           bar below, which holds the section navigation. -->
+      <div class="titlebar" aria-hidden="true">
+        <span class="window-dots"><i></i><i></i><i></i></span>
+        <p class="titlebar-title">
+          <span class="titlebar-logo">Ω</span>
+          <span class="titlebar-file">README.md</span>
+          benmega.com
+        </p>
+      </div>
+
+      <nav class="explorer" aria-label="Explorer">
+        <p class="panel-title" aria-hidden="true">Explorer</p>
+        <p class="tree-root" aria-hidden="true">benmega.com</p>
+        <ul class="tree">
+          <li><a class="tree-item is-md" href="#readme" data-spy="readme">README.md</a></li>
+          <li>
+            <a class="tree-item tree-folder" href="#projects" data-spy="projects">projects</a>
+            <ul>
+              <li><a class="tree-item is-md is-nested" href="#classroom-chat" data-spy="classroom-chat">classroom-chat.md</a></li>
+              <li><a class="tree-item is-md is-nested" href="#mega-chess" data-spy="mega-chess">mega-chess.md</a></li>
+              <li><a class="tree-item is-md is-nested" href="#auto-prep" data-spy="auto-prep">auto-prep.md</a></li>
+              <li><a class="tree-item is-md is-nested" href="#local-chat" data-spy="local-chat">local-chat.md</a></li>
+              <li><a class="tree-item is-md is-nested" href="#fractal-defense" data-spy="fractal-defense">fractal-defense.md</a></li>
+            </ul>
+          </li>
+          <li><a class="tree-item is-json" href="#skills" data-spy="skills">skills.json</a></li>
+          <li><a class="tree-item is-md" href="#contact" data-spy="contact">contact.md</a></li>
+        </ul>
+      </nav>
+
+      <div class="editor">
+        <header class="editor-head">
+          <nav class="tabs" aria-label="Sections">
+            <ul class="tabs-list">
+              <li><a class="tab is-md" href="#readme" data-spy="readme">README.md</a></li>
+              <li><a class="tab is-folder" href="#projects" data-spy="projects">projects</a></li>
+              <li><a class="tab is-json" href="#skills" data-spy="skills">skills.json</a></li>
+              <li><a class="tab is-md" href="#contact" data-spy="contact">contact.md</a></li>
+            </ul>
+          </nav>
+          <p class="crumbs" aria-hidden="true">
+            <span>benmega.com</span><span class="crumbs-path">README.md</span>
+          </p>
+        </header>
+
+        <main id="main" class="editor-body">
+          <!-- README.md -->
+          <section class="file" id="readme" data-file="README.md" data-lang="Markdown" aria-labelledby="name">
+            <div class="hero">
+              <div class="ln">
+                <h1 id="name" class="h1">Ben Mega</h1>
+              </div>
+              <div class="ln">
+                <p class="role"><span class="nowrap">CS Teacher &amp;</span> <span class="nowrap">Full-Stack Developer</span></p>
+              </div>
+              <div class="ln ln-wide">
+                <p class="tagline"><span class="caret">Making programming accessible</span></p>
+              </div>
+              <div class="ln ln-wide">
+                <p class="intro">I teach computer science and build education tools, Android and desktop apps, and a tower defense game.</p>
+              </div>
+              <div class="ln ln-wide">
+                <div class="actions hero-actions">
+                  <a class="btn btn-primary" href="#projects">
+                    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v16m0 0-6-6m6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                    See the projects
+                  </a>
+                  <a class="btn" href="https://github.com/benmega" target="_blank" rel="noopener">
+                    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-1.97c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" /></svg>
+                    GitHub
+                  </a>
+                  <a class="btn" href="https://www.linkedin.com/in/benmega/" target="_blank" rel="noopener">
+                    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.2 0 22.23 0Z" /></svg>
+                    LinkedIn
+                  </a>
+                  <a class="btn" href="mailto:ben@benmega.com">
+                    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm0 2 8 6 8-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" /></svg>
+                    Email
+                  </a>
+                </div>
+              </div>
+              <img class="avatar" src="assets/profile.jpg" width="170" height="170" alt="Portrait of Ben Mega" />
+            </div>
+
+            <div class="live">
+              <div class="ln">
+                <h2 class="live-title"><span class="live-dot" aria-hidden="true"></span>Live demos</h2>
+              </div>
+              <div class="ln ln-block">
+                <ul class="live-list">
+                  <li>
+                    <a class="live-card" href="https://blossom.benmega.com" target="_blank" rel="noopener">
+                      <img class="live-owl-img" src="assets/classroom-chat/logo.png" width="246" height="256" alt="" />
+                      <span class="live-text">
+                        <strong class="live-name">Classroom Chat</strong>
+                        <span class="live-desc">Gamified classroom platform for teachers, parents and students</span>
+                        <span class="live-url">blossom.benmega.com</span>
+                      </span>
+                      <svg class="icon live-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="live-card" href="https://prep.benmega.com/" target="_blank" rel="noopener">
+                      <span class="live-glyph" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 5h11a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm2 4h5m-5 3h3m3 6h7a1 1 0 0 0 1-1v-7m-8 12v-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /><path d="m19 2 .8 1.7L21.5 4.5l-1.7.8L19 7l-.8-1.7-1.7-.8 1.7-.8Z" fill="currentColor" /></svg>
+                      </span>
+                      <span class="live-text">
+                        <strong class="live-name">Auto-Prep</strong>
+                        <span class="live-desc">AI lesson prep: slide decks into quizzes and games</span>
+                        <span class="live-url">prep.benmega.com</span>
+                      </span>
+                      <svg class="icon live-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- projects/ -->
+          <section class="file" id="projects" data-file="projects" data-lang="Markdown" aria-labelledby="projects-title">
+            <div class="ln">
+              <h2 id="projects-title" class="h2">Projects</h2>
+            </div>
+            <div class="ln">
+              <p class="lead">Classroom tools, an Android app, a desktop app and a Pygame game.</p>
+            </div>
+
+            <article class="project" id="classroom-chat" data-file="classroom-chat.md" aria-labelledby="p-classroom">
+              <div class="project-src">
+                <div class="ln">
+                  <h3 id="p-classroom" class="h3">Classroom Chat Platform</h3>
+                </div>
+                <div class="ln">
+                  <p>A gamified classroom communication platform enabling teachers, parents, and students to collaborate effectively.</p>
+                </div>
+                <div class="ln">
+                  <p class="note">100 users</p>
+                </div>
+                <div class="ln">
+                  <ul class="tags" aria-label="Built with">
+                    <li><i class="devicon-python-plain" aria-hidden="true"></i>Python</li>
+                    <li><i class="devicon-flask-original" aria-hidden="true"></i>Flask</li>
+                    <li><i class="devicon-javascript-plain" aria-hidden="true"></i>JavaScript</li>
+                    <li><i class="devicon-react-original" aria-hidden="true"></i>React</li>
+                    <li><i class="devicon-vitejs-plain" aria-hidden="true"></i>Vite</li>
+                    <li><i class="devicon-html5-plain" aria-hidden="true"></i>HTML</li>
+                    <li><i class="devicon-css3-plain" aria-hidden="true"></i>CSS</li>
+                    <li><span class="tag-dot" aria-hidden="true"></span>SQLAlchemy</li>
+                  </ul>
+                </div>
+                <div class="ln">
+                  <div class="actions">
+                    <a class="btn btn-primary" href="https://blossom.benmega.com/" target="_blank" rel="noopener">
+                      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      Live demo
+                    </a>
+                    <a class="btn" href="https://github.com/benmega/classroom-chat" target="_blank" rel="noopener">
+                      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      Source on GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="preview preview-shot preview-signin">
+                <div class="preview-bar" aria-hidden="true">
+                  <span class="window-dots"><i></i><i></i><i></i></span>
+                  <span class="preview-name">classroom-chat · sign in</span>
+                </div>
+                <div class="preview-body">
+                  <img src="assets/classroom-chat-banner.png" width="578" height="410" loading="lazy" alt="Classroom Chat sign-in screen: a Login to Classroom Chat heading, Username and Password fields and a Login button" />
+                </div>
+              </div>
+            </article>
+
+            <article class="project" id="mega-chess" data-file="mega-chess.md" aria-labelledby="p-chess">
+              <div class="project-src">
+                <div class="ln">
+                  <h3 id="p-chess" class="h3">Mega Chess</h3>
+                </div>
+                <div class="ln">
+                  <p>Android app for playing asynchronous international and Chinese chess.</p>
+                </div>
+                <div class="ln">
+                  <ul class="tags" aria-label="Built with">
+                    <li><i class="devicon-android-plain" aria-hidden="true"></i>Android</li>
+                    <li><i class="devicon-kotlin-plain" aria-hidden="true"></i>Kotlin</li>
+                    <li><i class="devicon-sqlite-plain" aria-hidden="true"></i>SQLite</li>
+                    <li><i class="devicon-python-plain" aria-hidden="true"></i>Python</li>
+                    <li><i class="devicon-flask-original" aria-hidden="true"></i>Flask</li>
+                    <li><span class="tag-dot" aria-hidden="true"></span>SQLAlchemy</li>
+                  </ul>
+                </div>
+                <div class="ln">
+                  <div class="actions">
+                    <button
+                      class="btn btn-primary btn-gallery"
+                      type="button"
+                      hidden
+                      data-title="Mega Chess Screenshots"
+                      data-gallery-dir="assets/mega-chess"
+                      data-images="assets/mega-chess/phone_screenshot_1.png,assets/mega-chess/phone_screenshot_2.png,assets/mega-chess/phone_screenshot_3.png,assets/mega-chess/phone_screenshot_4.png,assets/mega-chess/phone_screenshot_5.png,assets/mega-chess/tablet_screenshot_1.png,assets/mega-chess/tablet_screenshot_2.png,assets/mega-chess/tablet_screenshot_3.png,assets/mega-chess/tablet_screenshot_4.png,assets/mega-chess/tablet_screenshot_5.png"
+                    >
+                      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm-1 11 5-5 4 4 3-3 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      Screenshots
+                    </button>
+                    <a class="btn btn-access" href="mailto:ben@benmega.com">
+                      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10V8a5 5 0 0 1 10 0v2m-11 0h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      Request code access
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="preview preview-phones">
+                <div class="preview-bar" aria-hidden="true">
+                  <span class="window-dots"><i></i><i></i><i></i></span>
+                  <span class="preview-name">mega-chess · Android</span>
+                </div>
+                <div class="preview-body">
+                  <img class="phone phone-back" src="assets/mega-chess/phone_screenshot_2.png" width="1080" height="2220" loading="lazy" alt="Mega Chess start screen on a phone: pick an opponent, choose international or Chinese chess, then Play or Find a Friend" />
+                  <img class="phone phone-front" src="assets/mega-chess/phone_screenshot_1.png" width="1080" height="2220" loading="lazy" alt="Mega Chess game list on a phone: Chinese chess and international chess games against john, each marked active, above a Play button" />
+                </div>
+              </div>
+            </article>
+
+            <article class="project" id="auto-prep" data-file="auto-prep.md" aria-labelledby="p-prep">
+              <div class="project-src">
+                <div class="ln">
+                  <h3 id="p-prep" class="h3">Auto-Prep</h3>
+                </div>
+                <div class="ln">
+                  <p>AI lesson prep for teachers. Turns slide decks into question banks, then into worksheets, quizzes, and Kahoot or Blooket games. Serverless on AWS with Claude on Bedrock.</p>
+                </div>
+                <div class="ln">
+                  <ul class="tags" aria-label="Built with">
+                    <li><i class="devicon-python-plain" aria-hidden="true"></i>Python</li>
+                    <li><i class="devicon-fastapi-plain" aria-hidden="true"></i>FastAPI</li>
+                    <li><i class="devicon-react-original" aria-hidden="true"></i>React</li>
+                    <li><i class="devicon-typescript-plain" aria-hidden="true"></i>TypeScript</li>
+                    <li><i class="devicon-tailwindcss-original" aria-hidden="true"></i>Tailwind CSS</li>
+                    <li><i class="devicon-amazonwebservices-plain-wordmark" aria-hidden="true"></i>AWS</li>
+                    <li><i class="devicon-sqlite-plain" aria-hidden="true"></i>SQLite</li>
+                  </ul>
+                </div>
+                <div class="ln">
+                  <div class="actions">
+                    <a class="btn btn-primary" href="https://prep.benmega.com/" target="_blank" rel="noopener">
+                      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      Live demo
+                    </a>
+                    <button
+                      class="btn btn-gallery"
+                      type="button"
+                      hidden
+                      data-title="Auto-Prep Screenshots"
+                      data-gallery-dir="assets/auto-prep"
+                      data-images=""
+                    >
+                      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm-1 11 5-5 4 4 3-3 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      Screenshots
+                    </button>
+                    <a class="btn btn-access" href="mailto:ben@benmega.com">
+                      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10V8a5 5 0 0 1 10 0v2m-11 0h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      Request code access
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="preview preview-flow">
+                <div class="preview-bar" aria-hidden="true">
+                  <span class="window-dots"><i></i><i></i><i></i></span>
+                  <span class="preview-name">auto-prep · how it works</span>
+                </div>
+                <div class="preview-body">
+                  <ol class="flow" aria-label="How Auto-Prep works">
+                    <li class="flow-step">
+                      <span class="flow-n" aria-hidden="true">01</span>
+                      Slide deck
+                    </li>
+                    <li class="flow-step">
+                      <span class="flow-n" aria-hidden="true">02</span>
+                      Question bank
+                    </li>
+                    <li class="flow-step flow-out">
+                      <span class="flow-n" aria-hidden="true">03</span>
+                      <ul class="flow-outputs">
+                        <li>Worksheets</li>
+                        <li>Quizzes</li>
+                        <li>Kahoot</li>
+                        <li>Blooket</li>
+                      </ul>
+                    </li>
+                  </ol>
+                  <p class="flow-foot" aria-hidden="true">AWS · Claude on Bedrock</p>
+                </div>
+              </div>
+            </article>
+
+            <p class="group-label">More projects</p>
+
+            <div class="more">
+              <article class="project project-small" id="local-chat" data-file="local-chat.md" aria-labelledby="p-local">
+                <div class="project-src">
+                  <div class="ln">
+                    <h3 id="p-local" class="h3">Local Chat</h3>
+                  </div>
+                  <div class="ln">
+                    <p>A desktop application for peer-to-peer communication without relying on an internet connection.</p>
+                  </div>
+                  <div class="ln">
+                    <ul class="tags" aria-label="Built with">
+                      <li><i class="devicon-python-plain" aria-hidden="true"></i>Python</li>
+                      <li><i class="devicon-flask-original" aria-hidden="true"></i>Flask</li>
+                      <li><span class="tag-dot" aria-hidden="true"></span>SQLAlchemy</li>
+                      <li><i class="devicon-html5-plain" aria-hidden="true"></i>HTML</li>
+                      <li><i class="devicon-css3-plain" aria-hidden="true"></i>CSS</li>
+                      <li><i class="devicon-javascript-plain" aria-hidden="true"></i>JavaScript</li>
+                      <li><i class="devicon-react-original" aria-hidden="true"></i>React</li>
+                      <li><i class="devicon-vitejs-plain" aria-hidden="true"></i>Vite</li>
+                    </ul>
+                  </div>
+                  <div class="ln">
+                    <div class="actions">
+                      <button
+                        class="btn btn-primary btn-gallery"
+                        type="button"
+                        hidden
+                        data-title="Local Chat Screenshots"
+                        data-gallery-dir="assets/local-chat"
+                        data-images="assets/local-chat/app_ui_mockup.jpg,assets/local-chat/promotional_graphic.jpg"
+                      >
+                        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm-1 11 5-5 4 4 3-3 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        Screenshots
+                      </button>
+                      <a class="btn btn-access" href="mailto:ben@benmega.com">
+                        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10V8a5 5 0 0 1 10 0v2m-11 0h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        Request code access
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="preview preview-shot preview-zoom">
+                  <div class="preview-bar" aria-hidden="true">
+                    <span class="window-dots"><i></i><i></i><i></i></span>
+                    <span class="preview-name">local-chat · Desktop</span>
+                  </div>
+                  <div class="preview-body">
+                    <img src="assets/local-chat/app_ui_mockup.jpg" width="1280" height="800" loading="lazy" alt="Local Chat's start screen: the app logo, a Nickname field and a Continue button" />
+                  </div>
+                </div>
+              </article>
+
+              <article class="project project-small" id="fractal-defense" data-file="fractal-defense.md" aria-labelledby="p-fractal">
+                <div class="project-src">
+                  <div class="ln">
+                    <h3 id="p-fractal" class="h3">Fractal Defense</h3>
+                  </div>
+                  <div class="ln">
+                    <p>2D tower defense game with Python and Pygame.</p>
+                  </div>
+                  <div class="ln">
+                    <ul class="tags" aria-label="Built with">
+                      <li><i class="devicon-python-plain" aria-hidden="true"></i>Python</li>
+                      <li><span class="tag-dot" aria-hidden="true"></span>Pygame</li>
+                    </ul>
+                  </div>
+                  <div class="ln">
+                    <div class="actions">
+                      <button
+                        class="btn btn-primary btn-gallery"
+                        type="button"
+                        hidden
+                        data-title="Fractal Defense Screenshots"
+                        data-repo="benmega/FractalDefense"
+                        data-folder="screenshots"
+                        data-fallback-images="assets/fractal-defense/main_menu.png,assets/fractal-defense/active_gameplay.png,assets/fractal-defense/upgrade_screen.png"
+                      >
+                        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm-1 11 5-5 4 4 3-3 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        Screenshots
+                      </button>
+                      <a class="btn" href="https://github.com/benmega/FractalDefense" target="_blank" rel="noopener">
+                        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        Source on GitHub
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="preview preview-shot">
+                  <div class="preview-bar" aria-hidden="true">
+                    <span class="window-dots"><i></i><i></i><i></i></span>
+                    <span class="preview-name">fractal-defense · Pygame</span>
+                  </div>
+                  <div class="preview-body">
+                    <img src="assets/fractal-defense/main_menu.png" width="1067" height="800" loading="lazy" alt="Fractal Defense main menu over a painted castle on a cliff: New Game, Endless Mode, Load Game, Settings, Shop and Achievements" />
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- skills.json -->
+          <section class="file" id="skills" data-file="skills.json" data-lang="JSON" aria-labelledby="skills-title">
+            <div class="ln">
+              <h2 id="skills-title" class="h2 h2-json">Skills</h2>
+            </div>
+            <div class="ln">
+              <p class="lead">Tools I work with, by area.</p>
+            </div>
+            <div class="ln ln-punct" aria-hidden="true"><span>{</span></div>
+            <dl class="json">
+              <div class="ln json-row">
+                <dt>Frontend</dt>
+                <dd>
+                  <ul class="tags">
+                    <li><i class="devicon-html5-plain" aria-hidden="true"></i>HTML5</li>
+                    <li><i class="devicon-css3-plain" aria-hidden="true"></i>CSS3</li>
+                    <li><i class="devicon-javascript-plain" aria-hidden="true"></i>JavaScript</li>
+                    <li><i class="devicon-react-original" aria-hidden="true"></i>React</li>
+                    <li><i class="devicon-vitejs-plain" aria-hidden="true"></i>Vite</li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="ln json-row">
+                <dt>Mobile</dt>
+                <dd>
+                  <ul class="tags">
+                    <li><i class="devicon-android-plain" aria-hidden="true"></i>Android</li>
+                    <li><i class="devicon-kotlin-plain" aria-hidden="true"></i>Kotlin</li>
+                    <li><i class="devicon-sqlite-plain" aria-hidden="true"></i>SQLite</li>
+                    <li><i class="devicon-firebase-plain" aria-hidden="true"></i>Firebase</li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="ln json-row">
+                <dt>Backend</dt>
+                <dd>
+                  <ul class="tags">
+                    <li><i class="devicon-python-plain" aria-hidden="true"></i>Python</li>
+                    <li><i class="devicon-flask-original" aria-hidden="true"></i>Flask</li>
+                    <li><span class="tag-dot" aria-hidden="true"></span>SQLAlchemy</li>
+                    <li><span class="tag-dot" aria-hidden="true"></span>Nginx</li>
+                    <li><img class="tag-img" src="https://cdn.jsdelivr.net/npm/simple-icons@16/icons/gunicorn.svg" width="16" height="16" loading="lazy" alt="" />Gunicorn</li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="ln json-row">
+                <dt>AI/ML</dt>
+                <dd>
+                  <ul class="tags">
+                    <li><i class="devicon-pytorch-original" aria-hidden="true"></i>PyTorch</li>
+                    <li><img class="tag-img" src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" width="16" height="16" loading="lazy" alt="" />OpenAI</li>
+                    <li><img class="tag-img" src="https://cdn.jsdelivr.net/npm/simple-icons@16/icons/huggingface.svg" width="16" height="16" loading="lazy" alt="" />Hugging Face</li>
+                    <li><img class="tag-img" src="assets/comfyui.png" width="1024" height="1024" loading="lazy" alt="" />ComfyUI</li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="ln json-row">
+                <dt>DevOps</dt>
+                <dd>
+                  <ul class="tags">
+                    <li><i class="devicon-amazonwebservices-plain-wordmark" aria-hidden="true"></i>AWS</li>
+                    <li><i class="devicon-githubactions-plain" aria-hidden="true"></i>GitHub Actions</li>
+                    <li><i class="devicon-linux-plain" aria-hidden="true"></i>Linux</li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
+            <div class="ln ln-punct" aria-hidden="true"><span>}</span></div>
+          </section>
+
+          <!-- contact.md -->
+          <section class="file" id="contact" data-file="contact.md" data-lang="Markdown" aria-labelledby="contact-title">
+            <div class="ln">
+              <h2 id="contact-title" class="h2">Contact</h2>
+            </div>
+            <div class="ln">
+              <p class="lead">For work, or for questions about Classroom Chat and Auto-Prep, email me or find me on LinkedIn.</p>
+            </div>
+            <div class="ln ln-block">
+              <ul class="contact-list">
+                <li>
+                  <a class="contact-link contact-primary" href="mailto:ben@benmega.com">
+                    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm0 2 8 6 8-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" /></svg>
+                    <span class="contact-label">Email</span>
+                    <span class="contact-url">ben@benmega.com</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="contact-link" href="https://www.linkedin.com/in/benmega/" target="_blank" rel="noopener">
+                    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.2 0 22.23 0Z" /></svg>
+                    <span class="contact-label">LinkedIn</span>
+                    <span class="contact-url">linkedin.com/in/benmega</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="contact-link" href="https://github.com/benmega" target="_blank" rel="noopener">
+                    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-1.97c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" /></svg>
+                    <span class="contact-label">GitHub</span>
+                    <span class="contact-url">github.com/benmega</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </main>
+      </div>
+
+      <footer class="statusbar">
+        <p>© 2026 Ben Mega. All rights reserved.</p>
+        <p class="status-lang" aria-hidden="true">Markdown</p>
+        <div class="status-actions">
+          <ul class="status-links">
+            <li>
+              <a class="status-link" href="https://github.com/benmega" target="_blank" rel="noopener">
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-1.97c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" /></svg>
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a class="status-link" href="https://www.linkedin.com/in/benmega/" target="_blank" rel="noopener">
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.2 0 22.23 0Z" /></svg>
+                LinkedIn
+              </a>
+            </li>
+            <li>
+              <a class="status-link" href="mailto:ben@benmega.com">
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm0 2 8 6 8-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" /></svg>
+                Email
+              </a>
+            </li>
+          </ul>
+          <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch theme">
+            <svg class="icon theme-icon-sun" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3V1.5m0 21V21m9-9h1.5M1.5 12H3m15.36-6.36 1.06-1.06M4.58 19.42l1.06-1.06m0-12.72L4.58 4.58m14.84 14.84-1.06-1.06M12 7.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+            <svg class="icon theme-icon-moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" /></svg>
+            <span class="theme-label">Theme</span>
+          </button>
+        </div>
+      </footer>
+    </div>
+
+    <dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-title">
+      <div class="lightbox-head">
+        <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <h2 class="lightbox-title" id="lightbox-title">Screenshots</h2>
+        <p class="lightbox-file" id="lightbox-file" aria-hidden="true"></p>
+        <p class="lightbox-counter" id="lightbox-counter" aria-live="polite"></p>
+        <button class="icon-btn" type="button" id="lightbox-close" aria-label="Close screenshots">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+        </button>
+      </div>
+      <div class="lightbox-stage">
+        <button class="icon-btn lightbox-nav lightbox-prev" type="button" id="lightbox-prev" aria-label="Previous screenshot">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </button>
+        <figure class="lightbox-figure">
+          <img class="lightbox-img" id="lightbox-img" alt="" />
+          <figcaption class="lightbox-status" id="lightbox-status"></figcaption>
+        </figure>
+        <button class="icon-btn lightbox-nav lightbox-next" type="button" id="lightbox-next" aria-label="Next screenshot">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </button>
+      </div>
+    </dialog>
+
+    <dialog class="modal" id="access-dialog" aria-labelledby="access-title" aria-describedby="access-text">
+      <div class="modal-bar" aria-hidden="true">
+        <span class="window-dots"><i></i><i></i><i></i></span>
+        <span>private repository</span>
+      </div>
+      <form method="dialog" class="modal-body">
+        <h2 class="modal-title" id="access-title">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10V8a5 5 0 0 1 10 0v2m-11 0h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          Request access
+        </h2>
+        <p class="modal-text" id="access-text">This repository is private. To request access to the source code, please reach out to me via LinkedIn or email.</p>
+        <div class="actions modal-actions">
+          <a class="btn btn-primary" href="https://www.linkedin.com/in/benmega/" target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.2 0 22.23 0Z" /></svg>
+            LinkedIn
+          </a>
+          <a class="btn" href="mailto:ben@benmega.com?subject=Source%20code%20access">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm0 2 8 6 8-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" /></svg>
+            Email
+          </a>
+          <button class="btn btn-ghost" type="submit" value="close">Close</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

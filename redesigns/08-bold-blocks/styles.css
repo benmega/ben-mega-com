@@ -1,0 +1,2251 @@
+/* ==========================================================================
+   Bold Blocks: a teacher's sticker sheet.
+
+   Light: cream paper, every project is a flat colour block with an ink
+   border and a hard ink shadow. Dark: ink-violet paper, the big surfaces stay
+   dark and take their colour as a border, a shadow and a solid header band;
+   small things (stickers, chips, buttons) keep their full colour.
+   The --*-mix tokens switch between those two constructions, so each
+   component is written once.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* Palette */
+  --paper: #FFF4DE;
+  --surface: #FFFBF3;
+  --ink: #15131A;
+  --ink-2: #4A4553;
+  --black: #15131A;                /* text on colour: the same in both themes */
+  --cream: #FFFBF3;                /* stickers, chips and frames */
+  --yellow: #FFD23F;
+  --pink: #FF7AB6;
+  --teal: #2EC4C6;
+  --blue: #5B8DFF;
+  --orange: #FF8A3D;
+  --green: #7CE577;
+  --lilac: #B69CFF;
+  --white: #FFFFFF;                /* behind logos drawn on white */
+
+  /* Construction */
+  --fill-mix: 100%;                /* colour share of a block's background */
+  --line-mix: 0%;                  /* colour share of a block's border and shadow */
+  --band-mix: 0%;                  /* colour share of a card's header band */
+  --c: var(--yellow);              /* the block colour, set per card */
+  --line: var(--ink);              /* borders of neutral elements */
+  --shadow: var(--ink);            /* hard shadows of neutral elements */
+  --focus: #0B2A8F;                /* 3.8:1 or more on paper and every block colour */
+  --dots: color-mix(in srgb, var(--ink) 13%, transparent);
+  --block-dots: color-mix(in srgb, var(--black) 22%, transparent);
+  --backdrop: rgba(21, 19, 26, 0.72);
+
+  /* Type */
+  --font-display: "Bricolage Grotesque", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", monospace;
+  --text-small: 0.8125rem;         /* 13px labels, stickers, chips */
+  --text-button: 0.9375rem;        /* 15px */
+  --text-body: 1.0625rem;          /* 17px */
+  --text-lead: 1.25rem;            /* 20px */
+  --text-h3: 2rem;
+  --text-h2: clamp(2.25rem, 1.4rem + 3.2vw, 3.75rem);
+  --text-display: clamp(4.25rem, 1.2rem + 10.5vw, 9.5rem);
+
+  /* Spacing */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+  --s8: 64px;
+  --s9: 96px;
+
+  /* Blocks */
+  --bw: 3px;                       /* block border */
+  --bw-sm: 2px;                    /* sticker and chip border */
+  --sh: 6px;                       /* block shadow offset */
+  --sh-sm: 4px;                    /* button shadow offset */
+  --radius: 6px;
+  --pill: 999px;
+  --wrap: 1200px;
+  --gutter: var(--s5);
+  --card-pad: var(--s6);
+  --header-h: 72px;
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Dark: designed on its own. Dark blocks, bright outlines, the same energy. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #14121B;
+    --surface: #1F1C2A;
+    --ink: #F6EFE2;
+    --ink-2: #C9C1B4;
+    --yellow: #FFD23F;
+    --pink: #FF8AC0;
+    --teal: #3FD6D8;
+    --blue: #7FA6FF;
+    --orange: #FF9A55;
+    --green: #8BEB85;
+    --lilac: #C4AEFF;
+    --fill-mix: 0%;
+    --line-mix: 100%;
+    --band-mix: 100%;
+    --focus: #FFD23F;
+    --dots: color-mix(in srgb, var(--ink) 10%, transparent);
+    --block-dots: var(--blue);
+    --backdrop: rgba(5, 4, 8, 0.82);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #14121B;
+  --surface: #1F1C2A;
+  --ink: #F6EFE2;
+  --ink-2: #C9C1B4;
+  --yellow: #FFD23F;
+  --pink: #FF8AC0;
+  --teal: #3FD6D8;
+  --blue: #7FA6FF;
+  --orange: #FF9A55;
+  --green: #8BEB85;
+  --lilac: #C4AEFF;
+  --fill-mix: 0%;
+  --line-mix: 100%;
+  --band-mix: 100%;
+  --focus: #FFD23F;
+  --dots: color-mix(in srgb, var(--ink) 10%, transparent);
+  --block-dots: var(--blue);
+  --backdrop: rgba(5, 4, 8, 0.82);
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: calc(var(--header-h) + var(--s4));
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image: radial-gradient(var(--dots) 1.2px, transparent 1.5px);
+  background-size: 24px 24px;
+  overflow-x: clip;
+}
+
+h1, h2, h3, p, ul, ol, figure {
+  margin: 0;
+}
+
+ul, ol {
+  padding: 0;
+  list-style: none;
+}
+
+img, svg {
+  display: block;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+}
+
+.wrap {
+  width: min(100% - 2 * var(--gutter), var(--wrap));
+  margin-inline: auto;
+}
+
+.skip {
+  position: absolute;
+  top: var(--s3);
+  left: var(--s3);
+  z-index: 100;
+  padding: var(--s3) var(--s4);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--black);
+  background: var(--yellow);
+  border: var(--bw) solid var(--black);
+  box-shadow: var(--sh-sm) var(--sh-sm) 0 var(--shadow);
+  translate: 0 -200%;
+}
+
+.skip:focus {
+  translate: 0 0;
+}
+
+/* --------------------------------------------------------------------------
+   Shared pieces: stickers, chips, buttons, tilt
+   -------------------------------------------------------------------------- */
+
+.tilt-l { rotate: -2deg; }
+.tilt-r { rotate: 2deg; }
+
+/* A sticker is always a light object with a black outline, in both themes. */
+.sticker {
+  --sc: var(--cream);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px;
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--sc);
+  border: var(--bw-sm) solid var(--black);
+  border-radius: var(--pill);
+  white-space: nowrap;
+}
+
+.sticker--yellow { --sc: var(--yellow); }
+.sticker--pink   { --sc: var(--pink); }
+.sticker--green  { --sc: var(--green); }
+.sticker--teal   { --sc: var(--teal); }
+
+.sticker--big {
+  padding: 7px 14px;
+  font-size: var(--text-button);
+  border-width: var(--bw);
+  box-shadow: 3px 3px 0 var(--black);
+}
+
+.sticker--lock::before {
+  content: "";
+  width: 9px;
+  height: 11px;
+  background:
+    linear-gradient(currentColor, currentColor) 0 100% / 100% 7px no-repeat,
+    radial-gradient(circle at 50% 100%, transparent 2px, currentColor 2.5px, currentColor 4px, transparent 4.5px) 50% 0 / 9px 5px no-repeat;
+}
+
+/* Section numbers: a solid tab in the ink colour of the theme. */
+.sticker--num {
+  --sc: var(--ink);
+  padding: 8px 12px;
+  font-size: 1rem;
+  color: var(--paper);
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--yellow) var(--line-mix), var(--ink));
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px 4px 8px;
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--black);
+  background: var(--cream);
+  border: var(--bw-sm) solid var(--black);
+  border-radius: var(--pill);
+  white-space: nowrap;
+}
+
+.chip i {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.chip-img,
+.chip-svg {
+  width: 18px;
+  height: 18px;
+}
+
+.chips--lg .chip {
+  padding: 7px 14px 7px 10px;
+  font-size: 0.875rem;
+}
+
+.chips--lg .chip i {
+  font-size: 22px;
+}
+
+.chips--lg .chip-img,
+.chips--lg .chip-svg {
+  width: 22px;
+  height: 22px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  min-height: 48px;
+  padding: 10px 18px;
+  font-family: var(--font-mono);
+  font-size: var(--text-button);
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--black);
+  background: var(--cream);
+  border: var(--bw) solid var(--black);
+  border-radius: var(--radius);
+  box-shadow: var(--sh-sm) var(--sh-sm) 0 var(--btn-shadow, var(--shadow));
+  cursor: pointer;
+  transition: translate 120ms ease, box-shadow 120ms ease;
+}
+
+.btn:hover {
+  translate: -2px -2px;
+  box-shadow: calc(var(--sh-sm) + 2px) calc(var(--sh-sm) + 2px) 0 var(--btn-shadow, var(--shadow));
+}
+
+.btn:active {
+  translate: var(--sh-sm) var(--sh-sm);
+  box-shadow: 0 0 0 var(--btn-shadow, var(--shadow));
+}
+
+/* Primary: ink on light blocks; in dark, the block's own colour. */
+.btn--primary {
+  color: color-mix(in srgb, var(--black) var(--line-mix), var(--cream));
+  background: color-mix(in srgb, var(--c) var(--line-mix), var(--black));
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+  box-shadow: none;
+}
+
+.btn--ghost:hover {
+  translate: 0 0;
+  box-shadow: none;
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+.btn--lg {
+  min-height: 56px;
+  padding: 12px 22px;
+  font-size: 1.0625rem;
+}
+
+.btn-count:empty {
+  display: none;
+}
+
+/* Outside the cards the primary colour is yellow. */
+.hero .btn--primary,
+.dialog .btn--primary {
+  --c: var(--yellow);
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--paper);
+  border-bottom: var(--bw) solid var(--line);
+}
+
+.top-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  min-height: var(--header-h);
+  padding-block: var(--s2);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+  min-height: 44px;
+  margin-right: auto;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--black);
+  background: var(--yellow);
+  border: var(--bw) solid var(--black);
+  border-radius: var(--radius);
+  box-shadow: 3px 3px 0 var(--shadow);
+  transition: rotate 200ms var(--ease-pop);
+}
+
+.brand:hover .brand-mark {
+  rotate: -8deg;
+}
+
+.brand-mark--sm {
+  width: 30px;
+  height: 30px;
+  margin-right: var(--s3);
+  font-size: 1.05rem;
+  border-width: var(--bw-sm);
+  box-shadow: 2px 2px 0 var(--shadow);
+}
+
+.nav ul {
+  display: flex;
+  gap: var(--s2);
+}
+
+.nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: var(--bw-sm) solid transparent;
+  border-radius: var(--pill);
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.nav a:hover {
+  color: var(--black);
+  background: var(--yellow);
+  border-color: var(--black);
+}
+
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--ink);
+  background: var(--surface);
+  border: var(--bw) solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 3px 3px 0 var(--shadow);
+  cursor: pointer;
+  transition: translate 120ms ease, box-shadow 120ms ease;
+}
+
+.theme-toggle:hover {
+  translate: -1px -1px;
+  box-shadow: 4px 4px 0 var(--shadow);
+}
+
+.theme-toggle:active {
+  translate: 3px 3px;
+  box-shadow: 0 0 0 var(--shadow);
+}
+
+.theme-toggle .icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* The icon shows the theme a click switches to, as the name says. */
+.icon-sun { display: none; }
+
+:root[data-theme="dark"] .icon-moon { display: none; }
+:root[data-theme="dark"] .icon-sun { display: block; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .icon-moon { display: none; }
+  :root:not([data-theme="light"]) .icon-sun { display: block; }
+}
+
+html:not(.js) .theme-toggle {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+
+.hero {
+  padding-block: var(--s8) var(--s9);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  grid-template-areas:
+    "copy side"
+    "actions side";
+  column-gap: var(--s7);
+  align-items: center;
+}
+
+.hero-copy { grid-area: copy; align-self: end; }
+.hero-side { grid-area: side; }
+.hero-actions { grid-area: actions; align-self: start; }
+
+.hero-roles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2) var(--s3);
+  margin-bottom: var(--s5);
+}
+
+.hero-roles .sticker {
+  padding: 8px 15px;
+  font-size: var(--text-button);
+  border-width: var(--bw);
+  box-shadow: 3px 3px 0 var(--shadow);
+}
+
+/* "& Full-Stack Developer" wraps as one piece, never leaving the & behind. */
+.hero-role-pair {
+  display: inline-flex;
+  align-items: center;
+  gap: inherit;
+}
+
+.hero-amp {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.display {
+  font-size: var(--text-display);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  font-variation-settings: "opsz" 96;
+  text-wrap: balance;
+}
+
+.tagline {
+  margin-top: var(--s5);
+  font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.125rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+/* The key word is underlined with a thick marker stroke. */
+.tagline-mark {
+  text-decoration: underline;
+  text-decoration-color: var(--yellow);
+  text-decoration-thickness: 0.16em;
+  text-underline-offset: 0.1em;
+  text-decoration-skip-ink: none;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s4);
+  margin-top: var(--s6);
+}
+
+.hero-side {
+  position: relative;
+  height: 420px;
+}
+
+/* The big block behind the photo and the owl: blue with an ink dot grid in
+   light; in dark, like every large surface, a dark panel drawn in blue. */
+.hero-side::before {
+  --hero-line: color-mix(in srgb, var(--blue) var(--line-mix), var(--black));
+  content: "";
+  position: absolute;
+  inset: 28px 16px 44px 44px;
+  background-color: color-mix(in srgb, var(--blue) var(--fill-mix), var(--surface));
+  background-image: radial-gradient(var(--block-dots) 1.4px, transparent 1.8px);
+  background-size: 16px 16px;
+  border: var(--bw) solid var(--hero-line);
+  border-radius: var(--radius);
+  box-shadow: var(--sh) var(--sh) 0 var(--hero-line);
+  rotate: 3deg;
+}
+
+.polaroid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 10px var(--s2);
+  color: var(--black);
+  background: var(--cream);
+  border: var(--bw) solid var(--black);
+  box-shadow: var(--sh) var(--sh) 0 var(--shadow);
+}
+
+.polaroid img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border: var(--bw-sm) solid var(--black);
+}
+
+.polaroid figcaption {
+  margin-top: var(--s2);
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  font-weight: 700;
+  text-align: center;
+}
+
+.owl-card {
+  position: absolute;
+  right: 0;
+  bottom: 20px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: var(--s4);
+  width: 300px;
+  padding: var(--s4) var(--s5) var(--s4) var(--s4);
+  text-decoration: none;
+  color: var(--black);
+  background: var(--teal);
+  border: var(--bw) solid var(--black);
+  border-radius: var(--radius);
+  box-shadow: var(--sh) var(--sh) 0 var(--shadow);
+  transition: translate 120ms ease, box-shadow 120ms ease;
+}
+
+.owl-card:hover {
+  translate: -2px -2px;
+  box-shadow: calc(var(--sh) + 2px) calc(var(--sh) + 2px) 0 var(--shadow);
+}
+
+.owl-card:active {
+  translate: var(--sh) var(--sh);
+  box-shadow: 0 0 0 var(--shadow);
+}
+
+/* The card sits across the blue block, where no single ring colour passes in
+   both themes: a paper halo under the ring gives it its own background. */
+.owl-card:focus-visible {
+  box-shadow: var(--sh) var(--sh) 0 var(--shadow), 0 0 0 9px var(--paper);
+}
+
+.owl-card-img {
+  width: 64px;
+  transition: rotate 220ms var(--ease-pop);
+}
+
+.owl-card:hover .owl-card-img {
+  rotate: -10deg;
+}
+
+.owl-card-text {
+  display: grid;
+  justify-items: start;
+  gap: 2px;
+  line-height: 1.25;
+}
+
+.owl-card-text strong {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.owl-card-text > span {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.owl-card-live {
+  margin-top: var(--s2);
+  padding: 2px 10px;
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--cream);
+  border: var(--bw-sm) solid var(--black);
+  border-radius: var(--pill);
+}
+
+/* --------------------------------------------------------------------------
+   Tape: a strip of project names that crosses the page under the hero
+   -------------------------------------------------------------------------- */
+
+.tape {
+  position: relative;
+  z-index: 2;
+  margin-block: -44px -20px;
+  padding-block: 28px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.tape-text {
+  display: flex;
+  justify-content: center;
+  gap: var(--s5);
+  width: max-content;
+  min-width: 100%;
+  margin-inline: 50%;
+  translate: -50% 0;
+  padding: 12px var(--s5);
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--black);
+  background: var(--yellow);
+  border-block: var(--bw) solid var(--black);
+  box-shadow: 0 var(--sh) 0 var(--shadow);
+  rotate: -1.5deg;
+}
+
+.tape-text span::after {
+  content: "✱";
+  margin-left: var(--s5);
+}
+
+/* --------------------------------------------------------------------------
+   Sections
+   -------------------------------------------------------------------------- */
+
+.section {
+  padding-block: var(--s8) var(--s9);
+  border-top: var(--bw) solid var(--line);
+}
+
+.section--projects {
+  padding-top: var(--s8);
+  border-top: 0;
+}
+
+.section-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: var(--s4);
+  margin-bottom: var(--s7);
+}
+
+.section-head h2,
+.contact-head h2 {
+  font-size: var(--text-h2);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+.section-note {
+  grid-column: 2;
+  margin-top: var(--s2);
+  font-size: var(--text-lead);
+  color: var(--ink-2);
+}
+
+.section-head--more {
+  margin-top: var(--s9);
+}
+
+/* --------------------------------------------------------------------------
+   Project cards
+   -------------------------------------------------------------------------- */
+
+.cards {
+  display: grid;
+  gap: var(--s7);
+}
+
+.card {
+  --card-line: color-mix(in srgb, var(--c) var(--line-mix), var(--black));
+  --btn-shadow: var(--card-line);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--card-pad) var(--card-pad);
+  background: color-mix(in srgb, var(--c) var(--fill-mix), var(--surface));
+  border: var(--bw) solid var(--card-line);
+  border-radius: var(--radius);
+  box-shadow: var(--sh) var(--sh) 0 var(--card-line);
+}
+
+.card--teal   { --c: var(--teal); }
+.card--yellow { --c: var(--yellow); }
+.card--pink   { --c: var(--pink); }
+.card--lilac  { --c: var(--lilac); }
+.card--orange { --c: var(--orange); }
+
+/* Header band: in light it melts into the block, in dark it is the block. */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-inline: calc(-1 * var(--card-pad));
+  margin-bottom: var(--s5);
+  padding: var(--s4) var(--card-pad);
+  background: color-mix(in srgb, var(--c) var(--band-mix), transparent);
+  border-radius: calc(var(--radius) - var(--bw)) calc(var(--radius) - var(--bw)) 0 0;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s6);
+  flex: 1;
+}
+
+.card-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s4);
+  flex: 1;
+  min-width: 0;
+}
+
+.card-title {
+  font-size: var(--text-h3);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.card-desc {
+  max-width: 54ch;
+}
+
+.card-copy .chips {
+  margin-top: var(--s1);
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s4);
+  margin-top: auto;
+  padding-top: var(--s3);
+}
+
+.card-art {
+  position: relative;
+}
+
+/* A round logo stuck on the corner of a screenshot. */
+.logo-sticker {
+  position: absolute;
+  top: -22px;
+  right: -18px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  overflow: hidden;
+  background: var(--white);
+  border: var(--bw) solid var(--black);
+  border-radius: 50%;
+  box-shadow: 3px 3px 0 var(--black);
+}
+
+.logo-sticker img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.logo-sticker--fractal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.6) translateY(6%);
+}
+
+.logo-sticker--chess img {
+  width: 100%;
+  height: 100%;
+}
+
+/* Classroom Chat: the mascot on a paper disc, with a users sticker. */
+.card-art--owl {
+  display: grid;
+  place-items: center;
+  padding-block: var(--s2) var(--s4);
+}
+
+.owl-disc {
+  display: grid;
+  place-items: center;
+  width: 220px;
+  height: 220px;
+  background: var(--cream);
+  border: var(--bw) solid var(--black);
+  border-radius: 50%;
+  box-shadow: var(--sh) var(--sh) 0 var(--card-line);
+}
+
+.owl-disc img {
+  width: 140px;
+  margin-top: 6px;
+}
+
+.sticker--users {
+  position: absolute;
+  left: calc(50% + 40px);
+  bottom: var(--s4);
+}
+
+/* Mega Chess: the list of games and the home screen (both boards) in two
+   whole phone frames, inside the card. */
+.card-art--phones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--s4);
+  padding-block: var(--s3);
+}
+
+.phone {
+  position: relative;
+  width: 188px;
+  padding: 9px 7px;
+  background: var(--black);
+  border: var(--bw) solid color-mix(in srgb, var(--c) var(--line-mix), var(--black));
+  border-radius: 24px;
+  box-shadow: var(--sh) var(--sh) 0 color-mix(in srgb, var(--c) var(--line-mix), var(--black));
+}
+
+.phone--l { rotate: -3deg; }
+.phone--r { rotate: 3deg; }
+
+.phone img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.card-art--phones .logo-sticker {
+  top: -26px;
+  right: -26px;
+  rotate: -4deg;
+}
+
+/* Auto-Prep: what it does, drawn as a diagram rather than as controls: a
+   dashed outline, numbered steps on one line, no shadows. */
+.flow {
+  padding: var(--s5);
+  border: var(--bw-sm) dashed var(--ink);
+  border-radius: var(--radius);
+}
+
+.flow-label {
+  margin-bottom: var(--s4);
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.flow-steps {
+  display: grid;
+  gap: var(--s5);
+}
+
+/* The line that joins each step number to the one before it. */
+.flow-step + .flow-step::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: calc(18px - var(--bw) / 2);
+  width: var(--bw);
+  height: var(--s5);
+  background: var(--ink);
+}
+
+.flow-step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.flow-num {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  margin-right: var(--s1);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: color-mix(in srgb, var(--black) var(--line-mix), var(--cream));
+  background: color-mix(in srgb, var(--c) var(--line-mix), var(--black));
+  border-radius: 50%;
+}
+
+.flow-icon {
+  width: 24px;
+  height: 24px;
+  flex: none;
+}
+
+.flow-step--fan {
+  align-items: flex-start;
+}
+
+.flow-outputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  padding-top: 4px;
+}
+
+.flow-outputs span {
+  padding: 3px 10px;
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--black);
+  background: var(--cream);
+  border: var(--bw-sm) solid var(--black);
+  border-radius: var(--pill);
+}
+
+/* Auto-Prep screenshots, once the folder has any. */
+.shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s4);
+}
+
+.shot:first-child {
+  grid-column: 1 / -1;
+}
+
+.shot {
+  padding: 0;
+  overflow: hidden;
+  background: var(--cream);
+  border: var(--bw) solid var(--black);
+  border-radius: var(--radius);
+  box-shadow: var(--sh-sm) var(--sh-sm) 0 var(--card-line);
+  cursor: pointer;
+  transition: translate 120ms ease, box-shadow 120ms ease;
+}
+
+.shot:hover {
+  translate: -2px -2px;
+  box-shadow: calc(var(--sh-sm) + 2px) calc(var(--sh-sm) + 2px) 0 var(--card-line);
+}
+
+.shot img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+}
+
+.card--has-shots .flow {
+  display: none;
+}
+
+/* Local Chat and Fractal Defense: one screenshot in a paper frame. */
+.card-art--shot {
+  padding: var(--s2);
+  background: var(--cream);
+  border: var(--bw) solid var(--black);
+  border-radius: var(--radius);
+  box-shadow: var(--sh) var(--sh) 0 var(--card-line);
+}
+
+.card-art--shot > img,
+.crop {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border: var(--bw-sm) solid var(--black);
+  border-radius: 2px;
+}
+
+/* Local Chat: the "Connect a device" header and its QR card, cut from the
+   1280 x 800 screen (x 212 to 890, y 16 to 440). The line below the code,
+   with the network name and address, stays outside the frame. Percentages of
+   the frame's width, so it works in every browser. */
+.crop {
+  overflow: hidden;
+  background: var(--white);
+}
+
+.crop img {
+  width: 188.79%;
+  max-width: none;
+  margin: -2.36% 0 0 -31.27%;
+}
+
+.cards--two .card-body {
+  gap: var(--s5);
+}
+
+/* Half-width cards: the two buttons share the row at equal widths, or
+   stack at full width on phones, never a ragged pair. */
+.cards--two .card-actions {
+  align-self: stretch;
+}
+
+.cards--two .card-actions .btn {
+  flex: 1 1 0;
+}
+
+@media (min-width: 900px) {
+  /* Every featured card starts its title at the same distance under the
+     band, whatever the height of its art. */
+  .card--feature .card-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    align-items: start;
+    gap: var(--s7);
+  }
+
+  .card--feature .card-art {
+    align-self: center;
+  }
+
+  .card--feature .card-title {
+    font-size: 2.5rem;
+  }
+
+  .card--feature .card-desc {
+    font-size: 1.125rem;
+  }
+
+  /* The phones are taller than Mega Chess's copy: the copy centres on them
+     rather than leaving an empty block under its buttons. */
+  .card--phones .card-copy {
+    align-self: center;
+  }
+
+  .cards--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Side by side, the two smaller cards share their rows (band, screenshot,
+   title, description, chips, buttons): the shorter card's slack is spread
+   over its rows instead of pooling above its buttons. */
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 900px) {
+    .cards--two {
+      row-gap: 0;
+    }
+
+    .cards--two .card {
+      display: grid;
+      grid-row: span 6;
+      grid-template-rows: subgrid;
+      row-gap: 0;
+    }
+
+    .cards--two .card-body,
+    .cards--two .card-copy {
+      display: contents;
+    }
+
+    .cards--two .card-art,
+    .cards--two .card-title,
+    .cards--two .card-desc {
+      margin-bottom: var(--s4);
+    }
+
+    .cards--two .card-art {
+      margin-bottom: var(--s5);
+    }
+
+    .cards--two .card-copy .chips {
+      align-self: start;
+      margin-bottom: var(--s4);
+    }
+
+    .cards--two .card-actions {
+      align-self: end;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Skills: a bordered table, one row per area
+   -------------------------------------------------------------------------- */
+
+.skills {
+  overflow: hidden;
+  background: var(--surface);
+  border: var(--bw) solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--sh) var(--sh) 0 var(--shadow);
+}
+
+.skill-row {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.skill-row + .skill-row {
+  border-top: var(--bw) solid var(--line);
+}
+
+.skill-row--blue   { --c: var(--blue); }
+.skill-row--green  { --c: var(--green); }
+.skill-row--yellow { --c: var(--yellow); }
+.skill-row--pink   { --c: var(--pink); }
+.skill-row--orange { --c: var(--orange); }
+
+.skill-area {
+  display: flex;
+  align-items: center;
+  padding: var(--s3) var(--s5);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--c);
+}
+
+.skill-row .chips {
+  padding: var(--s4) var(--s5);
+}
+
+@media (min-width: 700px) {
+  .skill-row {
+    grid-template-columns: 200px 1fr;
+  }
+
+  .skill-area {
+    padding-block: var(--s4);
+    border-right: var(--bw) solid var(--line);
+  }
+
+  .skill-row .chips {
+    padding-block: var(--s5);
+  }
+}
+
+/* Wide screens: one column per area, like a timetable. */
+@media (min-width: 1100px) {
+  .skills {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .skill-row {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+
+  .skill-row + .skill-row {
+    border-top: 0;
+    border-left: var(--bw) solid var(--line);
+  }
+
+  .skill-area {
+    border-right: 0;
+    border-bottom: var(--bw) solid var(--line);
+  }
+
+  .skill-row .chips {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s3);
+    padding: var(--s5) var(--s4) var(--s6) var(--s5);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Contact
+   -------------------------------------------------------------------------- */
+
+.contact-block {
+  --c: var(--pink);
+  --card-line: color-mix(in srgb, var(--c) var(--line-mix), var(--black));
+  display: grid;
+  overflow: hidden;
+  background: var(--surface);
+  border: var(--bw) solid var(--card-line);
+  border-radius: var(--radius);
+  box-shadow: var(--sh) var(--sh) 0 var(--card-line);
+}
+
+/* Two panels in both themes: the heading on a solid pink panel, the links
+   on the surface colour, split by the block's own border. */
+.contact-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-content: center;
+  align-items: center;
+  column-gap: var(--s4);
+  padding: var(--s6) var(--s5) var(--s5);
+  color: var(--black);
+  background: var(--c);
+}
+
+.contact-head .sticker--num {
+  --sc: var(--black);
+  color: var(--cream);
+  border-color: var(--black);
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--cream) var(--band-mix), var(--black));
+}
+
+.contact-note {
+  grid-column: 2;
+  margin-top: var(--s2);
+  font-size: var(--text-lead);
+}
+
+.contact-list {
+  display: grid;
+  gap: var(--s4);
+  padding: var(--s5) var(--s5) var(--s6);
+  border-top: var(--bw) solid var(--card-line);
+}
+
+.contact-link {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  column-gap: var(--s4);
+  min-height: 88px;
+  padding: var(--s4) var(--s5);
+  text-decoration: none;
+  color: var(--black);
+  background: var(--cream);
+  border: var(--bw) solid var(--black);
+  border-radius: var(--radius);
+  box-shadow: var(--sh-sm) var(--sh-sm) 0 var(--card-line);
+  transition: translate 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+}
+
+.contact-link::after {
+  content: "→";
+  grid-column: 3;
+  grid-row: 1 / 3;
+  font-size: 1.5rem;
+  font-weight: 800;
+  transition: translate 160ms var(--ease-pop);
+}
+
+.contact-link:hover {
+  translate: -2px -2px;
+  box-shadow: calc(var(--sh-sm) + 2px) calc(var(--sh-sm) + 2px) 0 var(--card-line);
+}
+
+.contact-link:hover::after {
+  translate: 4px 0;
+}
+
+.contact-link:active {
+  translate: var(--sh-sm) var(--sh-sm);
+  box-shadow: 0 0 0 var(--card-line);
+}
+
+.contact-link--main {
+  background: var(--yellow);
+}
+
+.contact-link .icon {
+  grid-row: 1 / 3;
+  width: 32px;
+  height: 32px;
+}
+
+.contact-label {
+  align-self: end;
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact-value {
+  align-self: start;
+  grid-column: 2;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 900px) {
+  .contact-block {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  }
+
+  .contact-head {
+    padding: var(--s8) var(--s7);
+  }
+
+  .contact-list {
+    align-content: center;
+    padding: var(--s8) var(--s7);
+    border-top: 0;
+    border-left: var(--bw) solid var(--card-line);
+  }
+
+  .contact-head h2 {
+    font-size: clamp(3rem, 1rem + 4vw, 4.5rem);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.footer {
+  padding-block: var(--s5);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  border-top: var(--bw) solid var(--line);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3) var(--s5);
+}
+
+.footer-copy {
+  display: flex;
+  align-items: center;
+}
+
+/* Space Mono draws © as a tiny raised mark; the display face does not. */
+.copy-sign {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--s2);
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  border-radius: var(--radius);
+}
+
+.footer-links a:hover {
+  color: var(--black);
+  background: var(--yellow);
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   Dialogs: request access and the screenshot lightbox
+   -------------------------------------------------------------------------- */
+
+.dialog {
+  padding: 0;
+  color: var(--ink);
+  background: var(--surface);
+  border: var(--bw) solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--sh) var(--sh) 0 var(--shadow);
+}
+
+.dialog::backdrop {
+  background-color: var(--backdrop);
+  background-image: radial-gradient(color-mix(in srgb, var(--white) 10%, transparent) 1.2px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+
+.access {
+  width: min(100% - 2 * var(--gutter), 520px);
+  overflow: visible;
+}
+
+.dialog-inner {
+  display: grid;
+  justify-items: start;
+  gap: var(--s4);
+  padding: var(--s6);
+}
+
+.dialog-inner .sticker {
+  margin-top: calc(-1 * var(--s6) - 16px);
+  margin-left: calc(-1 * var(--s2));
+  padding: 6px 14px;
+  border-width: var(--bw);
+  box-shadow: 3px 3px 0 var(--shadow);
+}
+
+.dialog-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.dialog-text {
+  font-size: var(--text-body);
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  margin-top: var(--s2);
+}
+
+.lightbox {
+  width: min(100% - 2 * var(--gutter), 1200px);
+  max-width: none;
+  max-height: none;
+  height: calc(100vh - 2 * var(--gutter));
+  height: calc(100dvh - 2 * var(--gutter));
+}
+
+.lightbox-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100%;
+}
+
+.lightbox-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s3) var(--s3) var(--s3) var(--s5);
+  color: var(--black);
+  background: var(--yellow);
+  border-bottom: var(--bw) solid var(--line);
+}
+
+.lightbox-title {
+  flex: 1;
+  min-width: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.lightbox-count {
+  padding: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  font-weight: 700;
+  color: var(--black);
+  background: var(--cream);
+  border: var(--bw-sm) solid var(--black);
+  border-radius: var(--pill);
+}
+
+.lightbox-count:empty {
+  display: none;
+}
+
+.lightbox-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--black);
+  background: var(--cream);
+  border: var(--bw) solid var(--black);
+  border-radius: var(--radius);
+  box-shadow: 3px 3px 0 var(--black);
+  cursor: pointer;
+  transition: translate 120ms ease, box-shadow 120ms ease;
+}
+
+.lightbox-btn:hover {
+  translate: -1px -1px;
+  box-shadow: 4px 4px 0 var(--black);
+}
+
+.lightbox-btn:active {
+  translate: 3px 3px;
+  box-shadow: 0 0 0 var(--black);
+}
+
+/* The yellow title bar is the same in both themes: an ink ring passes on it. */
+.lightbox-head .lightbox-btn:focus-visible {
+  outline-color: var(--black);
+}
+
+.lightbox-btn .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.lightbox-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: var(--s3);
+  min-height: 0;
+  padding: var(--s3);
+}
+
+.lightbox-figure {
+  position: relative;
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  overflow: hidden;
+  background-image: radial-gradient(var(--dots) 1.2px, transparent 1.5px);
+  background-size: 24px 24px;
+  border: var(--bw-sm) dashed color-mix(in srgb, var(--ink) 35%, transparent);
+  border-radius: var(--radius);
+}
+
+/* The image fills the stage and letterboxes itself, whatever its shape. */
+.lightbox-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+}
+
+.lightbox-status {
+  position: relative;
+  max-width: 34ch;
+  margin: var(--s4);
+  padding: var(--s2) var(--s4);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--black);
+  background: var(--cream);
+  border: var(--bw-sm) solid var(--black);
+  border-radius: var(--radius);
+}
+
+.lightbox-status:empty {
+  display: none;
+}
+
+.lightbox-status a {
+  color: inherit;
+}
+
+.lightbox-prev,
+.lightbox-next {
+  grid-row: 2;
+  width: 100%;
+  height: 52px;
+}
+
+.lightbox-prev { grid-column: 1; }
+.lightbox-next { grid-column: 2; }
+
+/* Phones and tablets: the dialog takes the shape of the image (--ar is set
+   by the script once it loads), up to the height of the screen. */
+@media (max-width: 899px) {
+  .lightbox {
+    height: fit-content;
+    max-height: calc(100vh - 2 * var(--gutter));
+    max-height: calc(100dvh - 2 * var(--gutter));
+  }
+
+  .lightbox-inner {
+    height: auto;
+  }
+
+  .lightbox-figure {
+    aspect-ratio: var(--ar, 4 / 3);
+    min-height: 160px;
+    max-height: calc(100vh - 2 * var(--gutter) - 176px);
+    max-height: calc(100dvh - 2 * var(--gutter) - 176px);
+  }
+}
+
+@media (min-width: 900px) {
+  .lightbox-stage {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-rows: minmax(0, 1fr);
+    align-items: center;
+    gap: var(--s4);
+    padding: var(--s4);
+  }
+
+  .lightbox-figure {
+    grid-column: 2;
+    grid-row: 1;
+    height: 100%;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    grid-row: 1;
+    width: 56px;
+    height: 88px;
+  }
+
+  .lightbox-prev { grid-column: 1; }
+  .lightbox-next { grid-column: 3; }
+}
+
+/* --------------------------------------------------------------------------
+   Reveal: only once the script runs, and only briefly
+   -------------------------------------------------------------------------- */
+
+html.js .reveal {
+  opacity: 0;
+  translate: 0 16px;
+  transition: opacity 260ms ease-out, translate 260ms ease-out;
+}
+
+html.js .reveal.is-in {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* Gallery buttons need the script; without it they would do nothing. */
+html:not(.js) .btn-gallery {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Tablets and phones
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1099px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    column-gap: var(--s6);
+  }
+
+  .hero-side {
+    height: 400px;
+  }
+
+  .polaroid img {
+    width: 144px;
+    height: 144px;
+  }
+
+  .owl-card {
+    width: 284px;
+    column-gap: var(--s3);
+    padding-right: var(--s4);
+  }
+
+  .owl-card-text strong {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 899px) {
+  :root {
+    --gutter: var(--s4);
+    --card-pad: var(--s5);
+    --text-h3: 1.75rem;
+    --sh: 5px;
+    --header-h: 0px;
+  }
+
+  .top {
+    position: static;
+  }
+
+  .nav a {
+    border-color: var(--line);
+  }
+
+  .hero {
+    padding-block: var(--s6) var(--s8);
+  }
+
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "copy"
+      "side"
+      "actions";
+  }
+
+  .display {
+    font-size: min(27vw, 8rem);
+  }
+
+  .tagline {
+    margin-top: var(--s4);
+  }
+
+  .hero-side {
+    height: auto;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--s4);
+    margin-top: var(--s6);
+    padding: var(--s3) var(--s2) var(--s3) 0;
+  }
+
+  .hero-side::before {
+    inset: 0 0 0 var(--s5);
+    rotate: -1.5deg;
+  }
+
+  .polaroid,
+  .owl-card {
+    position: relative;
+    inset: auto;
+  }
+
+  .polaroid {
+    padding: 6px 6px var(--s1);
+  }
+
+  .polaroid img {
+    width: 112px;
+    height: 112px;
+  }
+
+  .polaroid figcaption {
+    margin-top: var(--s1);
+    font-size: 0.75rem;
+  }
+
+  .owl-card {
+    width: auto;
+    grid-template-columns: 1fr;
+    justify-items: start;
+    row-gap: var(--s2);
+    padding: var(--s3);
+  }
+
+  .owl-card-img {
+    width: 44px;
+  }
+
+  .owl-card-text strong {
+    font-size: 1.125rem;
+  }
+
+  .owl-card-text > span {
+    font-size: 0.875rem;
+  }
+
+  .owl-card-live {
+    margin-top: var(--s1);
+  }
+
+  .hero-actions {
+    margin-top: var(--s6);
+    gap: var(--s3);
+  }
+
+  .hero-actions .btn {
+    flex: 1 1 auto;
+    padding-inline: var(--s4);
+  }
+
+  .tape {
+    margin-block: -32px -12px;
+  }
+
+  .tape-text {
+    font-size: 1rem;
+    padding-block: 8px;
+  }
+
+  .section {
+    padding-block: var(--s8);
+  }
+
+  .section-head {
+    margin-bottom: var(--s6);
+  }
+
+  .section-head--more {
+    margin-top: var(--s8);
+  }
+
+  .cards {
+    gap: var(--s6);
+  }
+
+  .card-body {
+    gap: var(--s5);
+  }
+
+  .card-actions .btn {
+    flex: 1 1 auto;
+  }
+
+  .logo-sticker {
+    right: -12px;
+  }
+
+  /* One column: pictures lead their card (the mascot, the phones, the
+     screenshots). The Auto-Prep diagram is text, so it follows the copy
+     until real screenshots take its place. */
+  .card-art {
+    order: -1;
+  }
+
+  .card-art--flow {
+    order: 0;
+  }
+
+  .card--has-shots .card-art--flow {
+    order: -1;
+  }
+
+  .flow {
+    padding: var(--s4);
+  }
+
+  .flow-steps {
+    gap: var(--s4);
+  }
+
+  .flow-step + .flow-step::before {
+    height: var(--s4);
+  }
+
+  .card-art--owl {
+    padding-block: 0 var(--s2);
+  }
+
+  .owl-disc {
+    width: 168px;
+    height: 168px;
+  }
+
+  .owl-disc img {
+    width: 104px;
+  }
+
+  .sticker--users {
+    left: calc(50% + 24px);
+    bottom: var(--s2);
+  }
+
+  .card-art--phones {
+    gap: var(--s3);
+    padding-block: var(--s2) var(--s3);
+  }
+
+  .phone {
+    width: 42%;
+    max-width: 172px;
+    padding: 7px 5px;
+    border-radius: 20px;
+  }
+
+  .phone img {
+    border-radius: 13px;
+  }
+
+  .card-art--phones .logo-sticker {
+    top: -18px;
+    right: -14px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .contact-link {
+    min-height: 76px;
+    padding: var(--s3) var(--s4);
+  }
+
+  .contact-value {
+    font-size: 1.0625rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-copy {
+    flex-direction: column;
+    gap: var(--s3);
+  }
+
+  .brand-mark--sm {
+    margin-right: 0;
+  }
+}
+
+/* Tablets: the two smaller cards lay their screenshot beside the text, and
+   the hero's photo and owl stay a compact pair. */
+@media (min-width: 600px) and (max-width: 899px) {
+  .hero-side {
+    max-width: 560px;
+  }
+
+  .owl-card {
+    grid-template-columns: auto 1fr;
+    column-gap: var(--s4);
+    padding: var(--s4);
+  }
+
+  .owl-card-img {
+    width: 64px;
+  }
+
+  .cards--two .card-body {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    align-items: start;
+    gap: var(--s5);
+  }
+}
+
+@media (max-width: 599px) {
+  /* One header row: the Ω mark (the name stays its accessible label), the
+     three sections and the theme toggle. */
+  .top-inner {
+    gap: var(--s2);
+  }
+
+  .brand-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .nav {
+    margin-inline: auto;
+  }
+
+  .nav ul {
+    gap: var(--s1);
+  }
+
+  .nav a {
+    padding: 8px 10px;
+    font-size: var(--text-small);
+    letter-spacing: 0.02em;
+  }
+
+  .display {
+    font-size: 22vw;
+  }
+
+  .section-note,
+  .contact-note {
+    grid-column: 1 / -1;
+    margin-top: var(--s4);
+  }
+
+  /* Tighter vertical rhythm, so both calls to action reach the first screen
+     of a 360 x 740 phone. */
+  .hero {
+    padding-top: var(--s5);
+  }
+
+  .hero-roles {
+    gap: var(--s2);
+    margin-bottom: var(--s4);
+  }
+
+  .hero-side,
+  .hero-actions {
+    margin-top: var(--s5);
+  }
+
+  .hero-roles .sticker {
+    padding: 5px 9px;
+    font-size: var(--text-small);
+    letter-spacing: 0;
+  }
+
+  .hero-amp {
+    font-size: 1.5rem;
+  }
+
+  .cards--two .card-actions .btn {
+    flex-basis: 100%;
+  }
+
+  .chips--lg .chip {
+    padding: 5px 12px 5px 9px;
+    font-size: var(--text-small);
+  }
+
+  .chips--lg .chip i {
+    font-size: 20px;
+  }
+
+  .chips--lg .chip-img,
+  .chips--lg .chip-svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .skill-area {
+    padding-block: var(--s2);
+  }
+
+  .dialog-inner {
+    padding: var(--s6) var(--s5) var(--s5);
+  }
+
+  .dialog-title {
+    font-size: 1.875rem;
+  }
+
+  .dialog-actions .btn {
+    flex: 1 1 auto;
+  }
+
+  /* Keep the addresses on one line on the narrowest phones. */
+  .contact-link {
+    column-gap: var(--s3);
+    padding-inline: var(--s3);
+  }
+
+  .contact-link .icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .contact-link::after {
+    font-size: 1.25rem;
+  }
+
+  .contact-value {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 379px) {
+  .contact-link {
+    grid-template-columns: auto 1fr;
+  }
+
+  .contact-link::after {
+    content: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion: nothing moves, nothing is hidden
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .reveal {
+    opacity: 1;
+    translate: 0 0;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

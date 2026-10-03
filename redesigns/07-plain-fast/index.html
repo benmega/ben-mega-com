@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ben Mega - CS Teacher &amp; Full-Stack Developer</title>
+    <meta
+      name="description"
+      content="Ben Mega is a CS teacher and full-stack developer making programming accessible. He builds education tools, apps and a game: Classroom Chat, Auto-Prep, Mega Chess, Local Chat and Fractal Defense."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ben Mega - CS Teacher &amp; Full-Stack Developer" />
+    <meta
+      property="og:description"
+      content="Making programming accessible. Education tools, apps and a game by Ben Mega: Classroom Chat, Auto-Prep, Mega Chess, Local Chat and Fractal Defense."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#fbfaf6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101719" media="(prefers-color-scheme: dark)" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>Ω</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Controls that only work with JavaScript are not offered without it. -->
+    <noscript><style>.needs-js { display: none !important; }</style></noscript>
+    <script src="script.js" defer></script>
+  </head>
+
+  <body id="top">
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="wrap site-head">
+      <a class="mark" href="#top" aria-label="Ben Mega, top of page">Ω</a>
+      <nav aria-label="Sections">
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" class="wrap">
+      <section class="intro split" aria-labelledby="name">
+        <img
+          class="portrait aside"
+          src="assets/profile.jpg"
+          width="112"
+          height="112"
+          alt="Portrait of Ben Mega"
+        />
+        <h1 id="name">Ben Mega</h1>
+        <p class="role">CS Teacher &amp; <span class="nowrap">Full-Stack Developer</span></p>
+        <p class="tagline">Making programming accessible.</p>
+        <p class="lede">
+          I build education tools (<a href="#classroom-chat">Classroom Chat</a>,
+          <a href="#auto-prep">Auto-Prep</a>), apps (<a href="#mega-chess">Mega Chess</a>,
+          <a href="#local-chat">Local Chat</a>) and a game (<a href="#fractal-defense">Fractal Defense</a>).
+        </p>
+        <ul class="reach" aria-label="Contact">
+          <li><a class="ext" href="https://github.com/benmega">GitHub</a></li>
+          <li><a class="ext" href="https://www.linkedin.com/in/benmega/">LinkedIn</a></li>
+          <li><a href="mailto:ben@benmega.com">ben@benmega.com</a></li>
+        </ul>
+
+        <a class="owl" href="https://blossom.benmega.com/">
+          <img
+            src="assets/classroom-chat/logo.png"
+            width="64"
+            height="67"
+            alt=""
+          />
+          <span class="owl-text">
+            <strong>Classroom Chat</strong> is live at blossom.benmega.com
+            <small>The owl is its mascot.</small>
+          </span>
+        </a>
+      </section>
+
+      <section id="projects" aria-labelledby="projects-title">
+        <h2 id="projects-title" class="label">Featured projects</h2>
+
+        <article id="classroom-chat" class="project split">
+          <div class="main">
+            <h3>Classroom Chat Platform</h3>
+            <p>
+              A gamified classroom communication platform enabling teachers,
+              parents, and students to collaborate effectively. <span class="nowrap">Used by 100 users.</span>
+            </p>
+            <figure>
+              <a class="window" href="https://blossom.benmega.com/">
+                <span class="window-bar" aria-hidden="true">blossom.benmega.com</span>
+                <img
+                  src="assets/classroom-chat-banner.png"
+                  width="578"
+                  height="410"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Classroom Chat sign-in page, live at blossom.benmega.com"
+                />
+              </a>
+              <figcaption>The sign-in page of the live site.</figcaption>
+            </figure>
+          </div>
+          <ul class="stack aside" aria-label="Built with">
+            <li>Python</li>
+            <li>Flask</li>
+            <li>JavaScript</li>
+            <li>React</li>
+            <li>Vite</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>SQLAlchemy</li>
+          </ul>
+          <p class="links">
+            <a class="primary ext" href="https://blossom.benmega.com/">Live demo</a>
+            <a class="ext" href="https://github.com/benmega/classroom-chat">Code on GitHub</a>
+          </p>
+        </article>
+
+        <article id="mega-chess" class="project split">
+          <div class="main">
+            <h3>
+              <img class="logo logo-mega-chess" src="assets/mega-chess/logo.png" width="664" height="672" loading="lazy" decoding="async" alt="" />
+              Mega Chess
+            </h3>
+            <p>
+              Android app for playing asynchronous international and Chinese
+              chess.
+            </p>
+            <figure>
+              <div class="shots shots-tall">
+                <a class="shot" href="assets/mega-chess/phone_screenshot_1.png">
+                  <img
+                    src="assets/mega-chess/phone_screenshot_1.png"
+                    width="1080"
+                    height="2220"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Mega Chess list of active games, Chinese and international"
+                  />
+                </a>
+                <a class="shot" href="assets/mega-chess/phone_screenshot_2.png">
+                  <img
+                    src="assets/mega-chess/phone_screenshot_2.png"
+                    width="1080"
+                    height="2220"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Mega Chess new game screen with an opponent list and a choice of board"
+                  />
+                </a>
+                <a class="shot" href="assets/mega-chess/phone_screenshot_5.png">
+                  <img
+                    src="assets/mega-chess/phone_screenshot_5.png"
+                    width="1080"
+                    height="2220"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Mega Chess international chess board at the start of a game"
+                  />
+                </a>
+                <a class="shot" href="assets/mega-chess/phone_screenshot_4.png">
+                  <img
+                    src="assets/mega-chess/phone_screenshot_4.png"
+                    width="1080"
+                    height="2220"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Mega Chess Chinese chess board at the start of a game"
+                  />
+                </a>
+              </div>
+              <figcaption>
+                From left: active games, a new game, international chess, Chinese chess.
+              </figcaption>
+            </figure>
+          </div>
+          <ul class="stack aside" aria-label="Built with">
+            <li>Android</li>
+            <li>Kotlin</li>
+            <li>SQLite</li>
+            <li>Python</li>
+            <li>Flask</li>
+            <li>SQLAlchemy</li>
+          </ul>
+          <p class="links">
+            <button
+              type="button"
+              class="link primary needs-js btn-gallery"
+              data-title="Mega Chess Screenshots"
+              data-gallery-dir="assets/mega-chess"
+              data-images="assets/mega-chess/phone_screenshot_1.png,assets/mega-chess/phone_screenshot_2.png,assets/mega-chess/phone_screenshot_3.png,assets/mega-chess/phone_screenshot_4.png,assets/mega-chess/phone_screenshot_5.png,assets/mega-chess/tablet_screenshot_1.png,assets/mega-chess/tablet_screenshot_2.png,assets/mega-chess/tablet_screenshot_3.png,assets/mega-chess/tablet_screenshot_4.png,assets/mega-chess/tablet_screenshot_5.png"
+            >
+              Screenshots<span class="count"></span>
+            </button>
+            <a href="mailto:ben@benmega.com" data-dialog="access">Code on request</a>
+          </p>
+        </article>
+
+        <article id="auto-prep" class="project split">
+          <div class="main">
+            <h3>Auto-Prep</h3>
+            <p>
+              AI lesson prep for teachers. Turns slide decks into question banks,
+              then into worksheets, quizzes, and Kahoot or Blooket games.
+              Serverless on AWS with Claude on Bedrock.
+            </p>
+            <!-- The drawing stands in until the deploy script lists screenshots;
+                 then script.js hides it and fills [data-preview] from data-images. -->
+            <figure class="flow-figure" data-preview-empty>
+              <ol class="flow">
+                <li>
+                  <svg viewBox="0 0 48 36" aria-hidden="true">
+                    <rect x="13" y="3" width="30" height="21" rx="2" />
+                    <rect class="fill" x="6" y="10" width="30" height="21" rx="2" />
+                    <path d="M11 17h12M11 22h20M11 26h16" />
+                  </svg>
+                  Slide deck
+                </li>
+                <li>
+                  <svg viewBox="0 0 48 36" aria-hidden="true">
+                    <rect x="8" y="3" width="32" height="30" rx="2" />
+                    <path d="M14 11h1M20 11h14M14 18h1M20 18h14M14 25h1M20 25h10" />
+                  </svg>
+                  Question bank
+                </li>
+                <li>
+                  <svg viewBox="0 0 48 36" aria-hidden="true">
+                    <rect x="2" y="6" width="13" height="24" rx="1.5" />
+                    <path d="M5 12h7M5 16h7M5 20h5" />
+                    <rect x="17.5" y="6" width="13" height="24" rx="1.5" />
+                    <path d="M20.5 14l2 2 4-4M20.5 22l2 2 4-4" />
+                    <rect x="33" y="6" width="13" height="24" rx="1.5" />
+                    <path d="M36 13l3.5-3 3.5 3-3.5 3zM39.5 20.5a2.5 2.5 0 1 0 0 .1" />
+                  </svg>
+                  Worksheets, quizzes, Kahoot or Blooket games
+                </li>
+              </ol>
+              <figcaption>How a slide deck becomes class materials.</figcaption>
+            </figure>
+            <figure data-preview hidden>
+              <div class="shots shots-wide shots-fit"></div>
+            </figure>
+          </div>
+          <ul class="stack aside" aria-label="Built with">
+            <li>Python</li>
+            <li>FastAPI</li>
+            <li>React</li>
+            <li>TypeScript</li>
+            <li>Tailwind CSS</li>
+            <li>AWS</li>
+            <li>SQLite</li>
+          </ul>
+          <p class="links">
+            <a class="primary ext" href="https://prep.benmega.com/">Live demo</a>
+            <button
+              type="button"
+              class="link needs-js btn-gallery"
+              data-title="Auto-Prep Screenshots"
+              data-gallery-dir="assets/auto-prep"
+              data-images=""
+              hidden
+            >
+              Screenshots<span class="count"></span>
+            </button>
+            <a href="mailto:ben@benmega.com" data-dialog="access">Code on request</a>
+          </p>
+        </article>
+      </section>
+
+      <section id="more" aria-labelledby="more-title">
+        <h2 id="more-title" class="label">Other projects</h2>
+
+        <article id="local-chat" class="project split">
+          <div class="main">
+            <h3>
+              <img class="logo logo-local-chat" src="assets/local-chat/logo.png" width="1042" height="1042" loading="lazy" decoding="async" alt="" />
+              Local Chat
+            </h3>
+            <p>
+              A desktop application for peer to peer communication without
+              relying on internet connection.
+            </p>
+            <figure>
+              <div class="shots shots-crops">
+                <a class="shot crop crop-nickname" href="assets/local-chat/app_ui_mockup.jpg">
+                  <img
+                    src="assets/local-chat/app_ui_mockup.jpg"
+                    width="1280"
+                    height="800"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Local Chat sign-in screen asking for a nickname"
+                  />
+                </a>
+                <a class="shot crop crop-connect" href="assets/local-chat/promotional_graphic.jpg">
+                  <img
+                    src="assets/local-chat/promotional_graphic.jpg"
+                    width="1280"
+                    height="800"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Local Chat screen for connecting a device over Wi-Fi by scanning a QR code"
+                  />
+                </a>
+              </div>
+              <figcaption>From left: choosing a nickname, connecting a device.</figcaption>
+            </figure>
+          </div>
+          <ul class="stack aside" aria-label="Built with">
+            <li>Python</li>
+            <li>Flask</li>
+            <li>SQLAlchemy</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>React</li>
+            <li>Vite</li>
+          </ul>
+          <p class="links">
+            <button
+              type="button"
+              class="link primary needs-js btn-gallery"
+              data-title="Local Chat Screenshots"
+              data-gallery-dir="assets/local-chat"
+              data-images="assets/local-chat/app_ui_mockup.jpg,assets/local-chat/promotional_graphic.jpg"
+            >
+              Screenshots<span class="count"></span>
+            </button>
+            <a href="mailto:ben@benmega.com" data-dialog="access">Code on request</a>
+          </p>
+        </article>
+
+        <article id="fractal-defense" class="project split">
+          <div class="main">
+            <h3>
+              <img class="logo logo-fractal-defense" src="assets/fractal-defense/logo.png" width="1024" height="1024" loading="lazy" decoding="async" alt="" />
+              Fractal Defense
+            </h3>
+            <p>2D tower defense game with Python and Pygame.</p>
+            <figure>
+              <div class="shots shots-trio">
+                <a class="shot" href="assets/fractal-defense/main_menu.png">
+                  <img
+                    src="assets/fractal-defense/main_menu.png"
+                    width="1067"
+                    height="800"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Fractal Defense main menu over a painting of a castle at dusk"
+                  />
+                </a>
+                <a class="shot" href="assets/fractal-defense/active_gameplay.png">
+                  <img
+                    src="assets/fractal-defense/active_gameplay.png"
+                    width="1067"
+                    height="800"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Fractal Defense level with a stone path, a wave timeline and the tower shop"
+                  />
+                </a>
+                <a class="shot" href="assets/fractal-defense/upgrade_screen.png">
+                  <img
+                    src="assets/fractal-defense/upgrade_screen.png"
+                    width="1067"
+                    height="800"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Fractal Defense victory screen after all six waves, with stars and the score"
+                  />
+                </a>
+              </div>
+              <figcaption>From left: the main menu, a level, the victory screen.</figcaption>
+            </figure>
+          </div>
+          <ul class="stack aside" aria-label="Built with">
+            <li>Python</li>
+            <li>Pygame</li>
+          </ul>
+          <p class="links">
+            <button
+              type="button"
+              class="link primary needs-js btn-gallery"
+              data-title="Fractal Defense Screenshots"
+              data-repo="benmega/FractalDefense"
+              data-folder="screenshots"
+            >
+              Screenshots
+            </button>
+            <a class="ext" href="https://github.com/benmega/FractalDefense">Code on GitHub</a>
+          </p>
+        </article>
+      </section>
+
+      <section id="skills" aria-labelledby="skills-title">
+        <h2 id="skills-title" class="label">Skills</h2>
+        <dl class="facts">
+          <div>
+            <dt>Frontend</dt>
+            <dd>HTML5, CSS3, JavaScript, React, Vite</dd>
+          </div>
+          <div>
+            <dt>Mobile</dt>
+            <dd>Android, Kotlin, SQLite, Firebase</dd>
+          </div>
+          <div>
+            <dt>Backend</dt>
+            <dd>Python, Flask, SQLAlchemy, Nginx, Gunicorn</dd>
+          </div>
+          <div>
+            <dt>AI/ML</dt>
+            <dd>PyTorch, OpenAI, Hugging Face, ComfyUI</dd>
+          </div>
+          <div>
+            <dt>DevOps</dt>
+            <dd>AWS, GitHub Actions, Linux</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title" class="label">Contact</h2>
+        <div class="split">
+          <p class="closing">
+            Write to <a href="mailto:ben@benmega.com">ben@benmega.com</a>, or find me on
+            <a href="https://www.linkedin.com/in/benmega/">LinkedIn</a> and
+            <a href="https://github.com/benmega">GitHub</a>.<span class="end" aria-hidden="true">Ω</span>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap site-foot">
+      <p>&copy; 2026 Ben Mega. All rights reserved.</p>
+      <ul aria-label="Contact">
+        <li><a class="ext" href="https://github.com/benmega">GitHub</a></li>
+        <li><a class="ext" href="https://www.linkedin.com/in/benmega/">LinkedIn</a></li>
+        <li><a href="mailto:ben@benmega.com">Email</a></li>
+        <li><a href="#top">Back to top</a></li>
+      </ul>
+    </footer>
+
+    <dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-title">
+      <div class="lightbox-bar">
+        <h2 id="lightbox-title">Screenshots</h2>
+        <p id="lightbox-count" class="lightbox-count"></p>
+        <button type="button" class="link" data-close>Close</button>
+      </div>
+      <div class="lightbox-stage">
+        <img id="lightbox-img" alt="" />
+        <p id="lightbox-status" class="lightbox-status" role="status"></p>
+      </div>
+      <div class="lightbox-nav">
+        <button type="button" class="link" data-step="-1">Previous</button>
+        <button type="button" class="link" data-step="1">Next</button>
+      </div>
+    </dialog>
+
+    <dialog id="access" class="access" aria-labelledby="access-title">
+      <div class="access-head">
+        <h2 id="access-title">Request access</h2>
+        <button type="button" class="link access-close" data-close>Close</button>
+      </div>
+      <p>
+        This repository is private. To request access to the source code,
+        please reach out to me via LinkedIn or email.
+      </p>
+      <div class="access-actions">
+        <a class="button button-solid" href="https://www.linkedin.com/in/benmega/">LinkedIn</a>
+        <a class="button" href="mailto:ben@benmega.com">Email</a>
+      </div>
+    </dialog>
+  </body>
+</html>

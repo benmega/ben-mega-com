@@ -1,0 +1,2419 @@
+/* ==========================================================================
+   Ben Mega - "Showcase"
+   A run of product launches: every project gets its own stage, lit in its
+   own colour. The five colours are introduced by the lineup in the hero.
+   Inside a project, --p holds that project's colour.
+   ========================================================================== */
+
+/* ---------- Tokens ---------- */
+
+:root {
+  color-scheme: dark light;
+
+  --font-display: "Bricolage Grotesque", "Segoe UI Variable Display", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --section-pad: clamp(3rem, 7.5vw, 6.5rem);
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --container: 76rem;
+
+  --r-s: 0.5rem;
+  --r-m: 0.875rem;
+  --r-l: 1.5rem;
+  --r-pill: 999px;
+
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.9375rem;
+  --fs-body: 1.0625rem;
+  --fs-lede: clamp(1.125rem, 1.02rem + 0.45vw, 1.3125rem);
+  --fs-name: clamp(1.625rem, 1.3rem + 1vw, 2.125rem);
+  --fs-statement: clamp(2.875rem, 1.3rem + 5.2vw, 5.75rem);
+  --fs-section: clamp(2rem, 1.5rem + 1.8vw, 3rem);
+  --fs-project: clamp(2.5rem, 1.6rem + 3.2vw, 4.5rem);
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 0.2s;
+
+  /* Dark: a dim hall, each project on a stage lit in its colour */
+  --bg: #0a0b0e;
+  --surface: #15181e;
+  --surface-2: #1d2129;
+  --line: rgb(255 255 255 / 0.08);
+  --line-strong: rgb(255 255 255 / 0.17);
+  --text: #f2f3f5;
+  --text-2: #b1b7c3;
+  --text-3: #8c93a1;
+  --accent: #3fd1d8;
+  --accent-ink: #061314;
+  --shadow-device: 0 44px 80px -34px rgb(0 0 0 / 0.85), 0 18px 36px -18px rgb(0 0 0 / 0.6);
+  --shadow-soft: 0 18px 40px -22px rgb(0 0 0 / 0.7);
+  --spot: 20%;
+  --tint: 9%;
+  --bezel: #0c0d10;
+  --bezel-edge: #3b3f49;
+  --frame: #181b21;
+  --frame-bar: #20242c;
+  --frame-edge: #323743;
+  --frame-text: #a8aebb;
+  --poster-a: #17585d;
+  --poster-b: #0c2629;
+  --poster-c: #091618;
+
+  --hue-chat: #3fd1d8;
+  --hue-chess: #9bd65a;
+  --hue-prep: #b39cff;
+  --hue-local: #ff7ab0;
+  --hue-fractal: #f5b53f;
+  --p-ink: #0a0b0e;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    /* Light: a daylit gallery, each project in its own tinted room */
+    --bg: #f6f4ef;
+    --surface: #ffffff;
+    --surface-2: #eeebe4;
+    --line: rgb(30 26 20 / 0.1);
+    --line-strong: rgb(30 26 20 / 0.2);
+    --text: #15171b;
+    --text-2: #474d59;
+    --text-3: #5b616e;
+    --accent: #0b6f74;
+    --accent-ink: #ffffff;
+    --shadow-device: 0 40px 70px -34px rgb(60 48 30 / 0.42), 0 14px 28px -14px rgb(60 48 30 / 0.22);
+    --shadow-soft: 0 16px 36px -22px rgb(60 48 30 / 0.35);
+    --spot: 0%;
+    --tint: 7%;
+    --bezel: #17181c;
+    --bezel-edge: #4b4e57;
+    --frame: #ffffff;
+    --frame-bar: #f1eee8;
+    --frame-edge: #d8d4cb;
+    --frame-text: #555b67;
+    --poster-a: #ffffff;
+    --poster-b: #d9eff0;
+    --poster-c: #bfe3e5;
+
+    --hue-chat: #0b6f74;
+    --hue-chess: #3a6f12;
+    --hue-prep: #5f45c9;
+    --hue-local: #b01456;
+    --hue-fractal: #8a5200;
+    --p-ink: #ffffff;
+  }
+}
+
+.hue-chat { --p: var(--hue-chat); }
+.hue-chess { --p: var(--hue-chess); }
+.hue-prep { --p: var(--hue-prep); }
+.hue-local { --p: var(--hue-local); }
+.hue-fractal { --p: var(--hue-fractal); }
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 4.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+ul,
+ol,
+dl {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+}
+
+.icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: none;
+}
+
+.sprite {
+  display: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--s-4);
+  z-index: 100;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-s);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: var(--s-4);
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 84%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  backdrop-filter: blur(14px) saturate(1.3);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Takes the colour of the project on screen (set by script.js). */
+.site-header::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--spy, transparent);
+  transition: background 0.3s;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  min-height: 3.75rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--r-s);
+  background: var(--text);
+  color: var(--bg);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.site-nav {
+  display: flex;
+}
+
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s-2);
+  border-radius: var(--r-pill);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--dur), background var(--dur);
+}
+
+.site-nav a:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+@media (min-width: 30rem) {
+  .site-nav a {
+    padding: 0 var(--s-3);
+  }
+}
+
+@media (min-width: 48rem) {
+  .site-nav {
+    gap: var(--s-1);
+  }
+
+  .site-nav a {
+    padding: 0 var(--s-4);
+  }
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: 2.75rem;
+  padding: 0 1.125rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--dur), border-color var(--dur), color var(--dur), transform var(--dur);
+}
+
+.btn:hover {
+  background: var(--surface-2);
+  border-color: var(--text-3);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: var(--p, var(--accent));
+  border-color: transparent;
+  color: var(--p-ink, var(--accent-ink));
+}
+
+.btn--primary:hover {
+  background: color-mix(in srgb, var(--p, var(--accent)) 85%, var(--text));
+  border-color: transparent;
+}
+
+.btn--quiet {
+  border-color: transparent;
+  color: var(--text-2);
+}
+
+.btn--quiet:hover {
+  border-color: transparent;
+  color: var(--text);
+}
+
+/* The galleries need script.js; without it their buttons would do nothing.
+   .js-ready is set by script.js itself, so a failed download counts too. */
+html:not(.js-ready) .btn-gallery {
+  display: none;
+}
+
+.btn__count {
+  min-width: 1.5rem;
+  padding: 0.0625rem 0.4375rem;
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, currentColor 16%, transparent);
+  font-size: var(--fs-xs);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.btn__count:empty {
+  display: none;
+}
+
+/* "Live" badge: the dot pulses a few times when the page opens, then rests */
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--p, var(--accent)) 40%, transparent);
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--p, var(--accent)) 12%, transparent);
+  color: var(--p, var(--accent));
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.live::before {
+  content: "";
+  width: 0.4375rem;
+  height: 0.4375rem;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 2.4s 3;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 55%, transparent);
+  }
+  60% {
+    box-shadow: 0 0 0 5px transparent;
+  }
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  overflow: clip;
+  padding-block: clamp(2.25rem, 6vw, 5rem) clamp(3.5rem, 7vw, 6rem);
+}
+
+.hero__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s-7);
+}
+
+@media (min-width: 64rem) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(20rem, 1fr);
+    column-gap: clamp(3rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  /* Top edge in line with the name: the owl pill (3.5rem) plus the byline's
+     top margin. */
+  .lineup {
+    margin-top: calc(3.5rem + var(--s-6));
+  }
+}
+
+/* The owl: Classroom Chat's mascot, as a launch announcement */
+.owl-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: 3.5rem;
+  padding: 0.3125rem 1.25rem 0.3125rem 0.625rem;
+  border: 1px solid color-mix(in srgb, var(--hue-chat) 35%, var(--line));
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  text-decoration: none;
+  transition: border-color var(--dur), transform var(--dur);
+}
+
+.owl-link__owl {
+  width: 2.875rem;
+  margin: -0.875rem 0 -0.125rem;
+  filter: drop-shadow(0 4px 6px rgb(0 0 0 / 0.25));
+  transition: transform var(--dur) var(--ease);
+}
+
+.owl-link__text {
+  display: grid;
+  line-height: 1.3;
+}
+
+.owl-link__name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.owl-link__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--hue-chat);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+.owl-link__cta .icon {
+  width: 1rem;
+  height: 1rem;
+  transition: transform var(--dur) var(--ease);
+}
+
+.owl-link:hover {
+  border-color: var(--hue-chat);
+  transform: translateY(-1px);
+}
+
+.owl-link:hover .owl-link__owl {
+  transform: rotate(-8deg) translateY(-2px);
+}
+
+.owl-link:hover .owl-link__cta .icon {
+  transform: translateX(3px);
+}
+
+.hero__main {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__main > * {
+  align-self: flex-start;
+}
+
+.byline {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  margin-top: var(--s-6);
+}
+
+.byline__photo {
+  flex: none;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px var(--line-strong);
+}
+
+.byline__name {
+  font-size: var(--fs-name);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.byline__role {
+  margin-top: 0.125rem;
+  color: var(--text-2);
+  font-size: var(--fs-body);
+  line-height: 1.4;
+}
+
+.byline__role span {
+  white-space: nowrap;
+}
+
+@media (min-width: 48rem) {
+  .byline__photo {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+}
+
+.statement {
+  max-width: 11ch;
+  margin-top: var(--s-6);
+  font-family: var(--font-display);
+  font-size: var(--fs-statement);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.022em;
+}
+
+/* The five project colours underline the promise */
+.statement__mark {
+  position: relative;
+  white-space: nowrap;
+}
+
+.statement__mark::after {
+  content: "";
+  position: absolute;
+  right: 0.04em;
+  bottom: 0.01em;
+  left: 0.04em;
+  height: 0.07em;
+  background: linear-gradient(
+    90deg,
+    var(--hue-chat) 0 20%,
+    var(--hue-chess) 20% 40%,
+    var(--hue-prep) 40% 60%,
+    var(--hue-local) 60% 80%,
+    var(--hue-fractal) 80%
+  );
+  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 calc(20% - 0.06em), transparent calc(20% - 0.06em) 20%);
+  mask-image: repeating-linear-gradient(90deg, #000 0 calc(20% - 0.06em), transparent calc(20% - 0.06em) 20%);
+  border-radius: 0.04em;
+}
+
+.lede {
+  max-width: 40ch;
+  margin-top: var(--s-6);
+  color: var(--text-2);
+  font-size: var(--fs-lede);
+  line-height: 1.55;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-2);
+  margin-top: var(--s-6);
+}
+
+.hero__actions .btn--primary {
+  --p: var(--text);
+  --p-ink: var(--bg);
+}
+
+.hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--s-5);
+  margin-top: var(--s-3);
+}
+
+.hero__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--dur);
+}
+
+.hero__links a:hover {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* On a phone the "Email me" button already covers email, and the contact
+   section spells the address out. Dropping the repeat, and a tighter rhythm,
+   keeps the lineup chips on the first screen down to 360 x 740. */
+@media (max-width: 29.99rem) {
+  .hero__links-email {
+    display: none;
+  }
+
+  .byline,
+  .statement,
+  .lede,
+  .hero__actions {
+    margin-top: var(--s-5);
+  }
+}
+
+@media (max-width: 63.99rem) {
+  .hero__grid {
+    gap: var(--s-6);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .hero {
+    padding-bottom: var(--s-6);
+  }
+}
+
+/* The lineup: the five projects, each with its colour */
+.lineup {
+  padding: var(--s-4) var(--s-3) var(--s-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-l);
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  box-shadow: var(--shadow-soft);
+}
+
+.lineup__label {
+  padding: 0 var(--s-3) var(--s-3);
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.lineup__list li + li {
+  border-top: 1px solid var(--line);
+}
+
+.lineup a {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--s-4);
+  min-height: 4.25rem;
+  padding: var(--s-3);
+  border-radius: var(--r-m);
+  text-decoration: none;
+  transition: background var(--dur);
+}
+
+.lineup a:hover {
+  background: color-mix(in srgb, var(--p) 10%, transparent);
+}
+
+.lineup__num {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--p) 16%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--p) 35%, transparent);
+  color: var(--p);
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 800;
+}
+
+.lineup__name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.lineup__kind {
+  display: block;
+  color: var(--text-3);
+  font-size: var(--fs-sm);
+  line-height: 1.35;
+}
+
+/* Below the two-column hero the lineup would push the first project a whole
+   screen down. It becomes a few rows of compact coloured chips. */
+@media (max-width: 63.99rem) {
+  .lineup {
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .lineup__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    padding-inline: var(--gutter);
+  }
+
+  .lineup__list li + li {
+    border-top: 0;
+  }
+
+  .lineup a {
+    grid-template-columns: auto auto;
+    gap: var(--s-2);
+    min-height: 2.75rem;
+    padding: 0 var(--s-4) 0 0.375rem;
+    border: 1px solid color-mix(in srgb, var(--p) 35%, var(--line));
+    border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--p) 8%, var(--surface));
+    white-space: nowrap;
+  }
+
+  .lineup__num {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    font-size: var(--fs-xs);
+  }
+
+  .lineup__name {
+    font-size: 1rem;
+  }
+
+  /* The nav keeps its accessible name, "Projects on this page". */
+  .lineup__label,
+  .lineup__kind,
+  .lineup .live {
+    display: none;
+  }
+}
+
+/* Tablet: room for the whole lineup as a row of five tiles under the hero,
+   so the screen is not one narrow column with an empty right half. */
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .statement {
+    max-width: none;
+  }
+
+  .lineup {
+    margin-inline: 0;
+  }
+
+  .lineup__list {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--s-3);
+    padding: 0;
+  }
+
+  .lineup a {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr;
+    align-content: start;
+    justify-items: start;
+    gap: var(--s-3);
+    height: 100%;
+    padding: var(--s-4);
+    border-radius: var(--r-m);
+    white-space: normal;
+  }
+
+  .lineup__num {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.625rem;
+  }
+
+  .lineup__kind {
+    display: block;
+  }
+
+  .lineup .live {
+    display: inline-flex;
+    align-self: end;
+  }
+}
+
+/* ---------- Project stages ---------- */
+
+.project {
+  --glow: color-mix(in srgb, var(--p) var(--spot), transparent);
+  --spot-x: 72%;
+  position: relative;
+  padding-block: var(--section-pad);
+  border-top: 1px solid color-mix(in srgb, var(--p) 40%, var(--line));
+  background:
+    radial-gradient(48% 58% at var(--spot-x) 50%, var(--glow), transparent 72%),
+    color-mix(in srgb, var(--p) var(--tint), var(--bg));
+}
+
+.project:nth-of-type(even) {
+  --spot-x: 28%;
+}
+
+@media (prefers-color-scheme: light) {
+  .project {
+    --glow: rgb(255 255 255 / 0.8);
+  }
+}
+
+@media (max-width: 59.99rem) {
+  .project,
+  .project:nth-of-type(even) {
+    --spot-x: 50%;
+  }
+}
+
+.project__grid {
+  display: grid;
+  gap: var(--s-5);
+  grid-template-areas:
+    "head"
+    "visual"
+    "meta";
+}
+
+@media (min-width: 60rem) {
+  .project__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-rows: 1fr auto auto 1fr;
+    grid-template-areas:
+      ". visual"
+      "head visual"
+      "meta visual"
+      ". visual";
+    column-gap: clamp(3rem, 6vw, 6rem);
+    row-gap: var(--s-6);
+  }
+
+  .project:nth-of-type(even) .project__grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-areas:
+      "visual ."
+      "visual head"
+      "visual meta"
+      "visual .";
+  }
+}
+
+.project__head {
+  grid-area: head;
+}
+
+.eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  color: var(--p);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.eyebrow__num {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.eyebrow__num::after {
+  content: "";
+  width: 1.5rem;
+  height: 2px;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+.project__title {
+  margin-top: var(--s-4);
+  font-size: var(--fs-project);
+  letter-spacing: -0.028em;
+}
+
+.project__desc {
+  max-width: 40ch;
+  margin-top: var(--s-4);
+  color: var(--text-2);
+  font-size: var(--fs-lede);
+  line-height: 1.55;
+}
+
+.project__fact {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4em;
+  margin-top: var(--s-5);
+  padding: var(--s-2) var(--s-4);
+  border-left: 3px solid var(--p);
+  background: color-mix(in srgb, var(--p) 9%, transparent);
+  border-radius: 0 var(--r-s) var(--r-s) 0;
+  color: var(--text-2);
+}
+
+.project__fact strong {
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.project__meta {
+  grid-area: meta;
+  display: grid;
+  gap: var(--s-5);
+  align-content: start;
+}
+
+.stack__label {
+  margin-bottom: var(--s-3);
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 2.25rem;
+  padding: 0.25rem 0.8125rem 0.25rem 0.6875rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.625rem;
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.chip i,
+.chip .icon,
+.chip__img {
+  flex: none;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--text-2);
+  font-size: 1.125rem;
+  font-style: normal;
+  line-height: 1;
+}
+
+.chip i::before {
+  display: block;
+  width: 1.125rem;
+  text-align: center;
+}
+
+/* Logo images, turned into the same grey as the font icons. Logos drawn on a
+   filled tile (OpenAI, ComfyUI) keep their tile, in grey. */
+.chip__img {
+  object-fit: contain;
+  filter: brightness(0) invert(0.74);
+}
+
+.chip__img--tile {
+  border-radius: 0.25rem;
+  filter: grayscale(1) contrast(1.1);
+  opacity: 0.8;
+}
+
+@media (prefers-color-scheme: light) {
+  .chip__img {
+    filter: brightness(0) invert(0.3);
+  }
+
+  .chip__img--tile {
+    filter: grayscale(1) brightness(0.8) contrast(1.2);
+    opacity: 1;
+  }
+}
+
+/* In a project the stack is a quiet line of labelled icons, so it does not
+   outweigh the visual; the bordered chips belong to the Skills section. */
+.stack .chips {
+  gap: var(--s-2) var(--s-5);
+}
+
+.stack .chip {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-2);
+}
+
+.project__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+}
+
+/* Phones: every project stacks its buttons full width, whatever their count. */
+@media (max-width: 30rem) {
+  .project__actions {
+    display: grid;
+  }
+}
+
+/* Three buttons (Auto-Prep once its screenshots exist): the live demo on
+   its own row, the two secondary actions side by side under it. */
+@media (min-width: 30.01rem) {
+  .project__actions:has(> .btn-gallery:not([hidden])):has(> :nth-child(3)) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 26rem;
+  }
+
+  .project__actions:has(> .btn-gallery:not([hidden])):has(> :nth-child(3)) > :first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Visuals ---------- */
+
+/* Frames are sized in em, and the em follows the width of the visual, so
+   bezels and title bars keep their proportions at every size. */
+.project__visual {
+  grid-area: visual;
+  align-self: center;
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  container-type: inline-size;
+}
+
+.visual__caption {
+  margin-top: var(--s-5);
+  color: var(--text-3);
+  font-size: var(--fs-sm);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.stage {
+  position: relative;
+}
+
+.stage > *,
+.poster,
+.window--browser {
+  font-size: max(8px, 1.4cqw);
+}
+
+.flow__steps {
+  font-size: max(8px, 1.95cqw);
+}
+
+/* Phone */
+.device--phone {
+  position: relative;
+  padding: 0.55em;
+  border-radius: 3.1em;
+  background: var(--bezel);
+  box-shadow:
+    inset 0 0 0 1px var(--bezel-edge),
+    inset 0 0 0 0.3em #000,
+    var(--shadow-device);
+}
+
+.device--phone img {
+  width: 100%;
+  aspect-ratio: 1080 / 2220;
+  border-radius: 2.6em;
+  object-fit: cover;
+  background: #111;
+}
+
+/* Punch-hole camera */
+.device--phone::before {
+  content: "";
+  position: absolute;
+  top: 1.45em;
+  left: 50%;
+  width: 0.95em;
+  height: 0.95em;
+  margin-left: -0.475em;
+  border-radius: 50%;
+  background: #050608;
+  box-shadow: inset 0 0 0 0.22em #22262e;
+}
+
+/* Power and volume keys */
+.device--phone::after {
+  content: "";
+  position: absolute;
+  top: 17%;
+  right: -0.3em;
+  width: 0.3em;
+  height: 6%;
+  border-radius: 0 0.2em 0.2em 0;
+  background: var(--bezel-edge);
+  box-shadow: 0 5em 0 0 var(--bezel-edge);
+}
+
+/* Tablet, landscape: the camera sits in the left bezel */
+.device--tablet {
+  position: relative;
+  padding: 1.5em;
+  border-radius: 2.6em;
+  background: var(--bezel);
+  box-shadow:
+    inset 0 0 0 1px var(--bezel-edge),
+    inset 0 0 0 0.35em #000,
+    var(--shadow-device);
+}
+
+.device--tablet img {
+  width: 100%;
+  aspect-ratio: 2220 / 1080;
+  border-radius: 1.2em;
+  object-fit: cover;
+  background: #111;
+}
+
+.device--tablet::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0.5em;
+  width: 0.7em;
+  height: 0.7em;
+  margin-top: -0.35em;
+  border-radius: 50%;
+  background: #050608;
+  box-shadow: inset 0 0 0 0.18em #22262e;
+}
+
+/* The tablet fills most of the stage; the phone stands in front of its
+   lower-right corner, over the black margin beside the board and below the
+   tablet's status bar. The stage height leaves room for the taller phone. */
+.stage--chess {
+  aspect-ratio: 100 / 60;
+}
+
+.stage--chess .device {
+  position: absolute;
+}
+
+.stage--chess .device--tablet {
+  top: 0;
+  left: 0;
+  width: 86%;
+}
+
+.stage--chess .device--phone {
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 25%;
+}
+
+/* Windows: desktop app, game and browser */
+.window {
+  overflow: hidden;
+  border: 1px solid var(--frame-edge);
+  border-radius: 0.9em;
+  background: var(--frame);
+  box-shadow: var(--shadow-device);
+}
+
+/* Above the image, which is scaled up inside some windows */
+.window__bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  height: 2.9em;
+  padding: 0 1.1em;
+  border-bottom: 1px solid var(--frame-edge);
+  background: var(--frame-bar);
+  color: var(--frame-text);
+}
+
+.window__title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: max(0.75rem, 1.2em);
+  font-weight: 500;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.window__dots {
+  display: flex;
+  gap: 0.55em;
+}
+
+.window__dots span {
+  width: 0.95em;
+  height: 0.95em;
+  border-radius: 50%;
+  background: var(--frame-edge);
+}
+
+.window__url {
+  flex: 1;
+  max-width: 60%;
+  margin-inline: auto;
+  padding: 0.35em 1em;
+  border-radius: 0.6em;
+  background: var(--frame);
+  font-size: max(0.75rem, 1.2em);
+  line-height: 1.3;
+  text-align: center;
+}
+
+/* Minimise, maximise, close */
+.window__ctl {
+  display: flex;
+  flex: none;
+  gap: 1.4em;
+  align-items: center;
+}
+
+.window__ctl i {
+  position: relative;
+  display: block;
+  width: 0.95em;
+  height: 0.95em;
+}
+
+.window__ctl i::before,
+.window__ctl i::after {
+  content: "";
+  position: absolute;
+}
+
+.window__ctl i:nth-child(1)::before {
+  inset: auto 0 0.1em;
+  height: 0.14em;
+  background: currentColor;
+}
+
+.window__ctl i:nth-child(2)::before {
+  inset: 0.05em;
+  border: 0.14em solid currentColor;
+}
+
+.window__ctl i:nth-child(3)::before,
+.window__ctl i:nth-child(3)::after {
+  top: 50%;
+  right: -0.1em;
+  left: -0.1em;
+  height: 0.14em;
+  background: currentColor;
+  transform: rotate(45deg);
+}
+
+.window__ctl i:nth-child(3)::after {
+  transform: rotate(-45deg);
+}
+
+.window__img {
+  width: 100%;
+  aspect-ratio: 1280 / 800;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Auto-Prep screenshots come from a folder and may have any shape: show the
+   whole image inside the fixed box rather than crop it. */
+.window--browser .window__img {
+  object-fit: contain;
+  object-position: top center;
+  background: var(--frame);
+}
+
+/* Game window: dark bronze chrome in both themes, like the game's own UI */
+.window--game {
+  --frame: #0e0c09;
+  --frame-bar: #1b1610;
+  --frame-edge: #4d3b1d;
+  --frame-text: #f0c46c;
+}
+
+.window--game .window__img {
+  aspect-ratio: 1067 / 800;
+}
+
+.stage--game {
+  aspect-ratio: 4 / 3;
+}
+
+.stage .window {
+  position: absolute;
+}
+
+.stage .window--main {
+  top: 0;
+  right: 0;
+  width: 86%;
+}
+
+.stage .window--small {
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 40%;
+}
+
+/* Both Local Chat screenshots are mostly empty page around a centred card.
+   Zooming in past that margin lets the app fill its window. The connect
+   screen is also cut off just under the QR code: the line below it names a
+   home Wi-Fi network and a LAN address (the lightbox still has the whole
+   image). 40/21 at 1.5x shows the top 448 of its 800 px, card edge to edge. */
+.stage--windows .window--main .window__img {
+  aspect-ratio: 40 / 21;
+  transform: scale(1.5);
+  transform-origin: 50% 0;
+}
+
+/* The sign-in window sits in the flow, so it sets the stage height. It
+   overlaps the connect window to the right of the QR code, where the card
+   is blank. flow-root keeps its margin inside the stage. */
+.stage--windows {
+  display: flow-root;
+}
+
+.stage--windows .window--small {
+  position: relative;
+  margin-top: calc(2.9em + 22cqw);
+}
+
+.project:nth-of-type(even) .stage--windows .window--small {
+  margin-left: auto;
+}
+
+.stage--windows .window--small .window__img {
+  aspect-ratio: 5 / 4;
+  object-position: center;
+  transform: scale(1.3);
+}
+
+.stage--game .window--main {
+  width: 84%;
+}
+
+/* On a phone the small window is too narrow for its name and the controls. */
+@media (max-width: 40rem) {
+  .window--small .window__ctl {
+    display: none;
+  }
+}
+
+.stage--game .window--small {
+  width: 42%;
+}
+
+.project:nth-of-type(even) .stage .window--main {
+  right: auto;
+  left: 0;
+}
+
+.project:nth-of-type(even) .stage .window--small {
+  right: 0;
+  left: auto;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .stage .device,
+  .stage .window {
+    transition: transform 0.4s var(--ease);
+  }
+
+  .project__visual:hover .stage--chess .device--phone {
+    transform: translateX(4%) rotate(2deg);
+  }
+
+  .project__visual:hover .window--small {
+    transform: translateY(-2%);
+  }
+}
+
+/* Classroom Chat poster: led by the mascot, no fake screenshot */
+.poster {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--p) 28%, var(--line));
+  border-radius: var(--r-l);
+  background: radial-gradient(circle at 50% 44%, var(--poster-a) 0%, var(--poster-b) 58%, var(--poster-c) 100%);
+  box-shadow: var(--shadow-device);
+}
+
+.poster__rings {
+  position: absolute;
+  inset: 0;
+  background: repeating-radial-gradient(
+    circle at 50% 44%,
+    color-mix(in srgb, var(--p) 30%, transparent) 0 1px,
+    transparent 1px 7em
+  );
+  -webkit-mask-image: radial-gradient(circle at 50% 44%, #000 25%, transparent 72%);
+  mask-image: radial-gradient(circle at 50% 44%, #000 25%, transparent 72%);
+}
+
+.poster__owl {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  width: 32%;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 1.6em 1.8em rgb(0 0 0 / 0.3));
+}
+
+.poster__bubble {
+  position: absolute;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.75em 1.3em 0.75em 1em;
+  border: 1px solid color-mix(in srgb, var(--p) 30%, transparent);
+  border-radius: 1.5em;
+  background: var(--surface);
+  box-shadow: 0 1.2em 2em -1.2em rgb(0 0 0 / 0.55);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: max(0.875rem, 1.9em);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.poster__bubble::before {
+  content: "";
+  width: 0.6em;
+  height: 0.6em;
+  border-radius: 50%;
+  background: var(--p);
+}
+
+.poster__bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -0.36em;
+  width: 0.7em;
+  height: 0.7em;
+  border-right: 1px solid color-mix(in srgb, var(--p) 30%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--p) 30%, transparent);
+  background: var(--surface);
+}
+
+.poster__bubble--a {
+  top: 13%;
+  left: 7%;
+}
+
+.poster__bubble--a::after {
+  right: 1.4em;
+  transform: rotate(45deg);
+}
+
+.poster__bubble--b {
+  top: 31%;
+  right: 6%;
+}
+
+.poster__bubble--b::after {
+  left: 1.4em;
+  transform: rotate(45deg);
+}
+
+.poster__bubble--c {
+  bottom: 27%;
+  left: 10%;
+}
+
+.poster__bubble--c::after {
+  right: 1.4em;
+  transform: rotate(45deg);
+}
+
+/* In a narrow visual the labels are relatively larger: a smaller owl, and the
+   bubbles pushed to the edges, keep them clear of it. */
+@container (max-width: 34rem) {
+  .poster__owl {
+    width: 24%;
+  }
+
+  .poster__bubble--a {
+    top: 6%;
+    left: 4%;
+  }
+
+  .poster__bubble--b {
+    top: 40%;
+    right: 3%;
+  }
+
+  .poster__bubble--c {
+    bottom: 25%;
+    left: 4%;
+  }
+}
+
+.poster__url {
+  position: absolute;
+  bottom: 7%;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.55em 1.2em;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  color: var(--text-2);
+  font-size: max(0.8125rem, 1.5em);
+  font-weight: 500;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.poster__dot {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--p);
+  box-shadow: 0 0 0 0.25em color-mix(in srgb, var(--p) 25%, transparent);
+}
+
+/* Auto-Prep: the description drawn as a pipeline */
+.flow {
+  position: relative;
+  display: grid;
+  align-content: center;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--p) 22%, var(--line));
+  border-radius: var(--r-l);
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--text) 12%, transparent) 1px, transparent 1.5px) 0 0 / 22px 22px,
+    var(--surface);
+  box-shadow: var(--shadow-device);
+}
+
+.flow__steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: center;
+  align-items: start;
+  column-gap: 3em;
+  padding: 3em 3em 2.5em;
+}
+
+.flow__step {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 1.6em;
+}
+
+/* Connector arrows between the steps */
+.flow__step + .flow__step::before,
+.flow__step + .flow__step::after {
+  content: "";
+  position: absolute;
+  top: 7.5em;
+}
+
+.flow__step + .flow__step::before {
+  right: calc(100% + 0.6em);
+  width: 1.8em;
+  height: 2px;
+  background: color-mix(in srgb, var(--p) 60%, transparent);
+}
+
+.flow__step + .flow__step::after {
+  right: calc(100% + 0.6em);
+  width: 0.7em;
+  height: 0.7em;
+  margin-top: calc(-0.35em + 1px);
+  border-top: 2px solid color-mix(in srgb, var(--p) 60%, transparent);
+  border-right: 2px solid color-mix(in srgb, var(--p) 60%, transparent);
+  transform: rotate(45deg);
+}
+
+.flow__art {
+  display: grid;
+  align-content: center;
+  width: 100%;
+  max-width: 13em;
+  height: 15em;
+}
+
+.flow__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-size: max(0.875rem, 1.35em);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.flow__n {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 50%;
+  background: var(--p);
+  color: var(--p-ink);
+  font-size: 0.85em;
+  font-weight: 700;
+}
+
+.flow__deck {
+  position: relative;
+}
+
+.flow__deck span {
+  position: absolute;
+  top: 2em;
+  left: 0.9em;
+  width: calc(100% - 1.8em);
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.8em;
+  background: color-mix(in srgb, var(--p) 6%, var(--surface-2));
+}
+
+.flow__deck span:nth-child(1) {
+  transform: translate(1.2em, -1.2em);
+}
+
+.flow__deck span:nth-child(2) {
+  transform: translate(0.6em, -0.6em);
+}
+
+.flow__deck span:nth-child(3) {
+  background: color-mix(in srgb, var(--p) 10%, var(--surface));
+  box-shadow: var(--shadow-soft);
+}
+
+.flow__deck span:nth-child(3)::before {
+  content: "";
+  position: absolute;
+  top: 1.3em;
+  left: 1.3em;
+  width: 50%;
+  height: 0.8em;
+  border-radius: 0.4em;
+  background: var(--p);
+}
+
+.flow__deck span:nth-child(3)::after {
+  content: "";
+  position: absolute;
+  top: 3.1em;
+  left: 1.3em;
+  width: 70%;
+  height: 0.4em;
+  border-radius: 0.2em;
+  background: color-mix(in srgb, var(--p) 35%, transparent);
+  box-shadow: 0 1em 0 0 color-mix(in srgb, var(--p) 35%, transparent), 0 2em 0 -0.05em color-mix(in srgb, var(--p) 35%, transparent);
+}
+
+.flow__bank {
+  gap: 0.7em;
+}
+
+.flow__bank span {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  height: 2.5em;
+  padding-left: 0.8em;
+  border: 1px solid color-mix(in srgb, var(--p) 30%, var(--line));
+  border-radius: 0.7em;
+  background: color-mix(in srgb, var(--p) 6%, var(--surface-2));
+  color: var(--p);
+  font-family: var(--font-display);
+  font-size: 1em;
+  font-weight: 800;
+}
+
+.flow__bank span::after {
+  content: "";
+  flex: 1;
+  height: 0.35em;
+  margin-right: 1em;
+  border-radius: 0.2em;
+  background: color-mix(in srgb, var(--p) 35%, transparent);
+}
+
+.flow__outputs {
+  gap: 0.6em;
+  padding: 0;
+}
+
+.flow__outputs li {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.55em 0.9em;
+  border: 1px solid color-mix(in srgb, var(--p) 40%, transparent);
+  border-radius: 0.7em;
+  background: color-mix(in srgb, var(--p) 12%, var(--surface));
+  font-size: max(0.8125rem, 1.25em);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.flow__outputs li::before {
+  content: "";
+  flex: none;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background: var(--p);
+}
+
+.flow__base {
+  margin: 0 2rem 2rem;
+  padding: 0.9em 1em;
+  border: 1px dashed color-mix(in srgb, var(--p) 45%, transparent);
+  border-radius: var(--r-m);
+  background: color-mix(in srgb, var(--p) 7%, var(--surface));
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.flow__base span {
+  white-space: nowrap;
+}
+
+/* On a phone the pipeline runs downwards: each step is its label with a
+   small drawing beside it, joined by a line down the left. */
+@media (max-width: 40rem) {
+  .flow {
+    aspect-ratio: auto;
+  }
+
+  .flow__steps {
+    grid-template-columns: 1fr;
+    row-gap: 1.25rem;
+    padding: 1.25rem 1.25rem 1rem;
+    font-size: 8px;
+  }
+
+  .flow__step {
+    grid-template-columns: 7.75rem minmax(0, 1fr);
+    justify-items: start;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .flow__label {
+    order: -1;
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  .flow__art {
+    height: auto;
+    max-width: 12rem;
+  }
+
+  .flow__deck {
+    aspect-ratio: 16 / 8;
+  }
+
+  .flow__deck span {
+    top: 1.2em;
+    left: 0;
+    width: calc(100% - 1.2em);
+    aspect-ratio: auto;
+    height: calc(100% - 1.2em);
+  }
+
+  .flow__bank {
+    gap: 0.4rem;
+  }
+
+  .flow__bank span {
+    height: 1.5rem;
+  }
+
+  .flow__bank span:nth-child(n + 4) {
+    display: none;
+  }
+
+  .flow__outputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .flow__outputs li {
+    padding: 0.25rem 0.4375rem;
+    font-size: 0.8125rem;
+  }
+
+  .flow__outputs li::before {
+    display: none;
+  }
+
+  .flow__step + .flow__step::before {
+    top: -1rem;
+    right: auto;
+    left: 0.8rem;
+    width: 2px;
+    height: 0.75rem;
+  }
+
+  .flow__step + .flow__step::after {
+    display: none;
+  }
+
+  .flow__base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 0.75em;
+    margin: 0 1.25rem 1.25rem;
+  }
+
+  .flow__base [aria-hidden] {
+    display: none;
+  }
+}
+
+/* ---------- Skills ---------- */
+
+.skills {
+  padding-block: var(--section-pad);
+  border-top: 1px solid var(--line);
+}
+
+.skills__grid {
+  display: grid;
+  gap: var(--s-6);
+}
+
+@media (min-width: 60rem) {
+  .skills__grid {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+    column-gap: clamp(3rem, 6vw, 6rem);
+  }
+
+  .skills__intro {
+    position: sticky;
+    top: 6rem;
+    align-self: start;
+  }
+}
+
+.section-title {
+  font-size: var(--fs-section);
+  letter-spacing: -0.03em;
+}
+
+.section-lede {
+  max-width: 40ch;
+  text-wrap: balance;
+  margin-top: var(--s-3);
+  color: var(--text-2);
+  font-size: var(--fs-lede);
+  line-height: 1.55;
+}
+
+.skill-row {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.skill-row:first-child {
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 40rem) {
+  .skill-row {
+    grid-template-columns: 9rem 1fr;
+    align-items: start;
+    gap: var(--s-4);
+    padding-block: var(--s-5);
+  }
+}
+
+.skill-row dt {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 2.25rem;
+}
+
+.skill-row dd {
+  margin: 0;
+}
+
+/* Dots in the project colours: which of the projects above use a tool */
+.uses {
+  display: inline-flex;
+  gap: 0.1875rem;
+}
+
+.uses > span:not(.visually-hidden) {
+  width: 0.4375rem;
+  height: 0.4375rem;
+  border-radius: 50%;
+  background: var(--p);
+}
+
+.skills__key {
+  max-width: 40ch;
+  margin-top: var(--s-4);
+  color: var(--text-3);
+  font-size: var(--fs-sm);
+}
+
+/* ---------- Contact and footer ---------- */
+
+.contact {
+  position: relative;
+  overflow: clip;
+  padding-block: var(--section-pad);
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+.contact::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 -40% 0;
+  height: 90%;
+  pointer-events: none;
+  background: radial-gradient(40% 60% at 50% 100%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 75%);
+}
+
+.contact__inner {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+
+.spectrum {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.spectrum span {
+  width: 2.25rem;
+  height: 0.375rem;
+  border-radius: var(--r-pill);
+  background: var(--p);
+}
+
+.contact__title {
+  margin-top: var(--s-5);
+  font-size: var(--fs-project);
+  letter-spacing: -0.028em;
+}
+
+.contact .section-lede {
+  margin-top: var(--s-4);
+}
+
+.contact__email {
+  margin-top: var(--s-6);
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 0.9rem + 3.6vw, 3.75rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+  overflow-wrap: anywhere;
+  transition: color var(--dur);
+}
+
+.contact__email:hover {
+  color: var(--accent);
+}
+
+.contact__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+}
+
+.site-footer {
+  padding-block: var(--s-5);
+  border-top: 1px solid var(--line);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-4);
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--s-5);
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--text-2);
+  text-decoration: none;
+  transition: color var(--dur);
+}
+
+.footer-links a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+/* ---------- Request access dialog ---------- */
+
+.dialog {
+  width: min(100% - 2rem, 28rem);
+  padding: var(--s-6);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-l);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-device);
+}
+
+.dialog__icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--r-m);
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+}
+
+.dialog__icon .icon {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+
+.dialog__title {
+  margin-top: var(--s-4);
+  font-size: 1.75rem;
+}
+
+.dialog__text {
+  margin-top: var(--s-3);
+  color: var(--text-2);
+}
+
+.dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: var(--s-5);
+}
+
+.dialog__actions form {
+  display: contents;
+}
+
+.dialog__actions .btn--quiet {
+  margin-left: auto;
+}
+
+@media (max-width: 30rem) {
+  .dialog {
+    padding: var(--s-5);
+  }
+
+  .dialog__actions .btn {
+    flex: 1 1 auto;
+  }
+}
+
+dialog::backdrop {
+  background: rgb(4 5 7 / 0.7);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+@media (prefers-color-scheme: light) {
+  dialog::backdrop {
+    background: rgb(40 34 26 / 0.4);
+  }
+}
+
+.dialog[open] {
+  animation: pop 0.2s var(--ease);
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Lightbox: always dark, like a photo viewer ---------- */
+
+.lightbox {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #08090c;
+  color: #f3f4f6;
+}
+
+.lightbox[open] {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.lightbox__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-2) var(--gutter);
+  border-bottom: 1px solid rgb(255 255 255 / 0.1);
+}
+
+.lightbox__title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lightbox__counter {
+  color: rgb(255 255 255 / 0.75);
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 0.2);
+  border-radius: 50%;
+  background: rgb(20 22 28 / 0.8);
+  color: #fff;
+  cursor: pointer;
+  transition: background var(--dur);
+}
+
+.icon-btn:hover {
+  background: rgb(60 64 74 / 0.9);
+}
+
+.icon-btn .icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.lightbox :focus-visible {
+  outline-color: #fff;
+}
+
+.lightbox__stage {
+  position: relative;
+  display: grid;
+  min-height: 0;
+  padding: var(--s-4) calc(var(--gutter) + 3.5rem);
+  place-items: center;
+}
+
+.lightbox__figure {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  place-items: center;
+}
+
+/* The image is capped by the viewport: a percentage height would not resolve
+   inside the auto-sized grid area. 6.5rem = the bar plus the stage padding. */
+.lightbox__img {
+  max-width: 100%;
+  max-height: calc(100dvh - 6.5rem);
+  width: auto;
+  height: auto;
+  border-radius: var(--r-s);
+  object-fit: contain;
+  box-shadow: 0 20px 60px rgb(0 0 0 / 0.6);
+}
+
+.lightbox[data-state="error"] .lightbox__img,
+.lightbox[data-state="empty"] .lightbox__img,
+.lightbox__img:not([src]) {
+  display: none;
+}
+
+.lightbox[data-state="loading"] .lightbox__img {
+  opacity: 0.35;
+}
+
+.lightbox__status {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-inline-size: min(90%, 28ch);
+  padding: 0.75rem 1.125rem;
+  border-radius: var(--r-m);
+  background: rgb(255 255 255 / 0.1);
+  font-size: var(--fs-sm);
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.lightbox[data-state="ready"] .lightbox__status,
+.lightbox__status:empty {
+  display: none;
+}
+
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+.lightbox__nav--prev {
+  left: var(--gutter);
+}
+
+.lightbox__nav--next {
+  right: var(--gutter);
+}
+
+/* Arrows only when there is more than one image to move between */
+.lightbox:not([data-many]) .lightbox__nav {
+  display: none;
+}
+
+@media (max-width: 40rem) {
+  .lightbox__stage {
+    padding: var(--s-3) var(--s-3) 5rem;
+  }
+
+  .lightbox__nav {
+    top: auto;
+    bottom: var(--s-4);
+    transform: none;
+  }
+
+  .lightbox__img {
+    max-height: calc(100dvh - 10rem);
+  }
+
+  .lightbox__nav--prev {
+    left: calc(50% - 3.5rem);
+  }
+
+  .lightbox__nav--next {
+    right: calc(50% - 3.5rem);
+  }
+}
+
+/* ---------- Motion ---------- */
+
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s var(--ease), transform 0.5s var(--ease);
+}
+
+html.js .project__visual.reveal {
+  transition-delay: 0.06s;
+}
+
+html.js .project__meta.reveal {
+  transition-delay: 0.12s;
+}
+
+html.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Failsafe: if script.js never runs (a partial upload, a blocked request),
+   nothing stays hidden. script.js sets .js-ready as soon as it starts. */
+html.js:not(.js-ready) .reveal {
+  animation: reveal-failsafe 0s 1.2s forwards;
+}
+
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html.js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,2213 @@
+/* ==========================================================================
+   Ben Mega - portfolio ("Teach, Build, Ship")
+   A page in chapters. The rail on the left (a bar on top on small screens)
+   shows where you are; the chapters carry the work.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  color-scheme: light dark;
+
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-body: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Segoe UI", system-ui,
+    sans-serif;
+
+  /* Spacing: a 4px scale */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --s-10: 8rem;
+
+  /* Type scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.1875rem;
+  --text-xl: 1.375rem;
+  --text-title: clamp(1.75rem, 1.3rem + 1.4vw, 2.25rem);
+  --text-card: clamp(1.625rem, 1.2rem + 0.9vw, 2rem);
+  --text-name: clamp(2rem, 1.5rem + 1.6vw, 2.75rem);
+  --text-tagline: clamp(2.5rem, 1.4rem + 4.4vw, 5rem);
+  --text-chapter: clamp(3.75rem, 2.2rem + 7vw, 7.5rem);
+  --text-numeral: clamp(6.5rem, 3rem + 18vw, 18rem);
+
+  --radius-sm: 0.375rem;
+  --radius: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-pill: 999px;
+
+  --rail-w: 13.5rem;
+  --bar-h: 3.5rem;
+  --lightbox-bar: 4.5rem;
+  --wrap: 66rem;
+  --gutter: clamp(1rem, 4vw, 3rem);
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 0.18s;
+
+  /* Light theme: warm paper, deep teal ink for the accent */
+  --bg: #faf7f0;
+  --bg-2: #f1ece0;
+  --surface: #ffffff;
+  --ink: #1a1f22;
+  --ink-2: #525c63;
+  --line: #e2dbcb;
+  --line-strong: #9aa4aa;
+  --accent: #0a6a74;
+  --accent-ink: #ffffff;
+  --accent-soft: #d9eef0;
+  --amber: #9a5408;
+  --amber-soft: #f9e6c8;
+  --band: #0a6a74;
+  --band-ink: #f4fafa;
+  --band-muted: #c6e4e7;
+  --band-line: rgba(255, 255, 255, 0.32);
+  --band-numeral: #0e7580;
+  --bezel: #1b1f22;
+  --window: #ede7da;
+  --focus: #0a6a74;
+  --numeral: #dfe8e3;
+  --shadow: 0 1px 2px rgba(30, 40, 40, 0.06), 0 16px 40px -20px rgba(30, 40, 40, 0.25);
+  --scrim: rgba(12, 21, 23, 0.72);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark theme: deep teal-black, lit teal accent, amber focus ring */
+    --bg: #0c1517;
+    --bg-2: #101c1e;
+    --surface: #142325;
+    --ink: #edf2f1;
+    --ink-2: #a6b6b7;
+    --line: #223436;
+    --line-strong: #4f6669;
+    --accent: #5fd6de;
+    --accent-ink: #062a2d;
+    --accent-soft: #123538;
+    --amber: #f2bd6a;
+    --amber-soft: #3a2a12;
+    --band: #123d42;
+    --band-ink: #eef7f7;
+    --band-muted: #a9d4d8;
+    --band-line: rgba(255, 255, 255, 0.2);
+    --band-numeral: #17474d;
+    --bezel: #0a0e10;
+    --window: #0a1315;
+    --focus: #f2bd6a;
+    --numeral: #14292b;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 16px 40px -20px rgba(0, 0, 0, 0.6);
+    --scrim: rgba(4, 8, 9, 0.8);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: calc(var(--bar-h) + var(--s-3));
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+figure {
+  margin: 0;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+ul,
+ol {
+  padding: 0;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.15em;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.sprite {
+  position: absolute;
+}
+
+.icon {
+  width: 1.125em;
+  height: 1.125em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon--solid {
+  fill: currentColor;
+  stroke: none;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.eyebrow {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.skip-link {
+  position: absolute;
+  top: var(--s-2);
+  left: var(--s-2);
+  z-index: 100;
+  padding: var(--s-2) var(--s-4);
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-height: 2.75rem;
+  padding: 0.55rem 1.1rem;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.btn--primary:hover {
+  box-shadow: 0 8px 20px -10px var(--accent);
+  transform: translateY(-1px);
+}
+
+.btn--ghost {
+  border-color: var(--line-strong);
+  color: var(--ink);
+  background: transparent;
+}
+
+.btn--ghost:hover {
+  border-color: var(--ink);
+  background: var(--surface);
+}
+
+.btn--onband {
+  border-color: var(--band-line);
+  color: var(--band-ink);
+}
+
+.btn--onband:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--band-ink);
+}
+
+/* On the dark lightbox, whatever the theme */
+.btn--light {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: transparent;
+  color: #fff;
+}
+
+.btn--light:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Rail: brand + chapter navigation
+   Small screens: a sticky bar on top. Large screens: a fixed column on the left.
+   -------------------------------------------------------------------------- */
+.rail {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: stretch;
+  gap: var(--s-3);
+  height: var(--bar-h);
+  padding-inline: var(--s-4);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  color: var(--ink);
+  text-decoration: none;
+  flex: none;
+}
+
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.brand__name {
+  display: none;
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.chapters {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+}
+
+.chapters__list {
+  list-style: none;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  gap: var(--s-1);
+  min-width: 0;
+}
+
+.chapters__item {
+  --p: 0;
+  position: relative;
+  display: flex;
+  min-width: 0;
+}
+
+.chapters__link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 2.75rem;
+  padding: 0 var(--s-2);
+  color: var(--ink-2);
+  text-decoration: none;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+/* The track and, on top of it, the fill that shows how far into the chapter the reader is. */
+.chapters__item::before,
+.chapters__item::after {
+  content: "";
+  position: absolute;
+  left: var(--s-2);
+  right: var(--s-2);
+  bottom: 0;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.chapters__item::after {
+  right: auto;
+  width: calc((100% - var(--s-4)) * var(--p));
+  background: var(--accent);
+}
+
+/* The projects of a chapter: listed in the rail on large screens only */
+.chapters__sections {
+  display: none;
+  list-style: none;
+}
+
+.chapters__num {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.chapters__name {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.chapters__link:hover .chapters__name,
+.chapters__link[aria-current] .chapters__name {
+  color: var(--accent);
+}
+
+.chapters__link[aria-current] .chapters__num {
+  color: var(--accent);
+}
+
+@media (min-width: 30em) {
+  .brand__name {
+    display: block;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   The owl: the Classroom Chat mascot, a link to the live app.
+   Small screens: a strip right under the bar. Large screens: bottom of the rail.
+   -------------------------------------------------------------------------- */
+.owl {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-2) var(--s-4);
+  color: var(--ink);
+  text-decoration: none;
+  background: var(--accent-soft);
+  border-bottom: 1px solid var(--line);
+}
+
+.owl__img {
+  width: 2.5rem;
+  flex: none;
+  transition: transform var(--dur) var(--ease);
+}
+
+.owl__text {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--s-2);
+  align-items: baseline;
+  min-width: 0;
+  line-height: 1.3;
+}
+
+.owl__name {
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+
+.owl__hint {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.owl__arrow {
+  margin-left: auto;
+  color: var(--ink-2);
+}
+
+.owl:hover .owl__img {
+  transform: rotate(-6deg) scale(1.08);
+}
+
+.owl:hover .owl__hint {
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+.hero {
+  padding: var(--s-6) 0 var(--s-7);
+}
+
+.hero__grid {
+  display: grid;
+  gap: var(--s-7);
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.identity__photo {
+  width: 4.5rem;
+  height: 4.5rem;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow:
+    0 0 0 3px var(--bg),
+    0 0 0 5px var(--accent);
+}
+
+.identity__name {
+  font-family: var(--font-display);
+  font-size: var(--text-name);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.identity__role {
+  margin-top: var(--s-2);
+  font-size: var(--text-md);
+  color: var(--ink-2);
+}
+
+.hero__tagline {
+  margin-top: var(--s-6);
+  max-width: 12ch;
+  font-family: var(--font-display);
+  font-size: var(--text-tagline);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.hero__mark {
+  position: relative;
+  display: inline-block;
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero__underline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.12em;
+  width: 100%;
+  height: 0.16em;
+  overflow: visible;
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.hero__lead {
+  margin-top: var(--s-5);
+  max-width: 40ch;
+  font-size: var(--text-lg);
+  color: var(--ink-2);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+}
+
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+  list-style: none;
+}
+
+.social__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  min-height: 2.75rem;
+  padding: 0 var(--s-3);
+  border-radius: var(--radius-pill);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  text-decoration: none;
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+.social__link:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* Featured work: the three featured projects, one click from the first screen */
+.featured__label {
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.featured__list {
+  list-style: none;
+}
+
+.feature {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.feature__logo {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--line);
+  overflow: hidden;
+}
+
+.feature__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Drawn marks in the accent: Auto-Prep has no logo, and the owl already
+   stands beside this list (rail card or strip), so Classroom Chat gets one too. */
+.feature__logo--drawn {
+  background: var(--accent-soft);
+  color: var(--accent);
+  box-shadow: none;
+}
+
+.feature__logo--drawn .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* The whole row, except the action on the right, leads to the project */
+.feature__link {
+  display: flex;
+  flex-direction: column;
+  min-height: 2.75rem;
+  justify-content: center;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.feature__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.feature__title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: 1.2;
+  transition: color var(--dur) var(--ease);
+}
+
+.feature__desc {
+  margin-top: 0.15rem;
+  font-size: var(--text-sm);
+  line-height: 1.35;
+  color: var(--ink-2);
+}
+
+.feature:hover .feature__title {
+  color: var(--accent);
+}
+
+.feature__live {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 7.75rem;
+  gap: 0.35em;
+  min-height: 2.75rem;
+  padding: 0 var(--s-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+.feature__live:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.featured {
+  container-type: inline-size;
+  max-width: 34rem;
+}
+
+@media (max-width: 29.99em) {
+  .feature__title {
+    font-size: var(--text-md);
+  }
+
+  .feature__live {
+    min-width: 0;
+  }
+}
+
+/* A narrow list (small phones, the hero column at 1024px): the action moves under the text */
+@container (max-width: 21.5rem) {
+  .feature {
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .feature__live {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Chapter openers
+   -------------------------------------------------------------------------- */
+.chapter {
+  border-top: 1px solid var(--line);
+}
+
+.opener {
+  overflow-x: clip;
+  padding: var(--s-7) 0 var(--s-5);
+}
+
+.opener__grid {
+  position: relative;
+  isolation: isolate;
+}
+
+.opener__title {
+  font-family: var(--font-display);
+  font-size: var(--text-chapter);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.opener__lead {
+  margin-top: var(--s-4);
+  max-width: 44ch;
+  font-size: var(--text-lg);
+  color: var(--ink-2);
+}
+
+/* Beside the title on phones; centred on the whole opener on larger screens */
+.opener__numeral {
+  position: absolute;
+  right: var(--gutter);
+  top: 0;
+  z-index: -1;
+  font-family: var(--font-display);
+  font-size: var(--text-numeral);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  color: var(--numeral);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+   Scenes: one project each
+   -------------------------------------------------------------------------- */
+.scene {
+  padding: var(--s-5) 0 var(--s-7);
+}
+
+.scene + .scene {
+  border-top: 1px solid var(--line);
+  padding-top: var(--s-7);
+}
+
+.scene__grid {
+  display: grid;
+  gap: var(--s-6);
+  align-items: center;
+}
+
+.scene__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.scene__index {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-pill);
+  background: var(--amber-soft);
+  color: var(--amber);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.badge .icon {
+  width: 0.9em;
+  height: 0.9em;
+}
+
+.scene__title {
+  margin-top: var(--s-3);
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.scene__title--logo {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.scene__logo {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  border-radius: 0.5rem;
+  object-fit: contain;
+  background: #fff;
+}
+
+/* The Fractal Defense logo carries its name in small print; show the tower only */
+.scene__logo--crop {
+  overflow: hidden;
+}
+
+.scene__logo--crop img {
+  width: 100%;
+  height: 100%;
+  transform: scale(1.55) translateY(5.5%);
+}
+
+.scene__desc {
+  margin-top: var(--s-4);
+  max-width: 52ch;
+  font-size: var(--text-md);
+}
+
+/* A figure from the README, set as a number rather than a footnote */
+.stat {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  margin-top: var(--s-4);
+  padding-left: var(--s-3);
+  border-left: 3px solid var(--amber);
+}
+
+.stat__num {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.stat__label {
+  font-size: var(--text-md);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.tech {
+  --icon: 1.15em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  list-style: none;
+  margin-top: var(--s-4);
+}
+
+.tech li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.tech i {
+  font-size: var(--icon);
+  line-height: 1;
+  color: var(--ink);
+}
+
+.tech .icon,
+.tech__img {
+  width: var(--icon);
+  height: var(--icon);
+}
+
+.tech__img {
+  border-radius: 3px;
+}
+
+/* Raster logos in full colour would shout among the one-colour icons */
+.tech__img--tile {
+  filter: grayscale(1) contrast(1.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Gunicorn and Hugging Face are black on transparent */
+  .tech__img--mono {
+    filter: invert(1);
+  }
+
+  /* A white app screen, toned down so it does not glare on the dark page */
+  .shot--zoom img {
+    filter: brightness(0.86);
+  }
+}
+
+.tech--large {
+  --icon: 1.3em;
+}
+
+.tech--large li {
+  padding: 0.45rem 0.85rem;
+  font-size: var(--text-base);
+}
+
+.scene__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-5);
+}
+
+/* Panels: the media half of a scene */
+.panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+/* Classroom Chat: the owl between the three groups it connects */
+.poster {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 15rem;
+  padding: var(--s-6);
+  background:
+    radial-gradient(circle at 50% 58%, var(--accent-soft) 0, transparent 62%),
+    var(--surface);
+}
+
+.poster__owl {
+  width: min(8rem, 42%);
+}
+
+.poster__voices {
+  position: absolute;
+  inset: 0;
+  list-style: none;
+  pointer-events: none;
+}
+
+.bubble {
+  position: absolute;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  box-shadow: var(--shadow);
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-top-color: transparent;
+  border-left-color: transparent;
+  transform: rotate(45deg);
+}
+
+.bubble--a {
+  top: 14%;
+  left: 12%;
+}
+
+.bubble--a::after {
+  right: 1rem;
+  bottom: -0.38rem;
+}
+
+.bubble--b {
+  top: 40%;
+  right: 8%;
+}
+
+.bubble--b::after {
+  left: 1rem;
+  bottom: -0.38rem;
+}
+
+.bubble--c {
+  bottom: 12%;
+  left: 18%;
+}
+
+.bubble--c::after {
+  right: 1rem;
+  top: -0.38rem;
+  transform: rotate(-135deg);
+}
+
+/* Auto-Prep: decks in, question banks, games out */
+.flow {
+  container-type: inline-size;
+  padding: var(--s-5);
+}
+
+.flow__steps {
+  list-style: none;
+  display: grid;
+  gap: var(--s-4);
+}
+
+.flow__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  align-items: start;
+  gap: var(--s-3);
+  padding-left: var(--s-1);
+}
+
+/* A line links each step to the next */
+.flow__step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--s-1) + 1rem - 1px);
+  top: 2.2rem;
+  bottom: calc(-1 * var(--s-4) - 0.2rem);
+  width: 2px;
+  background: var(--line);
+}
+
+.flow__count {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+
+.flow__name {
+  align-self: center;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+.flow__outputs {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  padding-top: 0.2rem;
+}
+
+.flow__outputs li {
+  flex: 1 1 40%;
+  padding: 0.35rem 0.65rem;
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+
+/* A wide panel (tablets, where the scene is one column): three columns, number above name */
+@container (min-width: 36rem) {
+  .flow__steps {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.6fr);
+    gap: var(--s-5);
+  }
+
+  .flow__step {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    padding-left: 0;
+  }
+
+  .flow__name {
+    align-self: start;
+  }
+
+  .flow__step:not(:last-child)::before {
+    left: 2.75rem;
+    right: calc(0.75rem - var(--s-5));
+    top: 1rem;
+    bottom: auto;
+    width: auto;
+    height: 2px;
+  }
+}
+
+.flow__stack {
+  margin-top: var(--s-5);
+  padding-top: var(--s-4);
+  border-top: 1px dashed var(--line-strong);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+/* Built from data-images once Auto-Prep has screenshots: one large, then two.
+   Two images sit side by side. */
+.filmstrip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3);
+  margin-top: var(--s-5);
+}
+
+.filmstrip[data-count="1"] .shot,
+.filmstrip[data-count="3"] .shot:first-child {
+  grid-column: 1 / -1;
+}
+
+.filmstrip .shot {
+  position: relative;
+  display: block;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  aspect-ratio: 16 / 10;
+  background: var(--bg-2);
+}
+
+.filmstrip img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0;
+  transition: transform var(--dur) var(--ease);
+}
+
+.filmstrip .shot:hover img {
+  transform: scale(1.03);
+}
+
+.filmstrip__more {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--scrim);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+/* Mega Chess: the game picker on a phone, and the two boards it offers.
+   The board screenshots are mostly black letterbox, so they are cropped to the board. */
+.chess {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-4);
+  max-width: 30rem;
+  margin-inline: auto;
+  padding: var(--s-5) var(--s-4);
+  background:
+    linear-gradient(to top, var(--bg-2), transparent 60%),
+    var(--surface);
+}
+
+.chess__phone {
+  grid-row: span 2;
+}
+
+.chess figcaption {
+  margin-top: var(--s-2);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink-2);
+  text-align: center;
+}
+
+.chess .shot {
+  display: block;
+  overflow: hidden;
+  background: var(--bezel);
+  box-shadow: var(--shadow);
+  transition: transform var(--dur) var(--ease);
+}
+
+.chess .shot:hover {
+  transform: translateY(-4px);
+}
+
+.chess__phone .shot {
+  padding: 0.35rem;
+  border-radius: 1.5rem;
+}
+
+.chess__phone img {
+  border-radius: 1.15rem;
+}
+
+.chess__board .shot {
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+}
+
+.chess__board img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* The board fills 96% of the width; the rest is black edge */
+  transform: scale(1.05);
+}
+
+/* Local Chat and Fractal Defense: two cards with a window each */
+.pair {
+  display: grid;
+  gap: var(--s-6);
+  padding-bottom: var(--s-8);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--s-5) var(--s-4) var(--s-6);
+}
+
+.card__body .scene__actions {
+  gap: var(--s-2);
+  margin-top: auto;
+  padding-top: var(--s-5);
+}
+
+/* Slightly tighter, so both buttons share a line in a half-width card */
+.card .btn {
+  padding-inline: 0.8rem;
+}
+
+@media (min-width: 30em) {
+  .card__body {
+    padding-inline: var(--s-5);
+  }
+
+  .flow {
+    padding: var(--s-6);
+  }
+}
+
+.card .scene__title {
+  margin-top: var(--s-3);
+  font-size: var(--text-card);
+}
+
+/* The screenshot sits inside the frame, so a light app UI stays a picture on a dark page */
+.window {
+  padding: 0 var(--s-3) var(--s-3);
+  background: var(--window);
+  border-bottom: 1px solid var(--line);
+}
+
+.window__bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 1.75rem;
+  padding: 0 var(--s-1);
+}
+
+.window__bar span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--line-strong);
+  opacity: 0.6;
+}
+
+.window .shot {
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.window .shot img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  /* Fractal Defense keeps its score panel at the top in view */
+  object-position: 50% 10%;
+  transition: transform var(--dur) var(--ease);
+}
+
+/* The Local Chat start screen is a small card on a wide backdrop: bring the card forward */
+.shot--zoom img {
+  transform: scale(1.28);
+}
+
+.window .shot:hover img {
+  transform: scale(1.03);
+}
+
+.window .shot--zoom:hover img {
+  transform: scale(1.32);
+}
+
+/* --------------------------------------------------------------------------
+   Toolkit
+   -------------------------------------------------------------------------- */
+.toolkit {
+  padding-bottom: var(--s-8);
+}
+
+.toolkit__row {
+  display: grid;
+  gap: var(--s-3);
+  align-items: baseline;
+  padding: var(--s-5) 0;
+  border-top: 1px solid var(--line);
+}
+
+.toolkit__row:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.toolkit__area {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+.toolkit__row .tech {
+  margin-top: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Contact
+   -------------------------------------------------------------------------- */
+.contact {
+  background: var(--band);
+  color: var(--band-ink);
+  padding: var(--s-9) 0 var(--s-8);
+}
+
+.contact__grid {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  gap: var(--s-7);
+}
+
+.contact__numeral {
+  display: none;
+  color: var(--band-numeral);
+}
+
+.contact__title {
+  font-family: var(--font-display);
+  font-size: var(--text-chapter);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.contact__lead {
+  margin-top: var(--s-4);
+  max-width: 40ch;
+  font-size: var(--text-lg);
+  color: var(--band-muted);
+}
+
+.contact__email {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-top: var(--s-6);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1rem + 2.4vw, 2.5rem);
+  font-weight: 500;
+  color: var(--band-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--band-muted);
+  text-underline-offset: 0.18em;
+  overflow-wrap: anywhere;
+}
+
+.contact__email:hover {
+  text-decoration-color: var(--band-ink);
+}
+
+.contact__email .icon {
+  transition: transform var(--dur) var(--ease);
+}
+
+.contact__email:hover .icon {
+  transform: translateX(0.2em);
+}
+
+.contact__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  list-style: none;
+  margin-top: var(--s-6);
+}
+
+.contact__sign {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--band-line);
+}
+
+.contact__photo {
+  width: 3.5rem;
+  height: 3.5rem;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px var(--band-muted);
+}
+
+.contact__sign strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.contact__role {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--band-muted);
+}
+
+.contact :focus-visible {
+  outline-color: var(--band-ink);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+.footer {
+  padding: var(--s-6) 0;
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.footer__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s-3) var(--s-5);
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-4);
+  list-style: none;
+}
+
+.footer__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  min-height: 2.75rem;
+  color: var(--ink-2);
+}
+
+.footer__links a:hover {
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Dialogs: lightbox and request access
+   -------------------------------------------------------------------------- */
+dialog {
+  border: 0;
+  padding: 0;
+  color: var(--ink);
+}
+
+dialog::backdrop {
+  background: var(--scrim);
+}
+
+.modal {
+  width: min(26rem, calc(100vw - 2rem));
+  margin: auto;
+  padding: var(--s-6);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.modal__icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto var(--s-4);
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.modal__icon .icon {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.modal__title {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.modal__text {
+  margin-top: var(--s-3);
+  color: var(--ink-2);
+}
+
+/* Two ways to write, side by side; Close underneath at full width */
+.modal__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3);
+  margin-top: var(--s-5);
+}
+
+.modal__close {
+  grid-column: 1 / -1;
+}
+
+.modal__close .btn {
+  width: 100%;
+}
+
+.lightbox {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  background: transparent;
+  color: #fff;
+}
+
+.lightbox::backdrop {
+  background: rgba(5, 8, 9, 0.97);
+}
+
+.lightbox__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  height: var(--lightbox-bar);
+  padding: 0 var(--s-4) 0 var(--s-5);
+}
+
+.lightbox__title {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.lightbox__counter {
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.lightbox__button {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease);
+}
+
+.lightbox__button:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.lightbox__button .icon {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.lightbox :focus-visible {
+  outline-color: #fff;
+}
+
+/* Phones: the image takes the full width, the arrows sit underneath.
+   Larger screens: the arrows move to either side. */
+.lightbox__stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: var(--s-3);
+  height: calc(100vh - var(--lightbox-bar));
+  height: calc(100dvh - var(--lightbox-bar));
+  padding: 0 var(--s-3) var(--s-4);
+}
+
+.lightbox__frame {
+  position: relative;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: grid;
+  /* One definite cell, so the image can be capped at 100% of it */
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  place-items: center;
+  min-width: 0;
+  min-height: 0;
+}
+
+.lightbox__nav {
+  grid-row: 2;
+}
+
+.lightbox__nav--prev {
+  justify-self: start;
+}
+
+.lightbox__nav--next {
+  justify-self: end;
+}
+
+@media (min-width: 40em) {
+  .lightbox__stage {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-rows: minmax(0, 1fr);
+    align-items: center;
+    padding-bottom: var(--s-5);
+  }
+
+  .lightbox__frame {
+    grid-column: 2;
+    grid-row: 1;
+    height: 100%;
+  }
+
+  .lightbox__nav--prev {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .lightbox__nav--next {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
+
+.lightbox__image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.8);
+}
+
+/* Loading is a line of text; a failure or an empty gallery is a small panel with a way on */
+.lightbox__status {
+  position: absolute;
+  display: grid;
+  justify-items: center;
+  gap: var(--s-3);
+  width: min(22rem, calc(100% - var(--s-4)));
+  text-align: center;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.lightbox__status[data-state=""] {
+  display: none;
+}
+
+.lightbox__status[data-state="broken"],
+.lightbox__status[data-state="empty"],
+.lightbox__status[data-state="error"] {
+  padding: var(--s-6) var(--s-5);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.lightbox__status-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  stroke-width: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.lightbox__status[data-state="loading"] .lightbox__status-icon {
+  display: none;
+}
+
+.lightbox__message {
+  font-size: var(--text-md);
+}
+
+.lightbox__status .btn {
+  margin-top: var(--s-2);
+}
+
+.lightbox__nav[disabled] {
+  visibility: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Larger screens
+   -------------------------------------------------------------------------- */
+@media (min-width: 48em) {
+  .hero {
+    padding: var(--s-9) 0 var(--s-8);
+  }
+
+  .hero__grid {
+    gap: var(--s-8);
+  }
+
+  .hero__tagline {
+    margin-top: var(--s-7);
+  }
+
+  .opener {
+    padding: var(--s-8) 0 var(--s-6);
+  }
+
+  .scene {
+    padding: var(--s-6) 0 var(--s-8);
+  }
+
+  .scene + .scene {
+    padding-top: var(--s-8);
+  }
+
+  .identity {
+    gap: var(--s-5);
+  }
+
+  .opener__numeral {
+    top: 50%;
+    margin-top: -0.4em;
+  }
+
+  .identity__photo {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .toolkit__row {
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: var(--s-5);
+    align-items: center;
+  }
+
+  .contact__grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: end;
+  }
+
+  .contact__numeral {
+    display: block;
+    top: 0;
+    margin-top: 0;
+  }
+
+  .contact__sign {
+    justify-self: end;
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .contact__sign strong {
+    text-align: left;
+  }
+}
+
+/* The rail becomes a column on the left; the page sits beside it. */
+@media (min-width: 64em) {
+  html {
+    scroll-padding-top: var(--s-6);
+  }
+
+  .rail {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--rail-w);
+    height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: var(--s-5) var(--s-5) 7.5rem;
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+  }
+
+  .brand__name {
+    display: block;
+  }
+
+  /* The contents start under the brand, like a book's; the owl card sits at the foot */
+  .chapters {
+    flex: 0 0 auto;
+    margin-top: var(--s-8);
+  }
+
+  .chapters__list {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--s-2);
+  }
+
+  .chapters__item {
+    flex-direction: column;
+  }
+
+  .chapters__link {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    gap: var(--s-3);
+    padding: var(--s-2) 0 var(--s-2) var(--s-4);
+    min-height: 2.75rem;
+  }
+
+  /* A vertical track beside each chapter and its projects, filled as the reader moves through it */
+  .chapters__item::before,
+  .chapters__item::after {
+    left: 0;
+    right: auto;
+    top: 0.35rem;
+    bottom: 0.35rem;
+    width: 3px;
+    height: auto;
+  }
+
+  .chapters__item::after {
+    bottom: auto;
+    height: calc((100% - 0.7rem) * var(--p));
+    width: 3px;
+  }
+
+  .chapters__num {
+    width: 1.25rem;
+  }
+
+  /* Section names line up with the chapter names above them */
+  .chapters__sections {
+    --indent: calc(var(--s-4) + 1.25rem + var(--s-3));
+    display: block;
+    padding: 0 0 var(--s-2) var(--indent);
+  }
+
+  .chapters__section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.35em;
+    min-height: 1.875rem;
+    color: var(--ink-2);
+    font-size: var(--text-sm);
+    line-height: 1.25;
+    text-decoration: none;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .chapters__section .icon {
+    width: 0.75em;
+    height: 0.75em;
+    color: var(--amber);
+  }
+
+  /* A tick on the track marks the project being read */
+  .chapters__section::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--indent) - 2px);
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    margin-top: -3.5px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: scale(0);
+    transition: transform var(--dur) var(--ease);
+  }
+
+  .chapters__section:hover,
+  .chapters__section[aria-current] {
+    color: var(--ink);
+  }
+
+  .chapters__section[aria-current] {
+    font-weight: 700;
+  }
+
+  .chapters__section[aria-current]::before {
+    transform: scale(1);
+  }
+
+  .chapters__name {
+    font-size: var(--text-lg);
+  }
+
+  .owl {
+    position: fixed;
+    left: var(--s-4);
+    bottom: var(--s-4);
+    z-index: 31;
+    width: calc(var(--rail-w) - var(--s-6));
+    padding: var(--s-3);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    gap: var(--s-2);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+
+  .owl__img {
+    width: 2.5rem;
+  }
+
+  .owl__text {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .owl__hint {
+    font-size: var(--text-xs);
+  }
+
+  .owl__arrow {
+    position: absolute;
+    top: var(--s-2);
+    right: var(--s-2);
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  .owl:hover {
+    border-color: var(--accent);
+  }
+
+  main,
+  .footer {
+    margin-left: var(--rail-w);
+  }
+
+  .hero {
+    display: grid;
+    align-content: center;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: var(--s-8) 0;
+  }
+
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    align-items: center;
+    gap: var(--s-8);
+  }
+
+  .opener {
+    padding: var(--s-9) 0 var(--s-7);
+  }
+
+  .scene {
+    padding: var(--s-7) 0 var(--s-9);
+  }
+
+  .scene + .scene {
+    padding-top: var(--s-9);
+  }
+
+  .scene__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s-8);
+  }
+
+  .scene--flip .scene__body {
+    order: 2;
+  }
+
+  .poster {
+    min-height: 24rem;
+  }
+
+  .poster__owl {
+    width: min(11.5rem, 60%);
+  }
+
+  .pair {
+    padding-bottom: var(--s-9);
+  }
+
+  .toolkit {
+    padding-bottom: var(--s-9);
+  }
+
+  .contact {
+    padding: var(--s-10) 0 var(--s-9);
+  }
+}
+
+/* Beside the rail, the hero is too narrow for two columns until about 1200px:
+   the featured list goes under the introduction instead. */
+@media (min-width: 64em) and (max-width: 74.99em) {
+  .hero {
+    padding: var(--s-7) 0;
+  }
+
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-7);
+  }
+
+  .featured {
+    max-width: 40rem;
+  }
+}
+
+@media (min-width: 80em) {
+  :root {
+    --rail-w: 15rem;
+  }
+}
+
+@media (min-width: 100em) {
+  :root {
+    --wrap: 76rem;
+    --text-tagline: 6rem;
+  }
+
+}
+
+/* --------------------------------------------------------------------------
+   Motion. Scroll-linked and done in CSS; the page is complete without it.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .scene__body,
+    .scene__media,
+    .card,
+    .toolkit__row,
+    .contact__main,
+    .contact__sign {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+
+    .opener__numeral {
+      animation: drift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+  }
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(1.5rem);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translateY(0.12em);
+  }
+
+  to {
+    transform: translateY(-0.12em);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation: none !important;
+  }
+}

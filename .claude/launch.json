@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "redesign-preview",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["redesigns/_tools/serve.mjs", "--port", "4173"],
+      "port": 4173
+    }
+  ]
+}

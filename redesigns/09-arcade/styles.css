@@ -1,0 +1,2293 @@
+/* ==========================================================================
+   Ben Mega - "Arcade"
+   Dark: a night cabinet. Deep navy, coin gold, a restrained cyan glow.
+   Light: a daytime handheld. Putty body, slate screen bezels, LCD green,
+   berry "A button" actions, hard ink outlines instead of glow.
+   Pixel frames are four offset box-shadows that leave the corner pixels out,
+   so focus rings, hover shadows and the selection reticle are never clipped.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  --font-display: "Jersey 10", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+  --s8: 64px;
+
+  /* Reading and UI text, Atkinson Hyperlegible Next. */
+  --t-xs: 0.8125rem;
+  --t-small: 0.875rem;
+  --t-ui: 0.9375rem;
+  --t-body: 1rem;
+  --t-ui-lg: 1.0625rem;
+  --t-lede: 1.125rem;
+  --t-tagline: clamp(1.125rem, 1.02rem + 0.4vw, 1.375rem);
+  --t-role: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+
+  /* Display, Jersey 10. Never below --t-tag (20px). */
+  --t-tag: 1.25rem;
+  --t-label: 1.5rem;
+  --t-hud: 1.75rem;
+  --t-h3: 2.25rem;
+  --t-dialog: 3rem;
+  --t-block: 4rem;
+  --t-h2: clamp(3.25rem, 2.5rem + 2.6vw, 4.75rem);
+  --t-h1: clamp(5.25rem, 3.4rem + 7vw, 9rem);
+
+  --icon-slot: 24px;
+
+  --wrap: 1200px;
+  --gutter: var(--s4);
+  --hud-h: 60px;
+
+  /* Night cabinet */
+  --bg: #0b0c16;
+  --bg-2: #0f1120;
+  --card: #151829;
+  --card-2: #1d2138;
+  --edge: #2b3050;
+  --edge-strong: #606aa6;
+  --ink: #eef0fa;
+  --ink-2: #b3b8d3;
+  --primary: #ffc94d;
+  --on-primary: #1d1300;
+  --accent: #62e4e9;
+  --label: #ffc94d;
+  --focus: #62e4e9;
+
+  --bezel: #06070d;
+  --bezel-ink: #9aa1c6;
+  --screen: #0f1729;
+  --screen-grid: rgba(98, 228, 233, 0.07);
+  --screen-overlay: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0, 0, 0, 0.16) 2px 3px);
+  --led: #4ade80;
+  --led-glow: 0 0 8px #4ade80;
+
+  --slot: #1d2138;
+  --slot-edge: #2f3558;
+
+  --ill-panel: #1b2440;
+  --ill-stroke: #4a5a8f;
+  --ill-c1: #62e4e9;
+  --ill-c2: #ffc94d;
+  --ill-line: #7d86ad;
+  --ill-text: #dfe4f7;
+
+  --title-glow: radial-gradient(55% 65% at 18% 30%, rgba(98, 228, 233, 0.11), transparent 70%);
+  --title-grid: rgba(98, 228, 233, 0.05);
+  --ground-top: #3a4270;
+  --ground-a: #151a2e;
+  --ground-b: #10131f;
+  --sky-night: inline;
+  --sky-day: none;
+  --moon: #e9e4c4;
+  --star: #9aa4d6;
+
+  --hud-bg: rgba(11, 12, 22, 0.95);
+  --hud-edge: #2b3050;
+  --backdrop: rgba(4, 5, 12, 0.8);
+
+  --h1-shadow: 0 0 0.22em rgba(98, 228, 233, 0.32);
+  --card-drop: 0 0 0 0 transparent;
+  --card-drop-hover: 0 0 36px rgba(98, 228, 233, 0.14);
+  --btn-drop: 0 0 18px rgba(255, 201, 77, 0.3);
+  --btn2-drop: 0 0 18px rgba(98, 228, 233, 0.22);
+  --btn2-hover-bg: rgba(98, 228, 233, 0.1);
+  --lift: translateY(-3px);
+  --press: translateY(1px);
+  --icon-dark: #eef0fa;
+  --icon-python: #ffd845;
+  --icon-js: #f0db4f;
+  --icon-js-ink: #1a1a1a;
+  --icon-react: #61dafb;
+  --icon-tailwind: #38bdf8;
+  --icon-aws: #ff9900;
+  --icon-firebase: #ffa000;
+  --mono-filter: invert(1);
+}
+
+/* The light tokens are written twice on purpose: once for the system setting
+   (works without JavaScript) and once for the manual toggle. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --bg: #e7e3d6;
+    --bg-2: #dcd7c6;
+    --card: #f7f5ee;
+    --card-2: #ebe7da;
+    --edge: #2a2844;
+    --edge-strong: #2a2844;
+    --ink: #221f3b;
+    --ink-2: #4a4764;
+    --primary: #a3245e;
+    --on-primary: #ffffff;
+    --accent: #2d3a94;
+    --label: #8f1c50;
+    --focus: #2d3a94;
+    --bezel: #55536e;
+    --bezel-ink: #ecebf5;
+    --screen: #c4cd9e;
+    --screen-grid: rgba(34, 57, 29, 0.09);
+    --screen-overlay: none;
+    --led: #2f8a3e;
+    --led-glow: 0 0 0 2px rgba(47, 138, 62, 0.25);
+    --slot: #f7f5ee;
+    --slot-edge: #2a2844;
+    --ill-panel: #dde4bd;
+    --ill-stroke: #2f4a26;
+    --ill-c1: #2f4a26;
+    --ill-c2: #5d7a36;
+    --ill-line: #8ea566;
+    --ill-text: #22391d;
+    --title-glow: radial-gradient(60% 70% at 20% 25%, rgba(255, 255, 255, 0.55), transparent 70%);
+    --title-grid: rgba(42, 40, 68, 0.07);
+    --ground-top: #2a2844;
+    --ground-a: #cfc8b2;
+    --ground-b: #c3bba3;
+    --sky-night: none;
+    --sky-day: inline;
+    --sun: #f2c85b;
+    --cloud: #fffdf6;
+    --cloud-shade: rgba(42, 40, 68, 0.08);
+    --hud-bg: rgba(243, 240, 230, 0.97);
+    --hud-edge: #2a2844;
+    --backdrop: rgba(42, 40, 68, 0.55);
+    --h1-shadow: 0.045em 0.045em 0 #e2b3c6;
+    --card-drop: 6px 6px 0 0 rgba(42, 40, 68, 0.14);
+    --card-drop-hover: 9px 9px 0 0 rgba(42, 40, 68, 0.2);
+    --btn-drop: 4px 4px 0 0 #2a2844;
+    --btn2-drop: 4px 4px 0 0 #2a2844;
+    --btn2-hover-bg: #ffffff;
+    --lift: translate(-2px, -2px);
+    --press: translate(2px, 2px);
+    --icon-dark: #111111;
+    --icon-python: #3572a5;
+    --icon-react: #087ea4;
+    --icon-tailwind: #0e7490;
+    --icon-aws: #b35c00;
+    --icon-firebase: #d97c00;
+    --mono-filter: none;
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #e7e3d6;
+  --bg-2: #dcd7c6;
+  --card: #f7f5ee;
+  --card-2: #ebe7da;
+  --edge: #2a2844;
+  --edge-strong: #2a2844;
+  --ink: #221f3b;
+  --ink-2: #4a4764;
+  --primary: #a3245e;
+  --on-primary: #ffffff;
+  --accent: #2d3a94;
+  --label: #8f1c50;
+  --focus: #2d3a94;
+  --bezel: #55536e;
+  --bezel-ink: #ecebf5;
+  --screen: #c4cd9e;
+  --screen-grid: rgba(34, 57, 29, 0.09);
+  --screen-overlay: none;
+  --led: #2f8a3e;
+  --led-glow: 0 0 0 2px rgba(47, 138, 62, 0.25);
+  --slot: #f7f5ee;
+  --slot-edge: #2a2844;
+  --ill-panel: #dde4bd;
+  --ill-stroke: #2f4a26;
+  --ill-c1: #2f4a26;
+  --ill-c2: #5d7a36;
+  --ill-line: #8ea566;
+  --ill-text: #22391d;
+  --title-glow: radial-gradient(60% 70% at 20% 25%, rgba(255, 255, 255, 0.55), transparent 70%);
+  --title-grid: rgba(42, 40, 68, 0.07);
+  --ground-top: #2a2844;
+  --ground-a: #cfc8b2;
+  --ground-b: #c3bba3;
+  --sky-night: none;
+  --sky-day: inline;
+  --sun: #f2c85b;
+  --cloud: #fffdf6;
+  --cloud-shade: rgba(42, 40, 68, 0.08);
+  --hud-bg: rgba(243, 240, 230, 0.97);
+  --hud-edge: #2a2844;
+  --backdrop: rgba(42, 40, 68, 0.55);
+  --h1-shadow: 0.045em 0.045em 0 #e2b3c6;
+  --card-drop: 6px 6px 0 0 rgba(42, 40, 68, 0.14);
+  --card-drop-hover: 9px 9px 0 0 rgba(42, 40, 68, 0.2);
+  --btn-drop: 4px 4px 0 0 #2a2844;
+  --btn2-drop: 4px 4px 0 0 #2a2844;
+  --btn2-hover-bg: #ffffff;
+  --lift: translate(-2px, -2px);
+  --press: translate(2px, 2px);
+  --icon-dark: #111111;
+  --icon-python: #3572a5;
+  --icon-react: #087ea4;
+  --icon-tailwind: #0e7490;
+  --icon-aws: #b35c00;
+  --icon-firebase: #d97c00;
+  --mono-filter: none;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  scroll-padding-top: calc(var(--hud-h) + var(--s4));
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
+  line-height: 1;
+}
+
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: var(--accent);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.sprites {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+.icon-flip {
+  transform: scaleX(-1);
+}
+
+.wrap {
+  width: min(100% - 2 * var(--gutter), var(--wrap));
+  margin-inline: auto;
+}
+
+.skip {
+  position: absolute;
+  top: -100px;
+  left: var(--s4);
+  z-index: 100;
+  padding: var(--s3) var(--s4);
+  background: var(--primary);
+  color: var(--on-primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip:focus {
+  top: var(--s3);
+}
+
+/* Pixel frame. Each element sets --fc (colour), --bw (width) and optionally
+   --drop (an extra shadow for depth or glow). */
+.coin,
+.btn,
+.icon-btn,
+.hud-theme,
+.portrait,
+.menu-item,
+.companion-box,
+.companion-tag,
+.card,
+.screen,
+.board-crop,
+.qblock,
+.chips li,
+.inventory,
+.slot,
+.slot-icon,
+.continue,
+.contact-card,
+.dialog-box {
+  --bw: 2px;
+  --fc: var(--edge);
+  --drop: 0 0 0 0 transparent;
+  box-shadow:
+    0 calc(var(--bw) * -1) 0 0 var(--fc),
+    0 var(--bw) 0 0 var(--fc),
+    calc(var(--bw) * -1) 0 0 0 var(--fc),
+    var(--bw) 0 0 0 var(--fc),
+    var(--drop);
+}
+
+/* The pixel arrow used as a menu cursor, drawn from the same path as #i-cursor. */
+.hud-nav a::before,
+.eyebrow::before,
+.row-label::before {
+  content: "";
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='4 1 8 14'%3E%3Cpath d='M4 1h2v2h2v2h2v2h2v2h-2v2H8v2H6v2H4z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='4 1 8 14'%3E%3Cpath d='M4 1h2v2h2v2h2v2h2v2h-2v2H8v2H6v2H4z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.coin {
+  --fc: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  --coin: 32px;
+  width: var(--coin);
+  height: var(--coin);
+  background: var(--primary);
+  color: var(--on-primary);
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: calc(var(--coin) * 0.56);
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+.btn {
+  --fc: var(--edge-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  min-height: 44px;
+  padding: 0 var(--s4);
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--t-ui);
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease, color 0.12s ease;
+}
+
+.btn .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.btn:hover {
+  transform: var(--lift);
+}
+
+.btn:active {
+  transform: var(--press);
+  --drop: 0 0 0 0 transparent;
+}
+
+.btn-primary {
+  --fc: var(--primary);
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.btn-primary:hover {
+  --drop: var(--btn-drop);
+}
+
+.btn-secondary {
+  background: var(--card);
+}
+
+.btn-secondary:hover {
+  --drop: var(--btn2-drop);
+  background: var(--btn2-hover-bg);
+}
+
+.btn-ghost {
+  --fc: transparent;
+  color: var(--ink-2);
+}
+
+.btn-ghost:hover {
+  --fc: var(--card-2);
+  background: var(--card-2);
+  color: var(--ink);
+}
+
+.icon-btn {
+  --fc: var(--edge-strong);
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+  transition: color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.icon-btn .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.icon-btn:hover {
+  --fc: var(--primary);
+  color: var(--label);
+}
+
+/* --------------------------------------------------------------------------
+   HUD
+   -------------------------------------------------------------------------- */
+
+.hud {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--hud-bg);
+  border-bottom: 3px solid var(--hud-edge);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.hud-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s1);
+  min-height: var(--hud-h);
+}
+
+.hud-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+  min-height: 44px;
+  min-width: 44px;
+  margin-right: auto;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--t-hud);
+  line-height: 1;
+  text-decoration: none;
+}
+
+.hud-name {
+  display: none;
+}
+
+.hud-nav {
+  display: flex;
+}
+
+.hud-nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s1) 0 var(--s3);
+  color: var(--ink-2);
+  font-family: var(--font-display);
+  font-size: var(--t-label);
+  line-height: 1;
+  text-decoration: none;
+  transition: color 0.12s ease;
+}
+
+.hud-nav a::before {
+  position: absolute;
+  left: var(--s1);
+  top: 50%;
+  width: 6px;
+  height: 11px;
+  margin-top: -6px;
+  color: var(--label);
+  opacity: 0;
+}
+
+.hud-nav a:hover,
+.hud-nav a[aria-current] {
+  color: var(--ink);
+}
+
+.hud-nav a:hover::before,
+.hud-nav a[aria-current]::before {
+  opacity: 1;
+}
+
+.hud-theme {
+  --fc: var(--edge-strong);
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  margin-left: var(--s1);
+  border: 0;
+  background: var(--card);
+  color: var(--label);
+  cursor: pointer;
+  transition: box-shadow 0.12s ease;
+}
+
+.hud-theme .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.hud-theme:hover {
+  --fc: var(--primary);
+}
+
+/* The button shows the theme you would switch to. */
+:root[data-theme="light"] .icon-sun,
+:root:not([data-theme="light"]) .icon-moon {
+  display: none;
+}
+
+html:not(.js) .hud-theme,
+html:not(.js) .btn-gallery,
+html:not(.js) [data-open] {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Title screen
+   -------------------------------------------------------------------------- */
+
+.title {
+  position: relative;
+  isolation: isolate;
+  padding-top: var(--s5);
+  background: var(--title-glow);
+  overflow: hidden;
+}
+
+/* A small scene behind the title: moon and stars at night, sun and clouds by day. */
+.sky {
+  position: absolute;
+  z-index: -1;
+  top: var(--s3);
+  right: max(var(--gutter), (100% - var(--wrap)) / 2);
+  width: min(62vw, 440px);
+  height: auto;
+}
+
+.sky path {
+  shape-rendering: crispEdges;
+}
+
+.sky-night {
+  display: var(--sky-night);
+}
+
+.sky-day {
+  display: var(--sky-day);
+}
+
+.sky-moon {
+  fill: var(--moon);
+}
+
+.sky-star {
+  fill: var(--star);
+  opacity: 0.7;
+}
+
+.sky-twinkle {
+  animation: blink 1.6s steps(1) 3;
+}
+
+.sky-sun {
+  fill: var(--sun);
+}
+
+.sky-cloud {
+  fill: var(--cloud);
+  filter: drop-shadow(0 4px 0 var(--cloud-shade));
+}
+
+/* The pixel grid behind the title, fading out towards the ground. */
+.title::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(var(--title-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--title-grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask: linear-gradient(to bottom, #000 30%, transparent);
+  mask: linear-gradient(to bottom, #000 30%, transparent);
+  pointer-events: none;
+}
+
+.title-grid {
+  display: grid;
+  gap: var(--s5);
+}
+
+.title-main {
+  padding-bottom: var(--s2);
+}
+
+.portrait {
+  --fc: var(--primary);
+  --bw: 4px;
+  width: 88px;
+  background: var(--card);
+}
+
+.portrait img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.title-name {
+  margin-top: var(--s4);
+  font-size: var(--t-h1);
+  line-height: 0.82;
+  letter-spacing: 0.01em;
+  text-shadow: var(--h1-shadow);
+}
+
+.title-role {
+  margin-top: var(--s4);
+  font-size: var(--t-role);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.title-tagline {
+  margin-top: var(--s2);
+  color: var(--accent);
+  font-size: var(--t-tagline);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Title menu: the highlight sits on the first item and follows the pointer
+   or keyboard focus, like the cursor on a game's start screen. */
+.menu {
+  display: grid;
+  gap: var(--s3);
+  width: min(100%, 340px);
+  margin-top: var(--s5);
+}
+
+.menu-item {
+  --fc: var(--edge-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s3);
+  min-height: 48px;
+  padding: 0 var(--s5);
+  background: var(--card);
+  color: var(--ink);
+  font-size: var(--t-ui-lg);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease;
+}
+
+/* The cursor hangs to the left of the label without pushing it, so both
+   labels stay centred whichever item is selected. */
+.menu-cursor {
+  width: 16px;
+  height: 16px;
+  margin-left: calc(-16px - var(--s3));
+  opacity: 0;
+}
+
+.menu li:first-child .menu-item,
+.menu-item:hover,
+.menu-item:focus-visible {
+  --fc: var(--primary);
+  --drop: var(--btn-drop);
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.menu li:first-child .menu-cursor,
+.menu-item:hover .menu-cursor,
+.menu-item:focus-visible .menu-cursor {
+  opacity: 1;
+}
+
+/* The cursor blinks only once a visitor moves it. */
+.menu-item:hover .menu-cursor,
+.menu-item:focus-visible .menu-cursor {
+  animation: blink 1s steps(1) 3;
+}
+
+.menu:has(.menu-item:hover, .menu-item:focus-visible) li:first-child .menu-item:not(:hover, :focus-visible) {
+  --fc: var(--edge-strong);
+  --drop: 0 0 0 0 transparent;
+  background: var(--card);
+  color: var(--ink);
+}
+
+.menu:has(.menu-item:hover, .menu-item:focus-visible) li:first-child .menu-item:not(:hover, :focus-visible) .menu-cursor {
+  opacity: 0;
+}
+
+.menu-item:active {
+  transform: var(--press);
+}
+
+.profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--s5);
+  margin-top: var(--s3);
+}
+
+/* Phones show "Email"; the address itself is in the contact section. */
+.link-long {
+  display: none;
+}
+
+.profile-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  color: var(--ink-2);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.12s ease;
+}
+
+.profile-links .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.profile-links a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--primary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+
+/* The companion: an RPG dialogue box and the owl standing on the ground line. */
+.companion {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--s4);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.companion-box {
+  --fc: var(--edge-strong);
+  --bw: 3px;
+  position: relative;
+  display: grid;
+  gap: 2px;
+  align-self: start;
+  margin-top: var(--s3);
+  padding: var(--s5) var(--s6) var(--s4) var(--s4);
+  background: var(--card);
+  transition: box-shadow 0.12s ease;
+}
+
+.companion-tag {
+  --fc: var(--primary);
+  position: absolute;
+  top: -13px;
+  left: var(--s3);
+  padding: 3px var(--s2) 2px;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-family: var(--font-display);
+  font-size: var(--t-tag);
+  line-height: 1;
+}
+
+.companion-title {
+  font-size: var(--t-body);
+  line-height: 1.3;
+}
+
+.companion-cta {
+  color: var(--accent);
+  font-size: var(--t-ui);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.companion-cta .icon {
+  width: 14px;
+  height: 14px;
+  margin-left: 6px;
+  vertical-align: -1px;
+}
+
+.companion-next {
+  position: absolute;
+  right: var(--s3);
+  bottom: var(--s3);
+  width: 14px;
+  height: 14px;
+  color: var(--label);
+  animation: bob 0.8s steps(2) 6;
+}
+
+/* Stepped tail pointing from the box towards the owl. */
+.companion-box::before,
+.companion-box::after {
+  content: "";
+  position: absolute;
+  clip-path: polygon(0 0, 100% 0, 100% 34%, 67% 34%, 67% 67%, 34% 67%, 34% 100%, 0 100%);
+}
+
+.companion-box::before {
+  right: -21px;
+  bottom: 14px;
+  width: 21px;
+  height: 21px;
+  background: var(--fc);
+}
+
+.companion-box::after {
+  right: -15px;
+  bottom: 17px;
+  width: 15px;
+  height: 15px;
+  background: var(--card);
+}
+
+.companion-owl {
+  width: 76px;
+  transition: transform 0.15s steps(2);
+}
+
+.companion:hover .companion-box {
+  --fc: var(--primary);
+  --drop: var(--btn2-drop);
+}
+
+.companion:hover .companion-owl {
+  transform: translateY(-8px);
+}
+
+.companion:focus-visible {
+  outline-offset: 6px;
+}
+
+.ground {
+  height: 20px;
+  background:
+    linear-gradient(var(--ground-top) 0 0) top / 100% 4px no-repeat,
+    repeating-conic-gradient(var(--ground-a) 0 25%, var(--ground-b) 0 50%) 0 4px / 16px 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Sections
+   -------------------------------------------------------------------------- */
+
+.section {
+  padding: var(--s8) 0;
+}
+
+.section-head {
+  max-width: 640px;
+  margin-bottom: var(--s6);
+}
+
+.eyebrow,
+.row-label {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  font-family: var(--font-display);
+  font-size: var(--t-label);
+  line-height: 1;
+}
+
+.eyebrow {
+  color: var(--label);
+}
+
+.eyebrow::before,
+.row-label::before {
+  width: 8px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.section-title {
+  margin: var(--s2) 0 var(--s4);
+  font-size: var(--t-h2);
+  line-height: 0.85;
+}
+
+.section-lede {
+  max-width: 56ch;
+  color: var(--ink-2);
+  font-size: var(--t-lede);
+  text-wrap: pretty;
+}
+
+/* --------------------------------------------------------------------------
+   Stage select
+   -------------------------------------------------------------------------- */
+
+.row-label {
+  margin-bottom: var(--s5);
+  color: var(--ink-2);
+}
+
+.row-label::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: var(--edge);
+}
+
+.stages + .row-label {
+  margin-top: var(--s7);
+}
+
+.stages {
+  display: grid;
+  gap: var(--s6);
+}
+
+.card {
+  --fc: var(--edge);
+  --bw: 3px;
+  --drop: var(--card-drop);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--s3);
+  background: var(--card);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  --drop: var(--card-drop-hover);
+  transform: var(--lift);
+}
+
+/* Selection reticle: corner brackets snap in around the card under the
+   pointer or the keyboard focus. */
+.card::after,
+.bonus::after {
+  --rc: var(--primary);
+  --rl: 20px;
+  --rw: 4px;
+  content: "";
+  position: absolute;
+  inset: -6px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--rc) 0 0) top left / var(--rl) var(--rw),
+    linear-gradient(var(--rc) 0 0) top left / var(--rw) var(--rl),
+    linear-gradient(var(--rc) 0 0) top right / var(--rl) var(--rw),
+    linear-gradient(var(--rc) 0 0) top right / var(--rw) var(--rl),
+    linear-gradient(var(--rc) 0 0) bottom left / var(--rl) var(--rw),
+    linear-gradient(var(--rc) 0 0) bottom left / var(--rw) var(--rl),
+    linear-gradient(var(--rc) 0 0) bottom right / var(--rl) var(--rw),
+    linear-gradient(var(--rc) 0 0) bottom right / var(--rw) var(--rl);
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.12s steps(2), inset 0.12s steps(2);
+}
+
+.card:hover::after,
+.card:focus-within::after,
+.bonus:hover::after,
+.bonus:focus-within::after {
+  opacity: 1;
+  inset: -12px;
+}
+
+.screen {
+  --fc: var(--bezel);
+  position: relative;
+  padding: 0 10px 10px;
+  background: var(--bezel);
+}
+
+/* A gallery button parked on the screen's lower right corner. */
+.screen-btn {
+  position: absolute;
+  right: calc(10px + var(--s3));
+  bottom: calc(10px + var(--s3));
+}
+
+.screen-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  color: var(--bezel-ink);
+  font-family: var(--font-display);
+  font-size: var(--t-tag);
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.led {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.led::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: var(--led);
+  box-shadow: var(--led-glow);
+}
+
+.screen-view {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: var(--screen);
+  background-image:
+    linear-gradient(var(--screen-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--screen-grid) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Scanlines on drawn screens only; real screenshots stay sharp. */
+.view-chat::after,
+.view-prep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--screen-overlay);
+  pointer-events: none;
+}
+
+/* Illustrations: shapes take theme colours, so the light theme gets a
+   four-shade LCD look and the dark theme a lit screen. */
+.ill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ill rect,
+.ill path {
+  shape-rendering: crispEdges;
+}
+
+.ill-panel {
+  fill: var(--ill-panel);
+  stroke: var(--ill-stroke);
+  stroke-width: 2;
+}
+
+.ill-c1 {
+  fill: var(--ill-c1);
+}
+
+.ill-c2 {
+  fill: var(--ill-c2);
+}
+
+.ill-line {
+  fill: var(--ill-line);
+}
+
+/* Text sizes are set in the markup, in viewBox units, so they scale with the screen. */
+.ill-label {
+  fill: var(--ill-text);
+  font-family: var(--font-display);
+}
+
+.ill-big {
+  fill: var(--ill-c2);
+  font-family: var(--font-display);
+}
+
+.chat-owl {
+  position: absolute;
+  left: 6%;
+  bottom: 10%;
+  width: 30%;
+}
+
+/* Mega Chess: the two boards, cropped from one screenshot of the game screen. */
+.view-boards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7%;
+}
+
+.board {
+  display: grid;
+  justify-items: center;
+  gap: var(--s2);
+  width: 38%;
+}
+
+.board-crop {
+  --fc: var(--bezel);
+  --bw: 3px;
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+/* Board edges in the 2220 x 1080 screenshot: x 461-691 and 1526-1756, y 340-570. */
+.board-crop img {
+  position: absolute;
+  max-width: none;
+  width: 965.2%;
+  top: -147.8%;
+}
+
+.board-intl {
+  left: -200.4%;
+}
+
+.board-xiangqi {
+  left: -663.5%;
+}
+
+.board-label {
+  color: var(--ill-text);
+  font-family: var(--font-display);
+  font-size: var(--t-tag);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.view-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Local Chat: the "Connect a device" screen, x 210-930 and y 0-450 of 1280 x 800.
+   The crop stops above the line that names the Wi-Fi network and local IP. */
+.crop-local-chat {
+  position: absolute;
+  max-width: none;
+  width: 177.78%;
+  left: -29.17%;
+  top: 0;
+}
+
+.qblock {
+  --fc: var(--primary);
+  --bw: 4px;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-family: var(--font-display);
+  font-size: var(--t-block);
+  line-height: 1;
+  transition: transform 0.15s steps(2);
+}
+
+/* The last tile is not a project: a dashed "bonus" slot that links to GitHub. */
+.bonus {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s3);
+  height: 100%;
+  min-height: 300px;
+  padding: var(--s6) var(--s5);
+  border: 3px dashed var(--edge-strong);
+  text-align: center;
+}
+
+.bonus .qblock {
+  margin-bottom: var(--s3);
+}
+
+.bonus .card-desc {
+  max-width: 34ch;
+}
+
+.bonus .btn {
+  margin-top: var(--s2);
+}
+
+.repos {
+  width: min(100%, 300px);
+  margin-top: var(--s2);
+  border-top: 2px dashed var(--edge);
+  text-align: left;
+}
+
+.repos a {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  min-height: 44px;
+  border-bottom: 2px dashed var(--edge);
+  color: var(--ink);
+  font-size: var(--t-small);
+  font-weight: 700;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 0.12s ease;
+}
+
+.repos .icon {
+  width: 16px;
+  height: 16px;
+  color: var(--ink-2);
+}
+
+.repos a:hover {
+  color: var(--label);
+}
+
+.bonus:hover .qblock {
+  transform: translateY(-8px);
+}
+
+.card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--s3);
+  padding: var(--s5) var(--s1) var(--s1);
+}
+
+.card-title {
+  font-size: var(--t-h3);
+  line-height: 0.95;
+}
+
+.card-desc {
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: var(--s2);
+  padding: 2px;
+}
+
+.chips li {
+  --fc: var(--card-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px var(--s2);
+  background: var(--card-2);
+  font-size: var(--t-body);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.chips i {
+  font-size: 1em;
+  line-height: 1;
+}
+
+.chips .icon {
+  width: 1em;
+  height: 1em;
+  color: var(--ink-2);
+}
+
+/* Devicon paints these near-black, which disappears on a dark panel. */
+.devicon-flask-original.colored,
+.devicon-sqlalchemy-plain.colored,
+.devicon-linux-plain.colored {
+  color: var(--icon-dark);
+}
+
+/* Devicon's pale brand colours wash out on the light theme's paper, so each
+   has a token: the devicon colour on dark, a deeper shade on light. */
+.devicon-python-plain.colored {
+  color: var(--icon-python);
+}
+
+/* The JS logo is black letters on yellow. The glyph's letters are holes, so a
+   dark square behind it (inside the yellow) fills them in both themes. */
+.devicon-javascript-plain.colored {
+  color: var(--icon-js);
+  background: linear-gradient(var(--icon-js-ink) 0 0) center / 86% 86% no-repeat;
+}
+
+.devicon-react-original.colored {
+  color: var(--icon-react);
+}
+
+.devicon-tailwindcss-original.colored {
+  color: var(--icon-tailwind);
+}
+
+.devicon-amazonwebservices-plain-wordmark.colored {
+  color: var(--icon-aws);
+}
+
+.devicon-firebase-plain.colored {
+  color: var(--icon-firebase);
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  margin-top: auto;
+  padding-top: var(--s3);
+}
+
+.card-actions .btn {
+  flex: 1 1 auto;
+}
+
+/* In a narrow card the buttons stack, so every card in a row matches. */
+.card-body {
+  container-type: inline-size;
+}
+
+@container (max-width: 320px) {
+  .card-actions .btn {
+    flex-basis: 100%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Inventory
+   -------------------------------------------------------------------------- */
+
+.section-skills {
+  background: var(--bg-2);
+  border-block: 3px solid var(--edge);
+}
+
+.skills-grid {
+  display: grid;
+  gap: var(--s2);
+}
+
+.inventory {
+  --fc: var(--edge);
+  --bw: 3px;
+  --drop: var(--card-drop);
+  display: grid;
+  padding: var(--s2) var(--s3);
+  background: var(--card);
+}
+
+.bag {
+  display: grid;
+  gap: var(--s3);
+  padding: var(--s3) 0;
+}
+
+.bag + .bag {
+  border-top: 2px solid var(--card-2);
+}
+
+.bag-title {
+  font-size: var(--t-label);
+}
+
+/* Phones: an item list, as in an RPG menu. Two columns of items, each an
+   icon in its own slot with the name beside it. Wider screens: square slots. */
+.slots {
+  --slot-size: 96px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s2) var(--s3);
+  padding: 2px;
+}
+
+.slot {
+  --fc: transparent;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  min-width: 0;
+  font-size: var(--t-body);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.slot-icon {
+  --fc: var(--slot-edge);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  background: var(--slot);
+}
+
+.slot i {
+  font-size: var(--icon-slot);
+  line-height: 1;
+}
+
+.slot-img {
+  width: var(--icon-slot);
+  height: var(--icon-slot);
+  object-fit: contain;
+}
+
+/* Gunicorn and Hugging Face arrive as black SVGs. */
+.slot-img.is-mono {
+  filter: var(--mono-filter);
+}
+
+/* --------------------------------------------------------------------------
+   Continue? (contact)
+   -------------------------------------------------------------------------- */
+
+.continue {
+  --fc: var(--edge);
+  --bw: 3px;
+  --drop: var(--card-drop);
+  padding: var(--s3);
+  background: var(--bezel);
+}
+
+.continue-screen {
+  padding: var(--s7) var(--s4);
+  background-color: var(--screen);
+  background-image:
+    var(--screen-overlay),
+    linear-gradient(var(--screen-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--screen-grid) 1px, transparent 1px);
+  background-size: auto, 16px 16px, 16px 16px;
+  text-align: center;
+}
+
+.continue .section-head {
+  margin-inline: auto;
+}
+
+.continue .eyebrow {
+  justify-content: center;
+}
+
+.continue .section-lede {
+  margin-inline: auto;
+}
+
+.contact-list {
+  display: grid;
+  gap: var(--s4);
+  max-width: 880px;
+  margin-inline: auto;
+}
+
+.contact-card {
+  --fc: var(--edge-strong);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--s4);
+  align-items: center;
+  min-height: 76px;
+  padding: var(--s3) var(--s5);
+  background: var(--card-2);
+  color: var(--ink);
+  text-align: left;
+  text-decoration: none;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.contact-card .icon {
+  grid-row: span 2;
+  width: 28px;
+  height: 28px;
+}
+
+.contact-kind {
+  font-family: var(--font-display);
+  font-size: var(--t-label);
+  line-height: 1;
+}
+
+.contact-value {
+  font-size: var(--t-ui-lg);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.contact-card.is-primary {
+  --fc: var(--primary);
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.contact-card:hover {
+  --drop: var(--btn2-drop);
+  transform: var(--lift);
+}
+
+.contact-card.is-primary:hover {
+  --drop: var(--btn-drop);
+}
+
+.contact-card:active {
+  transform: var(--press);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.footer {
+  padding: var(--s5) 0 var(--s6);
+  color: var(--ink-2);
+  font-size: var(--t-ui);
+}
+
+.footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2) var(--s5);
+}
+
+.footer-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.coin-sm {
+  --coin: 24px;
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--s5);
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink-2);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--primary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+
+/* --------------------------------------------------------------------------
+   Dialogs
+   -------------------------------------------------------------------------- */
+
+.dialog,
+.lightbox {
+  border: 0;
+  padding: 0;
+  color: var(--ink);
+}
+
+.dialog::backdrop,
+.lightbox::backdrop {
+  background: var(--backdrop);
+}
+
+.dialog {
+  width: min(100% - 2 * var(--s4), 480px);
+  padding: 4px;
+  background: transparent;
+  overflow: visible;
+}
+
+.dialog-box {
+  --fc: var(--edge-strong);
+  --bw: 3px;
+  display: grid;
+  gap: var(--s3);
+  margin: 0;
+  padding: var(--s6) var(--s5) var(--s5);
+  background: var(--card);
+}
+
+.dialog-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  color: var(--label);
+  font-family: var(--font-display);
+  font-size: var(--t-label);
+  line-height: 1;
+}
+
+.dialog-tag .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.dialog-title {
+  font-size: var(--t-dialog);
+  line-height: 0.85;
+}
+
+.dialog-text {
+  color: var(--ink-2);
+}
+
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  margin-top: var(--s2);
+}
+
+.dialog-actions .btn-primary,
+.dialog-actions .btn-secondary {
+  flex: 1 1 auto;
+}
+
+.dialog-actions .btn-ghost {
+  flex: 1 1 100%;
+}
+
+/* Lightbox: full screen. The title bar on top; the image and a
+   "< 1 / 10 >" selector under it, centred together so the arrows stay close
+   to the image whatever its shape. */
+.lightbox {
+  --lb-pad: var(--s4);
+  /* Bar, selector, the gap between them and the stage padding. */
+  --lb-chrome: calc(var(--hud-h) + 3px + 44px + var(--s4) + 2 * var(--lb-pad));
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
+  margin: 0;
+  background: var(--bg);
+}
+
+.lightbox[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.lightbox-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  min-height: var(--hud-h);
+  padding: var(--s2) var(--s4);
+  background: var(--hud-bg);
+  border-bottom: 3px solid var(--hud-edge);
+}
+
+.lightbox-title {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--t-label);
+  line-height: 1;
+}
+
+.lightbox-stage {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s4);
+  min-height: 0;
+  padding: var(--lb-pad);
+}
+
+/* Big enough to hold the loading and error messages before an image arrives. */
+.lightbox-figure {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: min(100%, 320px);
+  min-height: 200px;
+  max-width: 100%;
+  margin: 0;
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: calc(100vh - var(--lb-chrome));
+  max-height: calc(100dvh - var(--lb-chrome));
+  transition: opacity 0.2s ease;
+}
+
+.lightbox.is-loading .lightbox-img {
+  opacity: 0.3;
+}
+
+.lightbox-img:not([src]) {
+  display: none;
+}
+
+/* Centred with auto margins rather than a transform, so the box can use the
+   full width before it wraps. */
+.lightbox-status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  justify-items: center;
+  gap: var(--s2);
+  width: fit-content;
+  height: fit-content;
+  max-width: calc(100% - 2 * var(--s4));
+  margin: auto;
+  padding: var(--s3) var(--s4);
+  background: var(--card);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--t-label);
+  line-height: 1.1;
+  text-align: center;
+  box-shadow: 0 0 0 3px var(--edge-strong);
+}
+
+.lightbox-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  font-weight: 700;
+}
+
+.lightbox-link .icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Fixed columns, so the counter stays put when the arrows are hidden. */
+.lightbox-controls {
+  display: grid;
+  grid-template-columns: 44px minmax(6ch, auto) 44px;
+  align-items: center;
+  gap: var(--s4);
+  min-height: 44px;
+}
+
+.lightbox-controls:has(.lightbox-counter:empty) {
+  visibility: hidden;
+}
+
+.lightbox-controls [data-lightbox="prev"] {
+  grid-column: 1;
+}
+
+.lightbox-controls [data-lightbox="next"] {
+  grid-column: 3;
+}
+
+.lightbox-counter {
+  grid-column: 2;
+  grid-row: 1;
+  color: var(--label);
+  font-family: var(--font-display);
+  font-size: var(--t-label);
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Motion
+   -------------------------------------------------------------------------- */
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes bob {
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.94);
+    opacity: 0;
+  }
+}
+
+.dialog[open] .dialog-box {
+  animation: pop 0.14s steps(3);
+}
+
+/* Items below the first screen fade in once. The script only marks items that
+   are off screen at load, so nothing visible is ever hidden. */
+.is-pending {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.is-revealed {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Wider screens
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 480px) {
+  .hud-name,
+  .link-long {
+    display: inline;
+  }
+
+  .link-short {
+    display: none;
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --gutter: var(--s5);
+    --hud-h: 68px;
+  }
+
+  .hud-nav a {
+    padding: 0 var(--s3) 0 var(--s5);
+  }
+
+  .hud-nav a::before {
+    left: var(--s2);
+  }
+
+  .title {
+    padding-top: var(--s7);
+  }
+
+  .portrait {
+    width: 128px;
+  }
+
+  .title-name {
+    margin-top: var(--s5);
+  }
+
+  .menu {
+    margin-top: var(--s6);
+  }
+
+  .menu-item {
+    min-height: 52px;
+  }
+
+  .profile-links {
+    margin-top: var(--s4);
+  }
+
+  .companion {
+    justify-self: end;
+    width: min(100%, 460px);
+  }
+
+  .companion-owl {
+    width: 112px;
+  }
+
+  /* Phones get 16px chip and slot labels; from here the cards and slots are
+     roomier and the labels step down to label size. */
+  .chips li {
+    font-size: var(--t-small);
+  }
+
+  .slots {
+    grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+    gap: var(--s2);
+  }
+
+  .slot {
+    --fc: var(--slot-edge);
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--s2);
+    min-height: 84px;
+    padding: var(--s2) 2px;
+    background: var(--slot);
+    font-size: var(--t-xs);
+    text-align: center;
+  }
+
+  .slot-icon {
+    --fc: transparent;
+    width: auto;
+    height: auto;
+    background: none;
+  }
+
+  .section-head {
+    margin-bottom: var(--s7);
+  }
+
+  /* One column of wide cards: the screen on the left. */
+  .card {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    align-items: start;
+    column-gap: var(--s5);
+    padding: var(--s4);
+  }
+
+  .card-body {
+    height: 100%;
+    padding: var(--s1) var(--s1) 0 0;
+  }
+
+  .inventory {
+    --icon-slot: 32px;
+    padding: var(--s2) var(--s5);
+  }
+
+  .bag {
+    padding: var(--s4) 0;
+  }
+
+  .continue {
+    padding: var(--s4);
+  }
+
+  .continue-screen {
+    padding: var(--s8) var(--s6);
+  }
+
+  .contact-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contact-list li:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .dialog-box {
+    padding: var(--s6);
+  }
+
+  .dialog-actions .btn-ghost {
+    flex: 0 0 auto;
+  }
+
+  .lightbox {
+    --lb-pad: var(--s5);
+  }
+
+  .lightbox-title {
+    font-size: var(--t-hud);
+  }
+}
+
+@media (min-width: 840px) {
+  .inventory {
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .bag {
+    grid-template-columns: 124px auto;
+    align-items: center;
+    gap: var(--s4);
+  }
+
+  /* One row per area, on a five-slot column grid, so the slots line up
+     from row to row. */
+  .slots {
+    grid-template-columns: repeat(5, var(--slot-size));
+  }
+
+  .slot {
+    height: var(--slot-size);
+    min-height: 0;
+  }
+}
+
+/* From here the title is a player card: the portrait beside the name, so the
+   stage select starts on the first screen. */
+@media (min-width: 1024px) {
+  :root {
+    --gutter: var(--s6);
+    --t-h1: clamp(7rem, -2rem + 11vw, 9rem);
+  }
+
+  .title {
+    padding-top: var(--s6);
+  }
+
+  .title-grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: var(--s6);
+  }
+
+  .title-main {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "portrait name"
+      "portrait role"
+      "portrait tagline"
+      "menu menu"
+      "links links";
+    column-gap: var(--s5);
+    align-content: start;
+    padding-bottom: var(--s6);
+  }
+
+  .portrait {
+    grid-area: portrait;
+    align-self: start;
+    width: 128px;
+    margin-top: var(--s2);
+  }
+
+  .title-name {
+    grid-area: name;
+    margin-top: 0;
+  }
+
+  .title-role {
+    grid-area: role;
+  }
+
+  .title-tagline {
+    grid-area: tagline;
+  }
+
+  .menu {
+    grid-area: menu;
+    grid-template-columns: repeat(2, 240px);
+    width: auto;
+    margin-top: var(--s6);
+  }
+
+  .profile-links {
+    grid-area: links;
+  }
+
+  .companion {
+    width: 380px;
+    padding-bottom: 0;
+  }
+
+  .companion-box {
+    margin-bottom: 112px;
+  }
+
+  .companion-owl {
+    width: 112px;
+  }
+
+  #projects {
+    padding-top: var(--s7);
+  }
+
+  /* Three cards to a row. Each card's screen, title, text, chips and buttons
+     share rows with its neighbours (subgrid), so the lines of a row align and
+     the spare height is shared out instead of pooling above the buttons. */
+  .stages {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 0;
+  }
+
+  .stage {
+    display: grid;
+    grid-row: span 5;
+    grid-template-rows: subgrid;
+  }
+
+  .stage > * {
+    grid-row: 1 / -1;
+  }
+
+  .card {
+    grid-template-columns: none;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    padding: var(--s3);
+  }
+
+  .card-body {
+    display: grid;
+    grid-row: 2 / -1;
+    grid-template-rows: subgrid;
+    align-content: start;
+    height: auto;
+    padding: var(--s5) var(--s1) var(--s1);
+    /* A size container gets layout containment, which would switch subgrid off. */
+    container-type: normal;
+  }
+
+  .card-actions {
+    align-self: end;
+  }
+
+  .section-skills .skills-grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: var(--s7);
+  }
+
+  /* The heading stays in view beside the long inventory. */
+  .section-skills .section-head {
+    position: sticky;
+    top: calc(var(--hud-h) + var(--s6));
+    margin-bottom: 0;
+  }
+
+  .contact-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .contact-list li:first-child {
+    grid-column: auto;
+  }
+}
+
+/* The card body is under 320px wide here: stack the buttons, as the container
+   query does below 1024px. */
+@media (min-width: 1024px) and (max-width: 1183px) {
+  .card-actions .btn {
+    flex-basis: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .title-main {
+    column-gap: var(--s6);
+  }
+
+  .portrait {
+    width: 144px;
+  }
+
+  .menu {
+    grid-template-columns: repeat(2, 248px);
+  }
+
+  .title-grid {
+    gap: var(--s7);
+  }
+
+  .companion {
+    width: 440px;
+  }
+
+  .companion-box {
+    margin-bottom: 128px;
+  }
+
+  .companion-owl {
+    width: 150px;
+  }
+
+  .slots {
+    --slot-size: 104px;
+  }
+}

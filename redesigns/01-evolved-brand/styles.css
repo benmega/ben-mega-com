@@ -1,0 +1,2332 @@
+/* ==========================================================================
+   Ben Mega — portfolio
+   Dark first. The light theme follows prefers-color-scheme and has its own
+   tokens, not an inverted copy of the dark ones.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --bg: #0b0d11;
+  --bg-band: #0f1216;
+  --surface: #13171d;
+  --surface-2: #1a1f27;
+  --surface-3: #232933;
+  --line: #242b35;
+  --line-2: #353e4b;
+
+  /* Text */
+  --text: #eef1f5;
+  --text-2: #a9b2bf;
+  --text-3: #8a94a2;
+
+  /* Brand: teal leads, blue only joins it in the portrait ring. */
+  --teal: #0eb2bb;
+  --blue: #007bff;
+  --accent-ink: #0eb2bb;
+  --accent-soft: rgba(14, 178, 187, 0.13);
+  --primary: #0eb2bb;
+  --primary-hover: #2cc3cb;
+  --primary-fg: #04181a;
+  --focus: #3fd0d8;
+
+  /* Atmosphere */
+  --glow-teal: rgba(14, 178, 187, 0.14);
+  --glow-blue: rgba(0, 123, 255, 0.07);
+  --grid-line: rgba(255, 255, 255, 0.045);
+  --header-bg: rgba(11, 13, 17, 0.8);
+  --media-bg: #161b22;
+  --device: #2c333e;
+  --window-bar: #222832;
+  --window-dot: #3d4653;
+  --backdrop: rgba(3, 5, 8, 0.74);
+  --device-screen: #000;
+  --chip-bg: rgba(11, 13, 17, 0.82);
+  --chip-fg: #eef1f5;
+  --chip-line: rgba(255, 255, 255, 0.14);
+  --skill-line: var(--line);
+  --shot-dim: brightness(0.88);
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 28px 72px rgba(0, 0, 0, 0.55);
+  --shadow-device: 0 14px 30px rgba(0, 0, 0, 0.32);
+  --shadow-drop: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.28));
+  --shadow-portrait: 0 18px 50px rgba(14, 178, 187, 0.24);
+  --inset-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+
+  /* Lightbox: dark in both themes, because screenshots read best on dark */
+  --lb-bg: rgba(4, 6, 10, 0.95);
+  --lb-fg: #ffffff;
+  --lb-fg-2: rgba(255, 255, 255, 0.78);
+  --lb-btn: rgba(255, 255, 255, 0.08);
+  --lb-btn-hover: rgba(255, 255, 255, 0.18);
+  --lb-btn-line: rgba(255, 255, 255, 0.16);
+  --lb-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  --lb-track: rgba(255, 255, 255, 0.2);
+
+  /* Type */
+  --font: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fs-display: clamp(2.875rem, 1.9rem + 4vw, 5.5rem);
+  --fs-statement: clamp(1.5rem, 1.1rem + 1.7vw, 2.625rem);
+  --fs-h2: clamp(2rem, 1.6rem + 1.5vw, 2.75rem);
+  --fs-2xl: 1.75rem;
+  --fs-xl: 1.375rem;
+  --fs-h3: 1.25rem;
+  --fs-lead: 1.125rem;
+  --fs-md: 1.0625rem;
+  --fs-body: 1rem;
+  --fs-sm: 0.9375rem;
+  --fs-ui: 0.875rem;
+  --fs-xs: 0.8125rem;
+  --fs-2xs: 0.75rem;
+  --icon-glyph: 20px;
+  --icon-wordmark: 30px;
+
+  /* Spacing (4px base) */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+
+  /* Shape and layout */
+  --radius-sm: 8px;
+  --radius: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --container: 1136px;
+  --gutter: 24px;
+  --header-h: 64px;
+  --grid-size: 32px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Ben's teacher marks, drawn in teal wherever something is marked:
+     the stroke under "accessible" and "touch", the current nav link, and
+     a tick beside each skill area. Used as masks, so they take any colour. */
+  --mark-line: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9.5C42 4.5 96 3 140 5.5c22 1.2 40 2.6 57 1' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+  --mark-tick: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 18'%3E%3Cpath d='M2.5 10.2c1.6 1.1 3.1 2.6 4.3 4.6C9.4 9.4 12.9 5.2 17.6 2.4' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+
+    --bg: #f5f7f9;
+    --bg-band: #ecf1f3;
+    --surface: #ffffff;
+    --surface-2: #f0f3f6;
+    --surface-3: #e5eaef;
+    --line: #dde3e9;
+    --line-2: #c6cfd9;
+
+    --text: #0f151c;
+    --text-2: #444f5c;
+    --text-3: #5a6573;
+
+    --accent-ink: #0a7078;
+    --accent-soft: rgba(14, 178, 187, 0.12);
+    --primary: #0a7078;
+    --primary-hover: #085c63;
+    --primary-fg: #ffffff;
+    --focus: #0a7078;
+
+    --glow-teal: rgba(14, 178, 187, 0.11);
+    --glow-blue: rgba(0, 123, 255, 0);
+    --grid-line: rgba(10, 112, 120, 0.08);
+    --header-bg: rgba(245, 247, 249, 0.84);
+    --media-bg: #e9eef2;
+    --device: #1d232b;
+    --window-bar: #f3f5f8;
+    --window-dot: #cfd6de;
+    --backdrop: rgba(15, 21, 28, 0.45);
+    --chip-bg: rgba(255, 255, 255, 0.92);
+    --chip-fg: #0f151c;
+    --chip-line: rgba(15, 21, 28, 0.12);
+    --skill-line: transparent;
+    --shot-dim: none;
+
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05), 0 2px 6px rgba(15, 23, 42, 0.04);
+    --shadow: 0 14px 34px rgba(15, 23, 42, 0.1);
+    --shadow-lg: 0 28px 72px rgba(15, 23, 42, 0.2);
+    --shadow-device: 0 14px 30px rgba(15, 23, 42, 0.22);
+    --shadow-drop: drop-shadow(0 8px 14px rgba(15, 23, 42, 0.16));
+    --shadow-portrait: 0 18px 50px rgba(14, 178, 187, 0.2);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + var(--s-4));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: var(--accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* Components set their own display; the hidden attribute still wins. */
+[hidden] {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.icon {
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+.icon-sm {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-xs {
+  width: 14px;
+  height: 14px;
+}
+
+.eyebrow {
+  margin-bottom: var(--s-3);
+  color: var(--accent-ink);
+  font-size: var(--fs-2xs);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--s-4);
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  color: var(--primary-fg);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: var(--s-3);
+}
+
+/* Controls that only work with JavaScript stay out of the way without it. */
+html:not(.js) .needs-js {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: 42px;
+  padding: 0 var(--s-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-lg {
+  min-height: 50px;
+  padding: 0 22px;
+  font-size: var(--fs-body);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-fg);
+  box-shadow: var(--inset-highlight);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  border-color: var(--line);
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  border-color: var(--line-2);
+  background: var(--surface-3);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-2);
+}
+
+.btn-ghost:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid transparent;
+  background: var(--header-bg);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  backdrop-filter: saturate(1.4) blur(14px);
+  transition: border-color 0.2s ease;
+}
+
+.site-header.is-scrolled {
+  border-bottom-color: var(--line);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  height: var(--header-h);
+}
+
+.nav ul {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-right: auto;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: var(--fs-md);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--primary);
+  color: var(--primary-fg);
+  font-size: var(--fs-md);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.brand-mark-sm {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  font-size: var(--fs-ui);
+}
+
+.nav-links {
+  gap: 2px;
+}
+
+.nav-links a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s-3);
+  border-radius: var(--radius-sm);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+/* The section in view: the same hand-drawn stroke as under "accessible". */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  right: var(--s-2);
+  bottom: 5px;
+  left: var(--s-2);
+  height: 7px;
+  background: var(--teal);
+  -webkit-mask: var(--mark-line) no-repeat center / 100% 100%;
+  mask: var(--mark-line) no-repeat center / 100% 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.nav-links a[aria-current="true"] {
+  color: var(--text);
+}
+
+.nav-links a[aria-current="true"]::after {
+  transform: scaleX(1);
+}
+
+.nav-social {
+  gap: 2px;
+  margin-left: var(--s-2);
+  padding-left: var(--s-3);
+  border-left: 1px solid var(--line);
+}
+
+.icon-link {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  color: var(--text-2);
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.icon-link:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* --------------------------------------------------------------------------
+   Hero: the statement on the left, on the same edge as every section below;
+   the portrait and the owl on the right, on a patch of graph paper.
+   -------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: var(--s-8) 0 var(--s-7);
+}
+
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Graph paper, lined up so a rule runs along the content edge, strongest
+   around the portrait. */
+.hero::before {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-position: calc(50% + var(--grid-size) / 2) 0;
+  background-size: var(--grid-size) var(--grid-size);
+  -webkit-mask-image: radial-gradient(ellipse 50% 78% at 74% 48%, #000 25%, transparent 80%);
+  mask-image: radial-gradient(ellipse 50% 78% at 74% 48%, #000 25%, transparent 80%);
+}
+
+/* The glow fades out before the hero's lower edge, so no seam shows. */
+.hero::after {
+  background:
+    radial-gradient(420px 340px at 76% 50%, var(--glow-teal), transparent 70%),
+    radial-gradient(640px 420px at 30% 70%, var(--glow-blue), transparent 72%);
+  -webkit-mask-image: linear-gradient(#000 60%, transparent);
+  mask-image: linear-gradient(#000 60%, transparent);
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 34%);
+  gap: var(--s-7);
+  align-items: center;
+}
+
+.hero-text {
+  grid-column: 1;
+  grid-row: 1;
+  max-width: 720px;
+}
+
+/* The top padding makes room for the owl and its bubble above the ring. */
+.hero-figure {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  width: 168px;
+  padding-top: 88px;
+}
+
+/* A compass circle drawn around the portrait, on the graph paper. */
+.hero-figure::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: -48px;
+  z-index: -1;
+  width: 264px;
+  height: 264px;
+  border: 1px dashed var(--line-2);
+  border-radius: 50%;
+}
+
+.portrait {
+  width: 168px;
+  height: 168px;
+  padding: 4px;
+  border-radius: 50%;
+  /* The one gradient on the page: the ring the old site had, in both brand colours. */
+  background: conic-gradient(from 200deg, var(--teal), var(--blue), var(--teal));
+  box-shadow: var(--shadow-portrait);
+}
+
+.portrait img {
+  display: block;
+  width: 160px;
+  height: 160px;
+  border: 3px solid var(--bg);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* The Classroom Chat owl perches on the ring at about one o'clock. */
+.owl {
+  position: absolute;
+  top: 0;
+  left: 104px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  border-radius: 999px;
+  color: var(--text);
+  text-decoration: none;
+  transform: translateX(-50%);
+}
+
+.owl-bubble {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.owl-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-right: 1px solid var(--line-2);
+  border-bottom: 1px solid var(--line-2);
+  background: inherit;
+  transform: translateX(-50%) rotate(45deg);
+  transition: inherit;
+}
+
+.owl-bubble .icon {
+  color: var(--accent-ink);
+}
+
+.owl:hover .owl-bubble,
+.owl:focus-visible .owl-bubble {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--primary-fg);
+}
+
+.owl:hover .owl-bubble .icon,
+.owl:focus-visible .owl-bubble .icon {
+  color: inherit;
+}
+
+.owl-img {
+  display: block;
+  width: 72px;
+  height: auto;
+  filter: var(--shadow-drop);
+  transform-origin: 50% 100%;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.owl:hover .owl-img {
+  transform: rotate(-6deg) scale(1.05);
+}
+
+.hero-text .eyebrow {
+  font-size: var(--fs-xs);
+}
+
+.hero-text h1 {
+  font-size: var(--fs-display);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.hero-statement {
+  margin-top: var(--s-4);
+  font-size: var(--fs-statement);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
+
+/* A teacher's underline under the word that matters. */
+.marked {
+  position: relative;
+  white-space: nowrap;
+}
+
+.marked-line {
+  position: absolute;
+  bottom: -0.2em;
+  left: -2%;
+  width: 100%;
+  height: 0.38em;
+  overflow: visible;
+}
+
+.marked-line path {
+  fill: none;
+  stroke: var(--teal);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.hero-copy {
+  /* In rem, not ch: the measure must not depend on whether Manrope has loaded. */
+  max-width: 42rem;
+  margin-top: var(--s-5);
+  color: var(--text-2);
+  font-size: var(--fs-lead);
+  line-height: 1.65;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+}
+
+/* Entrance: short, only once JavaScript runs, and never hidden for long. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .hero-figure,
+  html.js .hero-text > * {
+    animation: rise 0.5s var(--ease-out) both;
+  }
+
+  html.js .hero-figure {
+    animation-delay: 80ms;
+  }
+  html.js .hero-text > :nth-child(2) {
+    animation-delay: 40ms;
+  }
+  html.js .hero-text > :nth-child(3) {
+    animation-delay: 80ms;
+  }
+  html.js .hero-text > :nth-child(4) {
+    animation-delay: 120ms;
+  }
+  html.js .hero-text > :nth-child(5) {
+    animation-delay: 160ms;
+  }
+
+  html.js .hero .marked-line path {
+    stroke-dasharray: 1;
+    animation: draw 0.6s 0.35s ease-out both;
+  }
+
+  /* Two hops to say hello, then the owl sits still. */
+  .owl-img {
+    animation: hop 1.1s 0.6s ease-in-out 2;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes hop {
+  0%,
+  100% {
+    transform: none;
+  }
+  30% {
+    transform: translateY(-6px);
+  }
+  55% {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Sections: one spacing step on each side of every boundary
+   -------------------------------------------------------------------------- */
+
+.section {
+  padding: var(--s-8) 0;
+}
+
+.section-projects {
+  padding-top: var(--s-5);
+}
+
+.section-band {
+  border-block: 1px solid var(--line);
+  background: var(--bg-band);
+}
+
+.section-contact {
+  padding-bottom: var(--s-9);
+}
+
+/* The heading and its one-line lede share a row on wide screens. */
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-6);
+  margin-bottom: var(--s-6);
+}
+
+.section-head h2,
+.contact-intro h2 {
+  font-size: var(--fs-h2);
+  letter-spacing: -0.03em;
+}
+
+.section-lede {
+  color: var(--text-2);
+  font-size: var(--fs-lead);
+}
+
+.contact-intro .section-lede {
+  margin-top: var(--s-4);
+}
+
+/* --------------------------------------------------------------------------
+   Projects
+   -------------------------------------------------------------------------- */
+
+.projects-grid {
+  display: grid;
+  gap: var(--s-5);
+}
+
+.projects-featured {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.projects-more {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.projects-more-label {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  margin: var(--s-7) 0 var(--s-5);
+  font-size: var(--fs-h3);
+}
+
+.projects-more-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s var(--ease-out);
+}
+
+.project:hover {
+  border-color: var(--line-2);
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+}
+
+.project-media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(80% 70% at 50% 100%, var(--accent-soft), transparent 70%),
+    var(--media-bg);
+}
+
+/* The picture itself opens the gallery. The chip says so, always visible. */
+.media-open {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: zoom-in;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.media-open {
+  border-radius: calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px) 0 0;
+}
+
+/* The ring follows the card's rounded top, just inside its edge. */
+.media-open:focus-visible {
+  outline-offset: -3px;
+}
+
+.media-chip {
+  position: absolute;
+  top: var(--s-3);
+  right: var(--s-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--chip-line);
+  border-radius: 999px;
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: var(--shadow-sm);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.media-open:hover .media-chip,
+.media-open:focus-visible .media-chip {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--primary-fg);
+}
+
+.project-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: var(--s-5);
+}
+
+.project-kicker {
+  color: var(--accent-ink);
+  font-size: var(--fs-2xs);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.project-title {
+  margin-top: var(--s-2);
+  font-size: var(--fs-h3);
+  letter-spacing: -0.015em;
+}
+
+.project-desc {
+  margin-top: var(--s-2);
+  color: var(--text-2);
+}
+
+.tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: var(--s-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tech li {
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Every card ends the same way: the live demo if there is one, then the code. */
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: auto;
+  padding-top: var(--s-5);
+}
+
+.project-actions .btn {
+  padding: 0 14px;
+  font-size: var(--fs-ui);
+}
+
+/* Media: Mega Chess, one board of each kind on a real phone. The app
+   leaves a black band above each board; the screen is shifted up past it,
+   so the boards fill the part of the phones that shows above the card edge. */
+.phones {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 5%;
+  padding-top: 7%;
+}
+
+.phone {
+  flex: none;
+  width: 41%;
+  aspect-ratio: 9 / 18;
+  overflow: hidden;
+  border: 3px solid var(--device);
+  border-radius: 16px;
+  background: var(--device-screen);
+  box-shadow: var(--shadow-device);
+  transition: transform 0.35s var(--ease-out);
+}
+
+/* The earpiece, on the black strip left above the board. */
+.phone::before {
+  content: "";
+  display: block;
+  width: 22%;
+  height: 4px;
+  margin: 7px auto 6px;
+  border-radius: 2px;
+  background: var(--device);
+}
+
+.phone-back {
+  margin-top: 10%;
+}
+
+.project:hover .phone {
+  transform: translateY(-4px);
+}
+
+/* Measured on the screenshots (1080 x 2220): the board starts 27% of the
+   way down, which is 55% of the screen's width. */
+.phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: -52%;
+}
+
+/* Media: Auto-Prep, slides to questions to classroom material */
+.flow {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  margin: 0;
+  padding: 0 var(--s-4) 22px;
+  list-style: none;
+}
+
+/* Every step is the same height, so the labels hanging below line up. */
+.flow-step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 96px;
+}
+
+.flow-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 47px;
+  right: -26px;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--teal);
+}
+
+.flow-step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 44px;
+  right: -26px;
+  width: 7px;
+  height: 7px;
+  border-top: 2px solid var(--teal);
+  border-right: 2px solid var(--teal);
+  transform: rotate(45deg);
+}
+
+.flow-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.flow-card-slides {
+  width: 70px;
+  height: 50px;
+  padding: 0 10px;
+  box-shadow:
+    5px -5px 0 -1px var(--surface-3),
+    5px -5px 0 0 var(--line-2);
+}
+
+.flow-bar {
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line-2);
+}
+
+.flow-bar-accent {
+  width: 55%;
+  background: var(--teal);
+}
+
+.flow-bar-short {
+  width: 70%;
+}
+
+.flow-card-q {
+  width: 52px;
+  height: 66px;
+  align-items: center;
+  color: var(--accent-ink);
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.flow-label {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  color: var(--text-2);
+  font-size: var(--fs-2xs);
+  font-weight: 700;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.flow-outputs {
+  display: grid;
+  gap: 6px;
+}
+
+.flow-chip {
+  padding: 4px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-2xs);
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.flow-chip:first-child {
+  border-color: var(--teal);
+}
+
+/* Once the folder has screenshots, script.js puts the first one in a window
+   frame and the diagram steps aside. */
+.has-thumb .flow {
+  display: none;
+}
+
+/* Media: desktop screenshots in a plain window, rising from the bottom edge.
+   The frame always runs past the bottom edge, whatever the card's shape; the
+   screenshot fills it from the top and loses only its lower part. */
+.window {
+  position: absolute;
+  top: 11%;
+  bottom: -14px;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  width: 84%;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  background: var(--window-bar);
+  box-shadow: var(--shadow-lg);
+  transform: translateX(-50%);
+  transition: transform 0.35s var(--ease-out);
+}
+
+.project:hover .window {
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.window-bar {
+  display: flex;
+  flex: none;
+  gap: 6px;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+}
+
+.window-bar span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--window-dot);
+}
+
+.window img {
+  display: block;
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Local Chat's screen is mostly white margin: zoom in on the part that
+   tells the story, the "Connect a device" header and the QR code. */
+.window .shot-zoom {
+  filter: var(--shot-dim);
+  transform: scale(1.32);
+  transform-origin: 50% 3%;
+}
+
+/* The two other projects get pictures as tall as the featured ones, so the
+   wider cards do not outweigh them. */
+.project-wide .project-media {
+  aspect-ratio: auto;
+  height: calc((min(100vw, var(--container)) - 2 * var(--gutter) - 2 * var(--s-5)) / 3 * 10 / 16);
+}
+
+.project-wide .window {
+  width: 78%;
+}
+
+/* --------------------------------------------------------------------------
+   Skills: a labelled grid, one row per area. Labels, not controls: flat
+   chips with no shadow.
+   -------------------------------------------------------------------------- */
+
+.skills {
+  margin: 0;
+}
+
+.skills-row {
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr);
+  gap: var(--s-3) var(--s-5);
+  align-items: center;
+  padding: var(--s-4) 0;
+  border-top: 1px solid var(--line);
+}
+
+.skills dt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-body);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* A teacher's tick beside each area. */
+.skills dt::before {
+  content: "";
+  flex: none;
+  width: 18px;
+  height: 16px;
+  background: var(--teal);
+  -webkit-mask: var(--mark-tick) no-repeat center / contain;
+  mask: var(--mark-tick) no-repeat center / contain;
+}
+
+/* The ticks are marked one after another, top to bottom, as the list arrives. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .skills dt::before {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.3s ease-out;
+  }
+
+  html.js .skills.is-in dt::before {
+    clip-path: inset(0);
+  }
+
+  html.js .skills-row:nth-child(1) dt::before {
+    transition-delay: 150ms;
+  }
+  html.js .skills-row:nth-child(2) dt::before {
+    transition-delay: 220ms;
+  }
+  html.js .skills-row:nth-child(3) dt::before {
+    transition-delay: 290ms;
+  }
+  html.js .skills-row:nth-child(4) dt::before {
+    transition-delay: 360ms;
+  }
+  html.js .skills-row:nth-child(5) dt::before {
+    transition-delay: 430ms;
+  }
+}
+
+.skills dd {
+  margin: 0;
+}
+
+.skills-row:last-child {
+  padding-bottom: 0;
+}
+
+.skill-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--skill-line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.skill-list i {
+  flex: none;
+  width: var(--icon-glyph);
+  font-size: var(--icon-glyph);
+  line-height: 1;
+  text-align: center;
+}
+
+.skill-list i.mono {
+  color: var(--text);
+}
+
+/* Two marks in the icon set are wordmarks; they need more room to be read. */
+.skill-list i.wordmark {
+  width: var(--icon-wordmark);
+  margin-inline: -3px -2px;
+  font-size: var(--icon-wordmark);
+}
+
+.skill-img {
+  flex: none;
+  width: var(--icon-glyph);
+  height: var(--icon-glyph);
+  object-fit: contain;
+}
+
+/* These marks are black in their icon sets. */
+.skill-img-mono {
+  filter: invert(1);
+}
+
+@media (prefers-color-scheme: light) {
+  .skill-img-mono {
+    filter: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Contact
+   -------------------------------------------------------------------------- */
+
+.contact-panel {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: var(--s-7);
+  align-items: start;
+  overflow: hidden;
+  padding: var(--s-7);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+/* The hero's graph paper again, in one corner, to close the page. */
+.contact-panel::before,
+.contact-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.contact-panel::before {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-position: -1px -1px;
+  background-size: var(--grid-size) var(--grid-size);
+  -webkit-mask-image: radial-gradient(ellipse 55% 90% at 0% 100%, #000 10%, transparent 75%);
+  mask-image: radial-gradient(ellipse 55% 90% at 0% 100%, #000 10%, transparent 75%);
+}
+
+.contact-panel::after {
+  background: radial-gradient(420px 300px at 0% 100%, var(--glow-teal), transparent 70%);
+}
+
+/* The compass circle from the hero, closing the page from the same corner. */
+.contact-intro::after {
+  content: "";
+  position: absolute;
+  bottom: -132px;
+  left: -132px;
+  z-index: -1;
+  width: 264px;
+  height: 264px;
+  border: 1px dashed var(--line-2);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* "touch" is marked like "accessible": drawn once the panel comes into view. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .contact-panel .marked-line path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  html.js .contact-panel.is-in .marked-line path {
+    animation: draw 0.6s 0.3s ease-out both;
+  }
+}
+
+.contact-list {
+  display: grid;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+  transition: border-color 0.15s ease;
+}
+
+.contact-item:hover {
+  border-color: var(--line-2);
+}
+
+.contact-link {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--s-4);
+  min-width: 0;
+  min-height: 72px;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.contact-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+.contact-text {
+  min-width: 0;
+}
+
+.contact-label {
+  display: block;
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.contact-value {
+  display: block;
+  font-size: var(--fs-md);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.contact-arrow {
+  margin-left: auto;
+  color: var(--text-3);
+  transition:
+    color 0.15s ease,
+    transform 0.2s var(--ease-out);
+}
+
+.contact-link:hover .contact-arrow {
+  color: var(--accent-ink);
+  transform: translateX(3px);
+}
+
+.copy-btn {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-right: var(--s-3);
+  padding: 0 var(--s-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text-2);
+  font: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.copy-btn:hover {
+  border-color: var(--line-2);
+  color: var(--text);
+}
+
+.copied-icon,
+.copy-btn.is-copied .copy-icon {
+  display: none;
+}
+
+.copy-btn.is-copied .copied-icon {
+  display: block;
+  color: var(--accent-ink);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  padding: var(--s-5) 0;
+  border-top: 1px solid var(--line);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3) var(--s-5);
+}
+
+.footer-copy {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin: 0 calc(var(--s-3) * -1) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s-3);
+  border-radius: var(--radius-sm);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--text);
+}
+
+/* --------------------------------------------------------------------------
+   Request access dialog
+   -------------------------------------------------------------------------- */
+
+.dialog {
+  width: min(460px, calc(100vw - 32px));
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-lg);
+}
+
+.dialog::backdrop {
+  background: var(--backdrop);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.dialog-inner {
+  padding: var(--s-6) var(--s-6) var(--s-5);
+}
+
+.dialog-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: var(--s-4);
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+.dialog-title {
+  margin-bottom: var(--s-2);
+  font-size: var(--fs-xl);
+}
+
+.dialog-text {
+  margin-bottom: var(--s-5);
+  color: var(--text-2);
+}
+
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.dialog-close-form {
+  margin-left: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Screenshot lightbox. Dark in both themes: screenshots read best on dark.
+   The picture takes the whole screen; the title, counter and arrows sit
+   together under it, and Close is in the corner.
+   -------------------------------------------------------------------------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--lb-fg);
+}
+
+.lightbox::backdrop {
+  background: var(--lb-bg);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.lightbox-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--s-4) var(--s-6);
+}
+
+.lightbox-close-form {
+  position: absolute;
+  top: var(--s-3);
+  right: var(--s-3);
+  z-index: 1;
+}
+
+/* The picture is positioned against the figure, so it always fits the
+   space left above the bar, whatever its shape. */
+.lightbox-figure {
+  position: relative;
+  display: grid;
+  flex: 1;
+  place-items: center;
+  min-height: 0;
+  margin: var(--s-8) 0 0;
+}
+
+.lightbox-img {
+  position: absolute;
+  inset: 0;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--lb-shadow);
+  transition: opacity 0.2s ease;
+}
+
+.lightbox-img:not([src]) {
+  display: none;
+}
+
+.lightbox.is-loading .lightbox-img {
+  opacity: 0;
+}
+
+.lightbox-spinner {
+  position: absolute;
+  display: none;
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--lb-track);
+  border-top-color: var(--teal);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.lightbox.is-loading .lightbox-spinner {
+  display: block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.lightbox-message {
+  position: absolute;
+  display: grid;
+  justify-items: center;
+  gap: var(--s-3);
+  max-width: 24rem;
+  padding: var(--s-4);
+  color: var(--lb-fg-2);
+  text-align: center;
+}
+
+.lightbox-message-icon {
+  display: none;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--lb-btn-line);
+  border-radius: 16px;
+  background: var(--lb-btn);
+  color: var(--lb-fg);
+}
+
+.lightbox.has-message .lightbox-message-icon {
+  display: grid;
+}
+
+.lightbox-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 var(--s-3);
+  border-radius: var(--radius-sm);
+  color: var(--lb-fg);
+  font-size: var(--fs-ui);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--teal);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.lightbox-link:hover {
+  color: var(--teal);
+}
+
+.lightbox-link:focus-visible {
+  outline-color: var(--lb-fg);
+}
+
+.lightbox-bar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-4);
+  padding-top: var(--s-4);
+}
+
+.lightbox-caption {
+  flex: 0 1 320px;
+  min-width: 0;
+  text-align: center;
+}
+
+.lightbox-title {
+  overflow: hidden;
+  font-size: var(--fs-body);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lightbox-counter {
+  min-height: 1.4em;
+  color: var(--lb-fg-2);
+  font-size: var(--fs-ui);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+
+.lightbox-btn {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--lb-btn-line);
+  border-radius: 50%;
+  background: var(--lb-btn);
+  color: var(--lb-fg);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.lightbox-btn:hover {
+  background: var(--lb-btn-hover);
+}
+
+.lightbox-btn:focus-visible {
+  outline-color: var(--lb-fg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dialog[open],
+  .lightbox[open] {
+    animation: dialog-in 0.2s var(--ease-out);
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Scroll reveal (only once JavaScript has started). script.js removes the
+   .reveal class once an element has arrived, so a card's own hover
+   transition is not replaced or delayed afterwards.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 0.4s ease,
+      transform 0.4s var(--ease-out);
+  }
+
+  html.js .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+/* Three featured cards need about 340px each; below that, two and one. */
+@media (max-width: 1119px) {
+  .projects-featured {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* The third featured card takes the full row, laid out sideways. */
+  .project-span {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .project-span .project-media {
+    aspect-ratio: auto;
+    min-height: 260px;
+    border-right: 1px solid var(--line);
+    border-bottom: 0;
+  }
+
+  .project-wide .project-media {
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  /* A 16:10 picture shows more of the screen's height, so zoom further to
+     keep the frame on the header and the QR code, above the line that names
+     the Wi-Fi network. */
+  .window .shot-zoom {
+    transform: scale(1.8);
+    transform-origin: 33% 3%;
+  }
+
+  /* Each area sits above its tools, which wrap at their own width. */
+  .skills-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero-inner {
+    grid-template-columns: minmax(0, 1fr) 240px;
+    gap: var(--s-6);
+  }
+
+  .contact-panel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-6);
+    padding: 40px;
+  }
+
+  /* Stacked, the corner belongs to the contact rows; the circle would sit under them. */
+  .contact-intro::after {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding: var(--s-6) 0 var(--s-7);
+  }
+
+  .hero::before {
+    -webkit-mask-image: radial-gradient(ellipse 100% 55% at 30% 22%, #000 20%, transparent 80%);
+    mask-image: radial-gradient(ellipse 100% 55% at 30% 22%, #000 20%, transparent 80%);
+  }
+
+  .hero::after {
+    background:
+      radial-gradient(300px 260px at 18% 20%, var(--glow-teal), transparent 70%),
+      radial-gradient(320px 260px at 100% 60%, var(--glow-blue), transparent 72%);
+  }
+
+  .hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-5);
+  }
+
+  /* On a phone the portrait comes first, and the owl sits on the ring's
+     shoulder and speaks to the right, so the figure stays short. */
+  .hero-figure {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    width: 128px;
+    margin-top: 36px;
+    padding-top: 0;
+  }
+
+  .hero-figure::before {
+    display: none;
+  }
+
+  .hero-text {
+    grid-row: 2;
+  }
+
+  .portrait {
+    width: 128px;
+    height: 128px;
+    padding: 3px;
+  }
+
+  .portrait img {
+    width: 122px;
+    height: 122px;
+  }
+
+  .owl {
+    top: -40px;
+    left: 74px;
+    width: max-content;
+    flex-direction: row-reverse;
+    gap: 8px;
+    transform: none;
+  }
+
+  .owl-img {
+    width: 60px;
+  }
+
+  .owl-bubble {
+    min-height: 36px;
+    padding: 0 12px;
+    font-size: var(--fs-ui);
+  }
+
+  .owl-bubble::after {
+    top: 50%;
+    bottom: auto;
+    left: -6px;
+    border-right: 0;
+    border-left: 1px solid var(--line-2);
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .owl:hover .owl-bubble::after,
+  .owl:focus-visible .owl-bubble::after {
+    border-color: var(--primary);
+  }
+
+  .hero-statement {
+    margin-top: var(--s-3);
+  }
+
+  .hero-copy {
+    margin-top: var(--s-4);
+    font-size: var(--fs-md);
+  }
+
+  .hero-actions {
+    margin-top: var(--s-5);
+  }
+
+  .section-projects {
+    padding-top: var(--s-4);
+  }
+
+  .section-contact {
+    padding-bottom: var(--s-8);
+  }
+
+  .section-head {
+    flex-direction: column;
+    margin-bottom: var(--s-5);
+  }
+
+  .projects-more-label {
+    margin-top: var(--s-7);
+  }
+}
+
+@media (max-width: 639px) {
+  :root {
+    --gutter: 16px;
+    --header-h: 60px;
+  }
+
+  .brand-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .nav-links a {
+    padding: 0 10px;
+  }
+
+  .nav-links a::after {
+    right: 6px;
+    left: 6px;
+  }
+
+  .nav-social {
+    margin-left: var(--s-1);
+    padding-left: var(--s-1);
+  }
+
+  .btn {
+    min-height: 44px;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    padding: 0 var(--s-3);
+  }
+
+  .projects-featured,
+  .projects-more,
+  .project-span {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project-span {
+    display: flex;
+  }
+
+  .project-span .project-media,
+  .project-wide .project-media {
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .project-body {
+    padding: 20px;
+  }
+
+  .project-actions .btn {
+    flex: 1 1 auto;
+  }
+
+  .skills-row {
+    gap: var(--s-3);
+  }
+
+  .skill-list {
+    gap: 6px;
+  }
+
+  .skill-list li {
+    gap: var(--s-2);
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: var(--fs-ui);
+  }
+
+  .contact-panel {
+    padding: var(--s-6) 20px 20px;
+    border-radius: var(--radius-lg);
+  }
+
+  .contact-link {
+    gap: var(--s-3);
+    padding: var(--s-3);
+  }
+
+  .contact-value {
+    font-size: var(--fs-body);
+  }
+
+  .contact-arrow {
+    display: none;
+  }
+
+  .copy-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .copy-btn {
+    justify-content: center;
+    width: 44px;
+    padding: 0;
+    margin-right: var(--s-2);
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-links {
+    margin: 0 0 0 calc(var(--s-3) * -1);
+  }
+
+  .dialog-inner {
+    padding: var(--s-5) 20px 20px;
+  }
+
+  .dialog-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .dialog-close-form {
+    grid-column: 1 / -1;
+    margin-left: 0;
+  }
+
+  .dialog-close-form .btn {
+    width: 100%;
+  }
+
+  .lightbox-inner {
+    padding: var(--s-3) var(--gutter) var(--s-4);
+  }
+
+  .lightbox-caption {
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .nav-social-extra {
+    display: none;
+  }
+
+  .nav-social {
+    border-left: 0;
+  }
+
+  .contact-panel {
+    padding-inline: 14px;
+  }
+
+  .contact-link {
+    padding-inline: 10px;
+  }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+
+  .lightbox-spinner {
+    animation-duration: 2s;
+  }
+
+  .project:hover,
+  .project:hover .phone,
+  .owl:hover .owl-img,
+  .contact-link:hover .contact-arrow {
+    transform: none;
+  }
+
+  .project:hover .window {
+    transform: translateX(-50%);
+  }
+}

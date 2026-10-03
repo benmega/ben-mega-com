@@ -1,0 +1,2432 @@
+/* ==========================================================================
+   Ben Mega — "Contents" (editorial redesign)
+   The page is set like one issue of a magazine: a cover with the contents,
+   one spread per project, a toolkit index and a contact colophon.
+   Day edition: paper, ink and vermilion. Night edition: blue-black, ivory
+   and amber. Each edition has exactly one accent.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  /* Day edition */
+  --paper: #f5f2ea;
+  --paper-2: #ebe7dc;
+  --ink: #15130f;
+  --ink-2: #47443c;
+  --ink-3: #69655b;
+  --rule: rgba(21, 19, 15, 0.2);
+  --rule-strong: #15130f;
+  --accent: #c8321a;
+  --on-accent: #fff8f2;
+  --dot: rgba(21, 19, 15, 0.18);
+  --masthead-rule: var(--ink);
+  --frame: #15130f;
+  /* Browser and window chrome drawn around desktop screenshots, and the
+     page colour of those screenshots, so a small image sits in a wide frame */
+  --chrome: #e7e2d6;
+  --chrome-field: #f5f2ea;
+  --shot-page: #f1f7f8;
+  --backdrop: rgba(245, 242, 234, 0.84);
+  --shadow: 0 22px 44px -26px rgba(21, 19, 15, 0.5);
+  /* Screenshots are dimmed only slightly at night; the frames do the rest */
+  --img-filter: none;
+  --icon-invert: invert(0);
+  --w-display: 480;
+  --w-numeral: 300;
+  --display-style: normal;
+  /* The italic cover name is narrower and leans past the margin, so the
+     night edition sets it larger and shifts it less. */
+  --name-scale: 1;
+  --name-shift: -0.055em;
+  --deck: var(--ink);
+  --show-to-night: inline-flex;
+  --show-to-day: none;
+
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --font-text: "Instrument Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* Spacing: one scale on a 4px base */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+  --s8: 64px;
+
+  /* Type */
+  --fs-name: clamp(64px, 24.6vw, 350px);
+  --fs-section: clamp(56px, 8.4vw, 132px);
+  --fs-title: clamp(36px, 3.7vw, 56px);
+  --fs-numeral: clamp(64px, 6.4vw, 96px);
+  --fs-deck: clamp(27px, 2.7vw, 40px);
+  --fs-role: clamp(20px, 1.8vw, 26px);
+  --fs-lead: clamp(17px, 1.35vw, 19px);
+  --fs-text: 17px;
+  --fs-small: 14px;
+  --fs-label: 12px;
+  --lh: 1.55;
+  --track-label: 0.14em;
+
+  /* Grid */
+  --cols: 12;
+  --gutter: 24px;
+  --margin: clamp(16px, 4vw, 56px);
+  --max: 1360px;
+  --masthead-h: 64px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --fast: 160ms;
+  --mid: 360ms;
+}
+
+/* The night edition, designed as its own print run rather than an inverse:
+   cool blue-black stock, warm ivory type, amber in place of vermilion, a
+   lighter display weight so the type does not bloom, and softened images.
+   The same set appears twice: once for the system preference and once for
+   the manual switch, because a media query cannot sit in a selector.
+   KEEP THE TWO BLOCKS IDENTICAL: a change to one must be made to the other. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0f1218;
+    --paper-2: #161a22;
+    --ink: #eee7d8;
+    --ink-2: #bcb5a6;
+    --ink-3: #928c80;
+    --rule: rgba(238, 231, 216, 0.16);
+    --rule-strong: rgba(238, 231, 216, 0.62);
+    --accent: #f0b14a;
+    --on-accent: #0f1218;
+    --dot: rgba(240, 177, 74, 0.22);
+    --masthead-rule: var(--accent);
+    --frame: #2a303b;
+    --chrome: #1d222c;
+    --chrome-field: #0f1218;
+    --backdrop: rgba(4, 6, 10, 0.78);
+    --shadow: 0 24px 48px -22px rgba(0, 0, 0, 0.85);
+    --img-filter: brightness(0.95);
+    --icon-invert: invert(1) brightness(0.92);
+    --w-display: 380;
+    --w-numeral: 250;
+    --display-style: italic;
+    --name-scale: 1.085;
+    --name-shift: -0.005em;
+    --deck: var(--accent);
+    --show-to-night: none;
+    --show-to-day: inline-flex;
+  }
+}
+
+/* Same values as the block above; keep them in sync. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0f1218;
+  --paper-2: #161a22;
+  --ink: #eee7d8;
+  --ink-2: #bcb5a6;
+  --ink-3: #928c80;
+  --rule: rgba(238, 231, 216, 0.16);
+  --rule-strong: rgba(238, 231, 216, 0.62);
+  --accent: #f0b14a;
+  --on-accent: #0f1218;
+  --dot: rgba(240, 177, 74, 0.22);
+  --masthead-rule: var(--accent);
+  --frame: #2a303b;
+  --chrome: #1d222c;
+  --chrome-field: #0f1218;
+  --backdrop: rgba(4, 6, 10, 0.78);
+  --shadow: 0 24px 48px -22px rgba(0, 0, 0, 0.85);
+  --img-filter: brightness(0.95);
+  --icon-invert: invert(1) brightness(0.92);
+  --w-display: 380;
+  --w-numeral: 250;
+  --display-style: italic;
+  --name-scale: 1.085;
+  --name-shift: -0.005em;
+  --deck: var(--accent);
+  --show-to-night: none;
+  --show-to-day: inline-flex;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--masthead-h) + var(--s4));
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 var(--fs-text) / var(--lh) var(--font-text);
+  font-feature-settings: "kern";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+h1,
+h2,
+h3,
+p,
+figure,
+dl,
+dd {
+  margin: 0;
+}
+
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.2em;
+  transition: color var(--fast) var(--ease), text-decoration-color var(--fast) var(--ease),
+    border-color var(--fast) var(--ease);
+}
+
+a:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.i {
+  width: 1em;
+  height: 1em;
+  flex: none;
+}
+
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.skip {
+  position: absolute;
+  top: var(--s3);
+  left: var(--s3);
+  z-index: 100;
+  padding: var(--s3) var(--s4);
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 500;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip:focus {
+  transform: none;
+}
+
+.skip:hover {
+  color: var(--paper);
+}
+
+.wrap {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--margin);
+}
+
+/* Small capitals with a short accent rule: the label voice of the page */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  flex: none;
+  background: var(--accent);
+}
+
+/* Sections are numbered in roman numerals, set in the display italic, so
+   they never read as one of the project folios (01/05 ...). */
+.no {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Masthead
+   -------------------------------------------------------------------------- */
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--paper);
+  border-top: 4px solid var(--masthead-rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.masthead__row {
+  display: flex;
+  align-items: center;
+  gap: var(--s5) var(--s6);
+  min-height: calc(var(--masthead-h) - 5px);
+}
+
+.masthead__brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s2);
+  padding: var(--s2) 0;
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.masthead__omega {
+  color: var(--accent);
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+.masthead__nav {
+  margin-left: auto;
+}
+
+.masthead__nav ol {
+  display: flex;
+  gap: var(--s6);
+}
+
+.masthead__nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.edition {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 var(--s4);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color var(--fast) var(--ease), background var(--fast) var(--ease),
+    color var(--fast) var(--ease);
+}
+
+.edition:hover {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.edition > span {
+  align-items: center;
+  gap: var(--s2);
+}
+
+.edition__to-night {
+  display: var(--show-to-night);
+}
+
+.edition__to-day {
+  display: var(--show-to-day);
+}
+
+html:not(.js) .edition {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Cover
+   -------------------------------------------------------------------------- */
+.cover {
+  padding-top: clamp(28px, 2.6vw, 40px);
+}
+
+/* The name is set to the width of the grid: in Fraunces it is about 3.5em
+   wide. It may wrap, so a wider fallback font never scrolls sideways. */
+.cover__name {
+  font-family: var(--font-display);
+  font-style: var(--display-style);
+  font-size: calc(var(--fs-name) * var(--name-scale));
+  font-weight: var(--w-display);
+  font-variation-settings: "opsz" 144;
+  line-height: 0.8;
+  letter-spacing: -0.045em;
+  margin: 0 0 0 var(--name-shift);
+  /* Room for the descender of the g above the rule that follows */
+  padding-bottom: 0.23em;
+}
+
+.cover__row {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  align-items: start;
+  padding-top: var(--s5);
+  border-top: 1px solid var(--rule-strong);
+}
+
+.cover__photo {
+  grid-column: 1 / 3;
+  width: 100%;
+  max-width: 160px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  filter: var(--img-filter);
+}
+
+.cover__text {
+  grid-column: 3 / 9;
+}
+
+/* What he does, the first line after the name: set in the text face at
+   a size a skimming reader cannot miss, above the tagline. */
+.cover__role {
+  margin: -0.2em 0 var(--s3);
+  font-size: var(--fs-role);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.deck {
+  color: var(--deck);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--fs-deck);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0 0 var(--s3);
+}
+
+.deck__dot {
+  color: var(--accent);
+}
+
+.cover__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--s6);
+}
+
+.cover__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+}
+
+.cover__links a:hover {
+  text-decoration-color: var(--accent);
+}
+
+/* The Classroom Chat owl: a labelled link to the live platform */
+.owl {
+  grid-column: 9 / 13;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s3) 0 var(--s3) var(--gutter);
+  border-left: 1px solid var(--rule);
+  text-decoration: none;
+}
+
+.owl__img {
+  width: 84px;
+  height: auto;
+  transition: transform var(--mid) var(--ease);
+}
+
+.owl:hover .owl__img {
+  transform: rotate(-6deg) translateY(-2px);
+}
+
+.owl__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.owl__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.owl__kicker::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.owl__label {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: var(--w-display);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  transition: color var(--fast) var(--ease);
+}
+
+.owl__sub {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.2em;
+}
+
+.owl:hover .owl__label,
+.owl:hover .owl__sub {
+  color: var(--accent);
+}
+
+/* Contents: five numbered columns across the foot of the cover */
+.contents {
+  margin-top: clamp(28px, 2.4vw, 36px);
+}
+
+.contents__label {
+  padding-bottom: var(--s2);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.contents__list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule);
+}
+
+.contents__list li + li {
+  border-left: 1px solid var(--rule);
+}
+
+.contents__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  height: 100%;
+  padding: var(--s4) var(--s5) var(--s4) var(--s4);
+  text-decoration: none;
+  transition: background var(--fast) var(--ease);
+}
+
+.contents__list li:first-child .contents__item {
+  padding-left: 0;
+}
+
+.contents__no {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.contents__title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 1.8vw, 27px);
+  font-weight: var(--w-display);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  transition: color var(--fast) var(--ease);
+}
+
+.contents__meta {
+  margin-top: auto;
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+}
+
+.contents__status {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-left: var(--s2);
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.contents__status::before {
+  content: "";
+  align-self: center;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.contents__arrow {
+  position: absolute;
+  top: var(--s4);
+  right: var(--s4);
+  width: 16px;
+  height: 16px;
+  color: var(--ink-3);
+  transition: transform var(--mid) var(--ease), color var(--fast) var(--ease);
+}
+
+.contents__item:hover .contents__title,
+.contents__item:hover .contents__arrow {
+  color: var(--accent);
+}
+
+.contents__item:hover .contents__arrow {
+  transform: translateY(3px);
+}
+
+/* The ring sits inside the cell, clear of the column rules */
+.contents__item:focus-visible {
+  outline-offset: -2px;
+}
+
+/* --------------------------------------------------------------------------
+   Sections
+   -------------------------------------------------------------------------- */
+.section {
+  padding-top: clamp(64px, 8vw, 128px);
+}
+
+.section-head {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  align-items: end;
+  padding-top: var(--s4);
+  border-top: 1px solid var(--rule-strong);
+}
+
+.section-head__no {
+  grid-column: 1 / 3;
+  grid-row: 1;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.section-head__title {
+  grid-column: 1 / 9;
+  grid-row: 2;
+  font-family: var(--font-display);
+  font-style: var(--display-style);
+  font-size: var(--fs-section);
+  font-weight: var(--w-display);
+  font-variation-settings: "opsz" 144;
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  margin: var(--s4) 0 0 -0.04em;
+}
+
+.section-head__deck {
+  grid-column: 9 / 13;
+  grid-row: 2;
+  padding-bottom: 0.4em;
+  font-size: var(--fs-lead);
+  color: var(--ink-2);
+}
+
+/* --------------------------------------------------------------------------
+   Spreads: one per project. Text on five columns, pictures on seven,
+   alternating sides.
+   -------------------------------------------------------------------------- */
+.spread {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  grid-template-rows: auto 1fr;
+  gap: var(--s6) var(--gutter);
+  padding-block: clamp(48px, 6vw, 96px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.section-head + .spread {
+  padding-top: clamp(40px, 5vw, 72px);
+}
+
+.spread:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* The pictures sit exactly on column lines; the text keeps a second
+   gutter of air on the side that faces them. */
+.spread__head {
+  grid-column: 1 / 6;
+  grid-row: 1;
+  padding-right: var(--gutter);
+}
+
+.spread__body {
+  grid-column: 1 / 6;
+  grid-row: 2;
+  align-self: start;
+  padding-right: var(--gutter);
+}
+
+.spread__media {
+  grid-column: 6 / 13;
+  grid-row: 1 / 3;
+}
+
+.spread--flip .spread__head,
+.spread--flip .spread__body {
+  grid-column: 9 / 13;
+  padding-right: 0;
+  padding-left: var(--gutter);
+}
+
+.spread--flip .spread__media {
+  grid-column: 1 / 9;
+}
+
+/* The feature spread: an opening spread. Folio and title on the left half,
+   the text on the right half, their feet on one line; the phones take the
+   full measure below. Every block of text stands over one of the phone
+   columns under it. */
+.spread--feature .spread__head {
+  grid-column: 1 / 7;
+  grid-row: 1;
+  align-self: end;
+  padding-right: 0;
+}
+
+.spread--feature .spread__body {
+  grid-column: 7 / 13;
+  grid-row: 1;
+  align-self: end;
+  padding-right: 0;
+}
+
+.spread--feature .spread__media {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin-top: var(--s3);
+}
+
+/* The lead spread: the login page is the only picture Classroom Chat has,
+   so it takes six columns, not seven, and the text gets the extra room. */
+@media (min-width: 961px) {
+  .spread--lead .spread__head,
+  .spread--lead .spread__body {
+    grid-column: 1 / 7;
+  }
+
+  .spread--lead .spread__media {
+    grid-column: 7 / 13;
+  }
+
+  /* The right half: the description across it, then the stack over the
+     third phone and the actions over the boards. */
+  .spread--feature .spread__body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s4) var(--gutter);
+  }
+
+  .spread--feature .spread__desc {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+
+  .spread--feature .spread__stack {
+    margin: 0;
+  }
+
+  .spread--feature .spread__actions {
+    align-self: center;
+  }
+}
+
+.spread__folio {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s4);
+  margin-bottom: var(--s4);
+  padding-bottom: var(--s3);
+  border-bottom: 1px solid var(--rule);
+}
+
+.spread__no {
+  font-family: var(--font-display);
+  font-size: var(--fs-numeral);
+  font-weight: var(--w-numeral);
+  font-variation-settings: "opsz" 144;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--accent);
+}
+
+.spread__of {
+  margin-left: 0.2em;
+  font-family: var(--font-text);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+}
+
+.spread__kind {
+  margin-left: auto;
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.spread__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-title);
+  font-weight: var(--w-display);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin-left: -0.02em;
+}
+
+.spread__desc {
+  max-width: 40ch;
+  font-size: var(--fs-lead);
+  margin-bottom: var(--s5);
+}
+
+/* The stack's rules run to the same edge as the folio rule above */
+.spread__stack {
+  padding: var(--s3) 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--fs-small);
+  margin-bottom: var(--s5);
+}
+
+.spread__label {
+  display: block;
+  margin-bottom: var(--s1);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* The one figure the README gives, set like a folio: a numeral and a label */
+.spread__fact {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s3);
+  margin: 0 0 var(--s5);
+}
+
+.spread__fact-no {
+  font-family: var(--font-display);
+  font-size: var(--fs-deck);
+  font-weight: var(--w-numeral);
+  font-variation-settings: "opsz" 144;
+  font-variant-numeric: lining-nums;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.spread__fact-label {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* Buttons first; "Request code access" is a quiet line of its own under
+   them, so a row never wraps by accident when a gallery button appears. */
+.spread__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+}
+
+.spread__actions .btn--text {
+  flex-basis: 100%;
+  margin-top: calc(-1 * var(--s1));
+}
+
+.caption {
+  display: flex;
+  gap: var(--s3);
+  margin-top: var(--s4);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+.caption__no {
+  flex: none;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  padding: 0 var(--s4);
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--fast) var(--ease), color var(--fast) var(--ease),
+    border-color var(--fast) var(--ease);
+}
+
+.btn:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.btn--primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.btn--quiet {
+  border-color: var(--rule);
+}
+
+.btn--text {
+  justify-content: flex-start;
+  padding-inline: 0;
+  border-color: transparent;
+  color: var(--ink-2);
+}
+
+.btn--text:hover {
+  background: transparent;
+  border-color: transparent;
+  color: var(--accent);
+}
+
+.btn__count {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+}
+
+.btn__count:empty {
+  display: none;
+}
+
+/* Gallery buttons only work with JavaScript, and script.js hides a folder
+   gallery whose data-images list is empty. */
+html:not(.js) .btn-gallery {
+  display: none;
+}
+
+/* Plates: drawn pictures for projects without screenshots */
+.plate {
+  position: relative;
+  border: 1px solid var(--rule);
+  background-color: var(--paper-2);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.5px);
+  background-size: 24px 24px;
+  background-position: 12px 12px;
+}
+
+/* Classroom Chat: the owl beside a small browser window. The login page is
+   the only screenshot there is, so it stays subordinate to the mascot. */
+.plate--brand {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  align-items: center;
+  gap: var(--s6);
+  padding: clamp(32px, 4vw, 56px) clamp(24px, 3.5vw, 48px);
+}
+
+.plate__owl {
+  justify-self: center;
+  width: 100%;
+  max-width: 200px;
+}
+
+.plate--brand .frame__bar {
+  grid-template-columns: auto minmax(0, 1fr);
+  height: 36px;
+  padding: 0 var(--s3);
+}
+
+.plate--brand .frame__url {
+  justify-content: flex-start;
+  overflow: hidden;
+  height: 24px;
+  padding: 0 var(--s2);
+  font-size: 12px;
+}
+
+.plate--brand .frame__view--page {
+  padding: var(--s5) var(--s4) 0;
+}
+
+/* Auto-Prep: the first screenshot, once there is one, in place of the
+   drawn pipeline */
+.preview {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+  box-shadow: var(--shadow);
+  cursor: zoom-in;
+}
+
+.preview__img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+  filter: var(--img-filter);
+}
+
+.preview:hover {
+  border-color: var(--ink);
+}
+
+/* Auto-Prep: the pipeline */
+.plate--flow {
+  padding: clamp(28px, 4vw, 56px);
+}
+
+.flow {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  margin-inline: auto;
+}
+
+.flow__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  gap: var(--s4);
+  align-items: baseline;
+  padding: var(--s5);
+  border: 1px solid var(--rule-strong);
+  background: var(--paper);
+}
+
+.flow__step + .flow__step {
+  margin-top: 40px;
+}
+
+/* The connector between two steps */
+.flow__step + .flow__step::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -41px;
+  width: 1px;
+  height: 40px;
+  background: var(--rule-strong);
+}
+
+.flow__step + .flow__step::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -9px;
+  width: 7px;
+  height: 7px;
+  border-right: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.flow__label {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.flow__text {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: var(--w-display);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.flow__outs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s2) var(--s4);
+  font-family: var(--font-display);
+  font-size: clamp(19px, 1.6vw, 23px);
+  font-weight: var(--w-display);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.flow__outs span {
+  padding-top: var(--s2);
+  border-top: 1px solid var(--rule);
+}
+
+.flow__outs span:nth-child(-n + 2) {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.flow__foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 var(--s3);
+  margin-top: var(--s6);
+  text-align: center;
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.flow__foot span + span::before {
+  content: "\00b7";
+  margin-right: var(--s3);
+}
+
+/* Mega Chess: three phones and the two boards across the full measure,
+   tops on one line */
+.phones {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gutter);
+  align-items: start;
+}
+
+.phone {
+  padding: 7px;
+  border: 1px solid var(--rule);
+  border-radius: 28px;
+  background: var(--frame);
+  box-shadow: var(--shadow);
+}
+
+.phone img {
+  width: 100%;
+  border-radius: 21px;
+  filter: var(--img-filter);
+}
+
+/* The fourth column holds the two boards, cropped out of their letterboxed
+   phone screens to a square and set one above the other. Together they are
+   about as tall as a phone. */
+.boards {
+  display: grid;
+  gap: var(--gutter);
+}
+
+.board {
+  overflow: hidden;
+  aspect-ratio: 1;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--frame);
+  box-shadow: var(--shadow);
+}
+
+/* The board fills about 96% of the screen width; the scale trims the black
+   edge around it. */
+.board img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.045);
+  filter: var(--img-filter);
+}
+
+/* Frames: a browser for the web platform, a window for the desktop app */
+.frame {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--chrome);
+  box-shadow: var(--shadow);
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.frame__bar {
+  display: grid;
+  grid-template-columns: minmax(48px, 1fr) minmax(0, 22rem) minmax(48px, 1fr);
+  align-items: center;
+  gap: var(--s3);
+  height: 44px;
+  padding: 0 var(--s4);
+  border-bottom: 1px solid var(--rule);
+}
+
+.frame__dots {
+  display: flex;
+  gap: 6px;
+}
+
+.frame__dots span {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--ink-3);
+  border-radius: 50%;
+}
+
+.frame__url,
+.frame__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.frame__url {
+  height: 28px;
+  padding: 0 var(--s3);
+  border-radius: 999px;
+  background: var(--chrome-field);
+  transition: color var(--fast) var(--ease);
+}
+
+.frame__title {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.frame__icon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+.frame__view {
+  display: block;
+  background: var(--shot-page);
+  filter: var(--img-filter);
+}
+
+/* Classroom Chat: the login page at its own size, never scaled up */
+.frame__view--page {
+  display: flex;
+  justify-content: center;
+  padding: clamp(24px, 4vw, 56px) var(--s5) 0;
+}
+
+/* The screenshot's own background is a faint gradient; its top and left
+   edges fade into the frame so no seam shows. */
+.frame__page {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%), linear-gradient(to right, transparent, #000 5%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, transparent, #000 12%), linear-gradient(to right, transparent, #000 5%);
+  mask-composite: intersect;
+}
+
+.frame--link {
+  transition: border-color var(--fast) var(--ease);
+}
+
+.frame--link:hover {
+  border-color: var(--accent);
+}
+
+.frame--link:hover .frame__url {
+  color: var(--accent);
+}
+
+/* Local Chat: the screenshot is a small panel on a wide empty page, so the
+   frame shows only the panel (source x 208-1072, y 8-448). The image is
+   widened by 1280/864 and shifted; margins in % resolve against the width. */
+.frame__view--crop {
+  overflow: hidden;
+  aspect-ratio: 864 / 440;
+}
+
+.frame__view--crop img {
+  width: 148.15%;
+  max-width: none;
+  margin: -0.93% 0 0 -24.07%;
+}
+
+/* Fractal Defense: the level across the column, two screens under it */
+.sheet {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gutter);
+}
+
+.sheet img {
+  width: 100%;
+  border: 1px solid var(--rule);
+  box-shadow: var(--shadow);
+  filter: var(--img-filter);
+}
+
+.sheet__main {
+  grid-column: 1 / -1;
+}
+
+/* On wide screens the two smaller screens stand beside the level, so the
+   sheet is about as tall as the text column next to it. */
+@media (min-width: 961px) {
+  .sheet {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sheet__main {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Toolkit
+   -------------------------------------------------------------------------- */
+.toolkit {
+  margin-top: clamp(32px, 4vw, 56px);
+  border-top: 1px solid var(--rule);
+}
+
+.toolkit__row {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  align-items: baseline;
+  padding: var(--s5) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* The next section's strong rule closes the list, so no second rule here */
+.toolkit__row:last-child {
+  border-bottom: 0;
+}
+
+.toolkit__row dt {
+  grid-column: 1 / 4;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.2vw, 32px);
+  font-weight: var(--w-display);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.toolkit__row dd {
+  grid-column: 4 / 13;
+}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2) var(--s6);
+}
+
+.tools li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 36px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* A fixed slot, so nothing moves when the deferred icon font arrives */
+.tools i {
+  width: 20px;
+  font-size: 20px;
+  line-height: 1;
+  text-align: center;
+  color: var(--ink-2);
+}
+
+.tools__img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: grayscale(1) var(--icon-invert);
+  opacity: 0.8;
+}
+
+/* The OpenAI mark is a white knot on a light tile. Darken the tile first so
+   it matches the ComfyUI tile: dark tile, light glyph (inverted at night). */
+.tools__img--tile {
+  filter: grayscale(1) brightness(0.6) contrast(3) var(--icon-invert);
+}
+
+.tools__img--photo {
+  border-radius: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   Contact
+   -------------------------------------------------------------------------- */
+.contact {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  margin-top: clamp(32px, 4vw, 56px);
+}
+
+.contact__lead {
+  grid-column: 1 / -1;
+  margin-bottom: var(--s2);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.contact__email {
+  grid-column: 1 / -1;
+  justify-self: start;
+  max-width: 100%;
+  margin-bottom: clamp(40px, 5vw, 72px);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(34px, 7.2vw, 112px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.14em;
+  overflow-wrap: anywhere;
+}
+
+.contact__list {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--rule);
+}
+
+.contact__list a {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  align-items: center;
+  min-height: 64px;
+  padding: var(--s3) 0;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+}
+
+.contact__label {
+  grid-column: 1 / 4;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: var(--w-display);
+  letter-spacing: -0.01em;
+}
+
+.contact__value {
+  grid-column: 4 / 12;
+  color: var(--ink-2);
+  transition: color var(--fast) var(--ease);
+}
+
+.contact__list .i {
+  grid-column: 12 / 13;
+  justify-self: end;
+  transition: transform var(--mid) var(--ease);
+}
+
+.contact__list a:hover .contact__value {
+  color: var(--accent);
+}
+
+.contact__list a:hover .i {
+  transform: translate(2px, -2px);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+.footer {
+  margin-top: clamp(80px, 10vw, 144px);
+  padding: var(--s5) 0 var(--s8);
+  border-top: 1px solid var(--rule-strong);
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+}
+
+.footer__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2) var(--s6);
+}
+
+.footer__colophon {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 15px;
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--s5);
+  margin-left: auto;
+}
+
+.footer__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   Dialogs
+   -------------------------------------------------------------------------- */
+dialog {
+  border: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+dialog::backdrop {
+  background: var(--backdrop);
+  backdrop-filter: blur(2px);
+}
+
+.modal {
+  width: min(calc(100vw - 32px), 480px);
+  margin: auto;
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--accent);
+  box-shadow: var(--shadow);
+}
+
+/* Takes focus when the dialog opens, so no button starts out lit */
+.modal__inner {
+  padding: var(--s6);
+  outline: none;
+}
+
+/* "Private repository · Mega Chess": the project is filled in on open.
+   When the line is too long it breaks before the project, never inside a
+   phrase. */
+.modal .eyebrow {
+  flex-wrap: wrap;
+  row-gap: var(--s1);
+}
+
+.modal__project {
+  display: inline-flex;
+  gap: var(--s3);
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.modal__project::before {
+  content: "\00b7";
+  color: var(--accent);
+}
+
+.modal__project:empty {
+  display: none;
+}
+
+.modal__title {
+  margin: var(--s4) 0 var(--s3);
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: var(--w-display);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.modal__text {
+  color: var(--ink-2);
+}
+
+.modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  margin-top: var(--s5);
+  padding-top: var(--s5);
+  border-top: 1px solid var(--rule);
+}
+
+.modal__actions .btn--quiet {
+  margin-left: auto;
+}
+
+.lightbox {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  display: none;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.lightbox[open] {
+  display: grid;
+}
+
+.lightbox__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s3) var(--margin);
+  border-top: 4px solid var(--masthead-rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.lightbox__title {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: var(--w-display);
+  letter-spacing: -0.01em;
+}
+
+/* The counter is set like the folios: 01/10 */
+.lightbox__counter {
+  display: flex;
+  align-items: baseline;
+  white-space: nowrap;
+  color: var(--accent);
+}
+
+.lightbox__now {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: var(--w-numeral);
+  font-variation-settings: "opsz" 144;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.lightbox__of {
+  margin-left: 0.2em;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-3);
+}
+
+.lightbox__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background var(--fast) var(--ease), color var(--fast) var(--ease),
+    border-color var(--fast) var(--ease);
+}
+
+.lightbox__btn:hover:not(:disabled) {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.lightbox__btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* A definite 1fr track, so the image's max-height: 100% has a height to
+   resolve against and tall phone screenshots fit the screen. */
+.lightbox__stage {
+  position: relative;
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  place-items: center;
+  min-height: 0;
+  padding: var(--s5) var(--margin);
+  background-color: var(--paper-2);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.5px);
+  background-size: 24px 24px;
+  background-position: 12px 12px;
+}
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid var(--rule);
+  box-shadow: var(--shadow);
+}
+
+.lightbox__status {
+  position: absolute;
+  inset: 50% var(--margin) auto;
+  transform: translateY(-50%);
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--ink-2);
+}
+
+.lightbox__status:empty {
+  display: none;
+}
+
+/* The caption has a fixed width, so the arrows stay put while stepping */
+.lightbox__nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s3) var(--margin);
+  border-top: 1px solid var(--rule);
+}
+
+.lightbox__caption {
+  width: min(24rem, 100% - 2 * (44px + var(--s4)));
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+/* --------------------------------------------------------------------------
+   Motion: a short rise as sections enter. Only after script.js has set
+   html.js, so nothing is hidden when JavaScript is off.
+   -------------------------------------------------------------------------- */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--mid) var(--ease), transform var(--mid) var(--ease);
+}
+
+html.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+html.js .spread__media.reveal {
+  transition-delay: 60ms;
+}
+
+/* Safety net: if setup has not run 600ms after the first paint, show
+   everything anyway. script.js sets html.is-ready as soon as it runs. */
+html.js:not(.is-ready) .reveal {
+  animation: reveal-fallback 1ms 600ms forwards;
+}
+
+@keyframes reveal-fallback {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  html.js .reveal,
+  html.js .spread__media.reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+  }
+
+  .owl:hover .owl__img,
+  .contents__item:hover .contents__arrow,
+  .contact__list a:hover .i,
+  .btn:active {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Widths
+   -------------------------------------------------------------------------- */
+@media (max-width: 1180px) {
+  .spread__head,
+  .spread__body {
+    grid-column: 1 / 7;
+  }
+
+  .spread__media {
+    grid-column: 7 / 13;
+    padding-left: 0;
+  }
+
+  .spread--flip .spread__head,
+  .spread--flip .spread__body {
+    grid-column: 8 / 13;
+  }
+
+  .spread--flip .spread__media {
+    grid-column: 1 / 8;
+    padding-right: 0;
+  }
+
+  .owl {
+    grid-column: 9 / 13;
+  }
+
+  .owl__img {
+    width: 64px;
+  }
+
+  .owl__label {
+    font-size: 22px;
+  }
+
+  .contents__item {
+    padding-right: var(--s4);
+  }
+
+  .contents__arrow {
+    display: none;
+  }
+
+  /* The owl already names the site, so the small window drops its dots
+     and tab icon to keep the whole address readable */
+  .plate--brand .frame__dots,
+  .plate--brand .frame__icon {
+    display: none;
+  }
+
+  .plate--brand .frame__bar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .plate--brand .frame__url {
+    justify-content: center;
+  }
+}
+
+/* Tablet: the contents become two rows, the byline stacks. */
+@media (max-width: 960px) {
+  .cover__photo {
+    grid-column: 1 / 3;
+  }
+
+  .cover__text {
+    grid-column: 3 / 13;
+  }
+
+  .owl {
+    grid-column: 3 / 13;
+    grid-row: 2;
+    margin-top: var(--s5);
+    padding: var(--s3) 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .contents__list {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .contents__list li {
+    grid-column: span 2;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .contents__list li:nth-child(n + 4) {
+    grid-column: span 3;
+    border-bottom: 0;
+  }
+
+  .contents__list li + li {
+    border-left: 1px solid var(--rule);
+  }
+
+  .contents__list li:nth-child(4) {
+    border-left: 0;
+  }
+
+  .contents__list li:nth-child(4) .contents__item {
+    padding-left: 0;
+  }
+
+  .phones {
+    gap: var(--s4);
+  }
+
+  /* Spreads go to one column, so the pictures keep the full measure */
+  .spread {
+    grid-template-rows: auto auto auto;
+    gap: var(--s5);
+  }
+
+  .spread__head,
+  .spread__body,
+  .spread__media,
+  .spread--flip .spread__head,
+  .spread--flip .spread__body,
+  .spread--flip .spread__media,
+  .spread--feature .spread__head,
+  .spread--feature .spread__body,
+  .spread--feature .spread__media {
+    grid-column: 1 / -1;
+    padding-inline: 0;
+  }
+
+  .spread__head,
+  .spread--feature .spread__head {
+    grid-row: 1;
+  }
+
+  /* Every spread reads the same way: folio and title, picture, then the
+     description, stack and actions */
+  .spread__media,
+  .spread--flip .spread__media,
+  .spread--feature .spread__media {
+    grid-row: 2;
+    margin-top: 0;
+  }
+
+  .spread__body,
+  .spread--feature .spread__body {
+    grid-row: 3;
+    align-self: start;
+  }
+}
+
+/* Tablet only: under the full-width picture the text runs in two columns,
+   the description on the left and the stack and buttons on the right. */
+@media (min-width: 761px) and (max-width: 960px) {
+  .spread__body {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    column-gap: var(--gutter);
+    align-items: start;
+  }
+
+  .spread__desc {
+    grid-column: 1 / 7;
+    grid-row: 1 / span 3;
+  }
+
+  .spread__fact,
+  .spread__stack,
+  .spread__actions {
+    grid-column: 7 / 13;
+  }
+
+  .spread__fact {
+    margin-top: 0;
+  }
+
+}
+
+/* Phone and narrow tablet: one column. */
+@media (max-width: 760px) {
+  :root {
+    --masthead-h: 0px;
+    --fs-name: clamp(64px, 25.6vw, 200px);
+  }
+
+  .masthead {
+    position: static;
+  }
+
+  .masthead__row {
+    flex-wrap: wrap;
+    gap: 0 var(--s4);
+    min-height: 0;
+    padding-top: var(--s2);
+  }
+
+  .masthead__nav {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .masthead__nav ol {
+    justify-content: space-between;
+    gap: var(--s4);
+  }
+
+  .masthead__nav a {
+    font-size: 16px;
+  }
+
+  .edition {
+    margin-left: auto;
+    min-height: 44px;
+  }
+
+  .cover {
+    padding-top: var(--s6);
+  }
+
+  .cover__row {
+    column-gap: var(--s4);
+    padding-top: var(--s4);
+  }
+
+  .cover__photo {
+    grid-column: 1 / 4;
+    grid-row: 1 / span 2;
+    max-width: 104px;
+  }
+
+  .cover__text {
+    display: contents;
+  }
+
+  .cover__role {
+    grid-column: 4 / 13;
+    grid-row: 1;
+    margin: 0 0 var(--s2);
+  }
+
+  .deck {
+    grid-column: 4 / 13;
+    grid-row: 2;
+    align-self: start;
+    margin: 0;
+  }
+
+  .cover__links {
+    grid-column: 1 / -1;
+    gap: 0 var(--s4);
+    margin-top: var(--s3);
+  }
+
+  .cover__links a {
+    font-size: 16px;
+  }
+
+  .owl {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    margin-top: var(--s4);
+    padding: var(--s4);
+    border: 1px solid var(--rule);
+    background: var(--paper-2);
+  }
+
+  .owl__img {
+    width: 60px;
+  }
+
+  .owl__label {
+    font-size: 24px;
+  }
+
+  .owl__sub {
+    font-size: 16px;
+  }
+
+  .contents {
+    margin-top: var(--s6);
+  }
+
+  .contents__list {
+    display: block;
+    border-bottom: 0;
+  }
+
+  .contents__list li,
+  .contents__list li + li,
+  .contents__list li:nth-child(n + 4) {
+    border-left: 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* Between spreads the folio rule does the work alone, with less air */
+  .spread,
+  .section-head + .spread {
+    padding-block: var(--s8) 0;
+    border-bottom: 0;
+  }
+
+  /* The section rule below closes the list */
+  .contents__list li:last-child {
+    border-bottom: 0;
+  }
+
+  /* A dense index: one 48px line per project, so the work starts on the
+     second screen. The kind is in each spread; only "Live" stays here. */
+  .contents__item,
+  .contents__list li:first-child .contents__item,
+  .contents__list li:nth-child(4) .contents__item {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    column-gap: var(--s3);
+    align-items: baseline;
+    min-height: 48px;
+    padding: 10px 0;
+  }
+
+  .contents__title {
+    font-size: 20px;
+  }
+
+  .contents__meta {
+    margin: 0;
+  }
+
+  .contents__kind {
+    display: none;
+  }
+
+  .contents__status {
+    margin-left: 0;
+  }
+
+  .section-head__title {
+    grid-column: 1 / -1;
+  }
+
+  .section-head__deck {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    padding: var(--s3) 0 0;
+    font-size: 16px;
+  }
+
+  .spread__stack {
+    font-size: 16px;
+  }
+
+  /* One column of full-width buttons in every spread */
+  .spread__actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .spread__actions .btn {
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .spread__actions .btn--text {
+    margin-top: 0;
+  }
+
+  .caption {
+    font-size: 14px;
+  }
+
+  /* Two phones and the two boards: four phones in a row would be stamps,
+     and a third phone would make the figure longer than a screen. The
+     gallery has them all. */
+  .phones {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s5) var(--s4);
+  }
+
+  .phone--extra,
+  .phone-extra-cap {
+    display: none;
+  }
+
+  .phones > .boards {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 0;
+  }
+
+  .boards,
+  .sheet {
+    gap: var(--s4);
+  }
+
+  .phone {
+    padding: 5px;
+    border-radius: 22px;
+  }
+
+  .phone img {
+    border-radius: 17px;
+  }
+
+  .plate--flow {
+    padding: var(--s5) var(--s4);
+  }
+
+  .plate--brand {
+    gap: var(--s4);
+    padding: var(--s6) var(--s4);
+  }
+
+  .plate--brand .frame__bar {
+    padding: 0 var(--s2);
+  }
+
+  .plate--brand .frame__view--page {
+    padding: var(--s3) var(--s2) 0;
+  }
+
+  .flow__step {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s2);
+    padding: var(--s4);
+  }
+
+  .flow__outs {
+    font-size: 19px;
+  }
+
+  .flow__foot {
+    flex-direction: column;
+  }
+
+  .flow__foot span + span::before {
+    content: none;
+  }
+
+  .toolkit__row dt,
+  .toolkit__row dd {
+    grid-column: 1 / -1;
+  }
+
+  .toolkit__row {
+    padding: var(--s4) 0;
+  }
+
+  .toolkit__row dt {
+    margin-bottom: var(--s2);
+    font-size: 22px;
+  }
+
+  .tools {
+    gap: 0 var(--s5);
+  }
+
+  .tools li {
+    min-height: 32px;
+  }
+
+  .contact__list a {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 0;
+  }
+
+  .contact__label,
+  .contact__value {
+    grid-column: 1;
+  }
+
+  .contact__value {
+    font-size: 16px;
+  }
+
+  .contact__email {
+    font-size: clamp(34px, 10.4vw, 64px);
+  }
+
+  .contact__list .i {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+
+  .footer__row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer__links {
+    margin-left: 0;
+  }
+
+  .lightbox__bar,
+  .lightbox__nav,
+  .lightbox__stage {
+    padding-inline: var(--s4);
+  }
+
+  .lightbox__title {
+    font-size: 19px;
+    line-height: 1.2;
+  }
+
+  .modal__inner {
+    padding: var(--s5);
+  }
+
+  .modal__title {
+    font-size: 30px;
+  }
+
+  /* On phones the project gets its own line, under the label */
+  .modal__project {
+    flex-basis: 100%;
+    padding-left: calc(28px + var(--s3));
+  }
+
+  .modal__project::before {
+    content: none;
+  }
+
+  /* Three equal buttons */
+  .modal__actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .modal__actions .btn {
+    justify-content: center;
+    padding-inline: var(--s2);
+  }
+
+  .modal__actions .btn--quiet {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .masthead__brand {
+    font-size: 19px;
+  }
+
+  .edition {
+    padding-inline: var(--s3);
+    font-size: 11px;
+  }
+}
